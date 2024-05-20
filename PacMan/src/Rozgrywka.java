@@ -1,8 +1,11 @@
-public class Rozgrywka {
+import javax.swing.*;
+import java.awt.*;
+
+public class Rozgrywka extends JPanel implements Runnable{
     private int ponkty;
     private int zycia;
-
     boolean przegrana;
+    JButton aa;
 
     //metody dla ponktow
     public int getPonkty() {return ponkty;}
@@ -17,26 +20,18 @@ public class Rozgrywka {
         ponkty=0;
         zycia=3;
         przegrana=false;
-
-
-
-
-        while (!przegrana){
-
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
+        this.setBackground(new Color(98, 158, 225));
+        aa= new JButton("aa");
+        this.add(aa);
     }
 
+    @Override
+    public void run() {
+        while (!przegrana){
+            if(zycia<=0){przegrana=!przegrana;}
+
+            aa.addActionListener(e -> ponkty=0);
+
+        }
+    }
 }
