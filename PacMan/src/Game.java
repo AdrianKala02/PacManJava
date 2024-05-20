@@ -42,10 +42,10 @@ public class Game extends Thread {
         Updater<Integer> czas = new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),1000);
         czas.start();
 
-        Updater<Integer> punktyUpdater = new Updater<>(rozgrywka::getPonkty, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 50);
+        Updater<Integer> punktyUpdater = new Updater<>(rozgrywka::getPonkty, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);
         punktyUpdater.start();
 
-        Updater<Integer> zyciaUpdater = new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 50);
+        Updater<Integer> zyciaUpdater = new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);
         zyciaUpdater.start();
 
     }

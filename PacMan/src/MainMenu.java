@@ -18,7 +18,7 @@ public class MainMenu implements ActionListener {
         newGameButton =new JButton("NEW GAME");
         newGameButton.addActionListener(e-> new Game().start());
         highScoreButton= new JButton("HIGH SCORE");
-        highScoreButton.addActionListener(e -> new HighScore().start()/*System.out.println("Tu otworzy się nowe okno z high score")*/);
+        highScoreButton.addActionListener(e -> new HighScore().start());
         exitButton= new JButton("EXIT");
         exitButton.addActionListener(e -> frame.dispose());
 

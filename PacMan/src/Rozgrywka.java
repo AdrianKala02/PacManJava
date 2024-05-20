@@ -22,15 +22,15 @@ public class Rozgrywka extends JPanel implements Runnable{
         przegrana=false;
         this.setBackground(new Color(98, 158, 225));
         aa= new JButton("aa");
+        aa.addActionListener(e -> ponkty=0);
         this.add(aa);
+
     }
 
     @Override
     public void run() {
         while (!przegrana){
             if(zycia<=0){przegrana=!przegrana;}
-
-            aa.addActionListener(e -> ponkty=0);
 
         }
     }
