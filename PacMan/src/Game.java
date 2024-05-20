@@ -4,7 +4,7 @@ import java.awt.*;
 public class Game extends Thread {
     JFrame gra;
     JPanel panel;
-    JLabel tabliczkaCzasu;
+    JLabel tabliczkaCzasu,tabliczkaPunktow,tabliczkaZyc;
     boolean alive;
     TimerByThread licznik;
     int ponkty;
@@ -16,16 +16,16 @@ public class Game extends Thread {
         gra.setVisible(true);
 
         panel= new JPanel();
-        panel.setLayout(new GridLayout(3,1));
+        panel.setLayout(new GridLayout(0,3));
 
 
         tabliczkaCzasu= new JLabel();
-        JLabel tabliczkaCzasu1= new JLabel();
-        JLabel tabliczkaCzasu2 =new JLabel();
+        tabliczkaPunktow= new JLabel();
+        tabliczkaZyc =new JLabel();
 
         panel.add(tabliczkaCzasu);
-        panel.add(tabliczkaCzasu1);
-        panel.add(tabliczkaCzasu2);
+        panel.add(tabliczkaPunktow);
+        panel.add(tabliczkaZyc);
 
         gra.add(panel);
 
@@ -33,10 +33,10 @@ public class Game extends Thread {
         licznik = new TimerByThread();
         new Thread(licznik).start();
 
-        Updater czas = new Updater(licznik::getTime,time -> tabliczkaCzasu.setText("Czas: " + time),1000);
+        Updater<Integer> czas = new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),1000);
         czas.start();
 
-        Updater punktyUpdater = new Updater(() -> ponkty, pts -> tabliczkaCzasu1.setText("Punkty: " + pts), 50);
+        Updater<Integer> punktyUpdater = new Updater<>(() -> ponkty, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 50);
         punktyUpdater.start();
 
 
