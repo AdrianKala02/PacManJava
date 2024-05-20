@@ -16,9 +16,9 @@ public class MainMenu implements ActionListener {
         frame.setTitle("main menu");
 
         newGameButton =new JButton("NEW GAME");
-        newGameButton.addActionListener(e-> System.out.println("Tu otworzy się nowe okno z grą"));
+        newGameButton.addActionListener(e-> new Game().start());
         highScoreButton= new JButton("HIGH SCORE");
-        highScoreButton.addActionListener(e -> new HighScore()/*System.out.println("Tu otworzy się nowe okno z high score")*/);
+       // highScoreButton.addActionListener(e -> new HighScore().start()/*System.out.println("Tu otworzy się nowe okno z high score")*/);
         exitButton= new JButton("EXIT");
         exitButton.addActionListener(e -> frame.dispose());
 
@@ -27,11 +27,6 @@ public class MainMenu implements ActionListener {
         panel= new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         panel.setLayout(new GridLayout(4,1));
-
-
-        if(true){
-            new Thread(new HighScore());
-        }
 
         //add to panel
         panel.add(titleInMainMenu);
