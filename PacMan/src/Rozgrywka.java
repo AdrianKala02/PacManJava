@@ -2,6 +2,8 @@ public class Rozgrywka {
     private int ponkty;
     private int zycia;
 
+    boolean przegrana;
+
     //metody dla ponktow
     public int getPonkty() {return ponkty;}
     public void setPonkty(int ponkty) {this.ponkty = ponkty;}
@@ -14,5 +16,27 @@ public class Rozgrywka {
     Rozgrywka(){
         ponkty=0;
         zycia=3;
+        przegrana=false;
+
+
+
+
+        while (!przegrana){
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
     }
+
 }

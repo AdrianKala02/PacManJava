@@ -1,25 +1,27 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class HighScore extends Thread {
     boolean alive=true;
     JFrame tablicaWynikow;
-    JLabel licznikZegar;
+    JLabel titleInHighScore;
+
+    JPanel tablica;
     HighScore(){
         tablicaWynikow= new JFrame();
         tablicaWynikow.setTitle("Tablica Wynikow");
         tablicaWynikow.setVisible(true);
-        licznikZegar= new JLabel();
-        tablicaWynikow.add(licznikZegar);
+        titleInHighScore= new JLabel();
+        titleInHighScore.setText("NAJLEPSI");
+        tablica= new JPanel();
+        tablica.setLayout(new GridLayout(1,0));
+        tablica.add(titleInHighScore);
+        tablicaWynikow.add(tablica);
 
     }
 
     @Override
     public void run() {
-        TimerByThread timer = new TimerByThread();
-        //timer.start();
 
-        while (alive) {
-            this.licznikZegar.setText(String.valueOf(timer.getTime()));
-        }
     }
 }
