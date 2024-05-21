@@ -2,9 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class HighScore extends Thread {
+public class HighScore extends JFrame implements Runnable {
     boolean alive=true;
-    JFrame tablicaWynikow;
     JLabel titleInHighScore;
     JScrollPane scrollPane;
     JList lista;
@@ -33,9 +32,11 @@ public class HighScore extends Thread {
         tablica.add(scrollPane);
 
 
-        tablicaWynikow= new JFrame("Tablica Wynikow");
-        tablicaWynikow.setVisible(true);
-        tablicaWynikow.add(tablica);
+
+        setTitle("Tablica Wynikow");
+        setMinimumSize(new Dimension(400, 400));
+        setVisible(true);
+        add(tablica);
 
     }
 

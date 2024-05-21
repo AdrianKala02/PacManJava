@@ -5,7 +5,7 @@ public class Rozgrywka extends JPanel implements Runnable{
     private int ponkty;
     private int zycia;
     boolean przegrana;
-    JButton aa;
+    MyButton pointButtonRestarter;
 
     //metody dla ponktow
     public int getPonkty() {return ponkty;}
@@ -20,10 +20,11 @@ public class Rozgrywka extends JPanel implements Runnable{
         ponkty=0;
         zycia=3;
         przegrana=false;
-        this.setBackground(new Color(98, 158, 225));
-        aa= new JButton("aa");
-        aa.addActionListener(e -> ponkty=0);
-        this.add(aa);
+        setBackground(new Color(98, 158, 225));
+
+        pointButtonRestarter= new MyButton("reset");
+        pointButtonRestarter.addActionListener(e ->ponkty=0);
+        add(pointButtonRestarter);
 
     }
 

@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Game extends Thread {
-    JFrame gra;
+public class Game extends JFrame implements Runnable {
     JPanel panel;
     JLabel tabliczkaCzasu,tabliczkaPunktow,tabliczkaZyc;
     boolean alive;
@@ -13,10 +12,11 @@ public class Game extends Thread {
     Game(){
         ponkty=0;
         alive=true;
-        gra= new JFrame();
-        gra.setTitle("ROZGRYWKA");
-        gra.setVisible(true);
-        gra.setLayout(new BorderLayout());
+
+        setTitle("ROZGRYWKA");
+        setMinimumSize(new Dimension(400, 400));
+        setVisible(true);
+        setLayout(new BorderLayout());
 
         panel= new JPanel();
         panel.setLayout(new GridLayout(0,3));
@@ -30,9 +30,9 @@ public class Game extends Thread {
         panel.add(tabliczkaPunktow);
         panel.add(tabliczkaZyc);
 
-        gra.add(panel,"North");
+        add(panel,"North");
         rozgrywka=new Rozgrywka();
-        gra.add(rozgrywka,"Center");
+        add(rozgrywka,"Center");
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
