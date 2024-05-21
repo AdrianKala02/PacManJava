@@ -12,7 +12,7 @@ public class MainMenu extends JFrame {
 
 
         newGameButton =new MyButton("NEW GAME");
-        newGameButton.addActionListener(e->SwingUtilities.invokeLater(()->new Game()));
+        newGameButton.addActionListener(e->SwingUtilities.invokeLater(()->new GameMapChooser()));
 
         highScoreButton= new MyButton("HIGH SCORE");
         highScoreButton.addActionListener(e->SwingUtilities.invokeLater(()->new HighScore()));
@@ -21,14 +21,6 @@ public class MainMenu extends JFrame {
         exitButton.addActionListener(e -> dispose());
 
         titleInMainMenu= new JLabel("The Pac-Man", SwingConstants.CENTER);
-        titleInMainMenu.setForeground(new Color(222, 22, 22));
-        titleInMainMenu.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,20));
-        titleInMainMenu.setBackground(new Color(12,12,12));
-        titleInMainMenu.setOpaque(true);
-        titleInMainMenu.setMinimumSize(new Dimension(100,50));
-        titleInMainMenu.setPreferredSize(new Dimension(100,20));
-        titleInMainMenu.setMaximumSize(new Dimension(100,50));
-        titleInMainMenu.setBorder(BorderFactory.createLineBorder(new Color(19, 13, 204),9));
 
 
         panel= new JPanel();

@@ -30,9 +30,9 @@ public class Game extends JFrame implements Runnable {
         panel.add(tabliczkaPunktow);
         panel.add(tabliczkaZyc);
 
-        add(panel,"North");
+
         rozgrywka=new Rozgrywka();
-        add(rozgrywka,"Center");
+
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
@@ -48,6 +48,8 @@ public class Game extends JFrame implements Runnable {
         Updater<Integer> zyciaUpdater = new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);
         zyciaUpdater.start();
 
+        add(panel,"North");
+        add(rozgrywka,"Center");
     }
 
     @Override
