@@ -8,6 +8,7 @@ public class HighScore extends JFrame implements Runnable {
     JScrollPane scrollPane;
     JList lista;
     JPanel tablica;
+    MyButton returnButton;
     HighScore(){
 
 
@@ -28,9 +29,16 @@ public class HighScore extends JFrame implements Runnable {
 
         titleInHighScore= new JLabel("NAJLEPSI");
 
+        returnButton=new MyButton("return");
+        returnButton.addActionListener(e->{
+            SwingUtilities.invokeLater(()->new MainMenu());
+            dispose();
+        });
+
+
         tablica.add(titleInHighScore);
         tablica.add(scrollPane);
-
+        tablica.add(returnButton);
 
 
         setTitle("Tablica Wynikow");

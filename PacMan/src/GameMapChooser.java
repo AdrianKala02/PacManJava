@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class GameMapChooser extends JFrame {
+public class GameMapChooser extends JFrame{
     MyButton uruchomienieButton;
     JPanel panel,panelButtonow;
     JLabel label;
@@ -13,6 +13,7 @@ public class GameMapChooser extends JFrame {
 
 
         JRadioButton mapa1=new JRadioButton("map1");
+        mapa1.setSelected(true);
         JRadioButton mapa2=new JRadioButton("map2");
         JRadioButton mapa3=new JRadioButton("map3");
         JRadioButton mapa4=new JRadioButton("map4");
@@ -29,7 +30,7 @@ public class GameMapChooser extends JFrame {
 
 
         uruchomienieButton= new MyButton("uruchom grę");
-        uruchomienieButton.addActionListener(e->SwingUtilities.invokeLater(()->new Game()));
+        uruchomienieButton.addActionListener(e->{this.dispose();SwingUtilities.invokeLater(()->new Game());});
 
 
 
@@ -51,7 +52,7 @@ public class GameMapChooser extends JFrame {
         panel.add(uruchomienieButton);
         add(panel);
 
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }

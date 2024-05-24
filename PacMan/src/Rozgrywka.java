@@ -26,12 +26,18 @@ public class Rozgrywka extends JPanel implements Runnable{
         pointButtonRestarter.addActionListener(e ->ponkty=0);
         add(pointButtonRestarter);
 
+
     }
 
     @Override
     public void run() {
+        System.out.println(Thread.currentThread()+" "+getClass().getName());
         while (!przegrana){
-            if(zycia<=0){przegrana=!przegrana;}
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }

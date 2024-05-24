@@ -1,9 +1,9 @@
+import static java.util.Objects.nonNull;
+
 public class TimerByThread extends Thread{
 
 
     //Tworzy nowy thread(w game) i co sekundę dodaje 1 do całości czyli zlicza sekundy
-    //jeżeli zauważy się przeskok o 1 sekundę np z 3 na 5 to wina jest tego,
-    // że update też jest aktualizowany co 1 sekunde, przy wszybszej aktualizacj nie zauważono takiego problemu
     private boolean alive;
     private int zegar;
 
@@ -22,14 +22,22 @@ public class TimerByThread extends Thread{
    public int getTime(){
        return zegar;
    }
+
+   public void stopIt(){
+        alive=false;
+   };
     @Override
     public void run() {
+        System.out.println(Thread.currentThread()+" "+getClass().getName());
        while (alive) {
            try {
                Thread.sleep(miliseconds);
            } catch (InterruptedException e) {
+               System.out.println("DUPA");
+               Thread.currentThread().interrupt();
                throw new RuntimeException(e);
            }
+           System.out.println(zegar);
            zegar++;
        }
     }

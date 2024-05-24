@@ -17,6 +17,8 @@ public class Updater<T> extends Thread {
 
     @Override
     public void run() {
+        System.out.println(Thread.currentThread()+" "+getClass().getName());
+
         while (alive) {
             try {
                 Thread.sleep(updateInterval);
@@ -27,7 +29,7 @@ public class Updater<T> extends Thread {
         }
     }
 
-    public void stopUpdater() {
+    public void stopIt() {
         alive = false;
     }
 }

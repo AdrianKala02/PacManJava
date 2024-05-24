@@ -1,15 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Game extends JFrame implements Runnable {
+public class Game extends JFrame{
     JPanel panel;
     JLabel tabliczkaCzasu,tabliczkaPunktow,tabliczkaZyc;
-    boolean alive;
+    volatile boolean alive;
     TimerByThread licznik;
     int ponkty;
-
+    MyButton returnButton;
     Rozgrywka rozgrywka;
-    Game(){
+
+    Updater<Integer> u1;
+    Updater<Integer> u2;
+    Updater<Integer> u3;
+            Game(){
         ponkty=0;
         alive=true;
 
@@ -19,16 +23,26 @@ public class Game extends JFrame implements Runnable {
         setLayout(new BorderLayout());
 
         panel= new JPanel();
-        panel.setLayout(new GridLayout(0,3));
+        panel.setLayout(new GridLayout(0,4));
 
 
         tabliczkaCzasu= new JLabel();
         tabliczkaPunktow= new JLabel();
         tabliczkaZyc =new JLabel();
 
-        panel.add(tabliczkaCzasu);
-        panel.add(tabliczkaPunktow);
-        panel.add(tabliczkaZyc);
+
+        returnButton= new MyButton("return");
+        returnButton.addActionListener(e ->{
+            alive=false;
+            System.out.println("YOU NEED TO STOP THE CLOCK");
+            licznik.stopIt();
+            u1.stopIt();
+            u2.stopIt();
+            u3.stopIt();
+            SwingUtilities.invokeLater(()->new MainMenu());
+            dispose();
+        });
+
 
 
         rozgrywka=new Rozgrywka();
@@ -39,29 +53,23 @@ public class Game extends JFrame implements Runnable {
         licznik = new TimerByThread();
         new Thread(licznik).start();
 
-        Updater<Integer> czas = new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),1000);
-        czas.start();
 
-        Updater<Integer> punktyUpdater = new Updater<>(rozgrywka::getPonkty, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);
-        punktyUpdater.start();
+u1= new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),300);u1.start();
+u2= new Updater<>(rozgrywka::getPonkty, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);u2.start();
+u3= new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);u3.start();
 
-        Updater<Integer> zyciaUpdater = new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);
-        zyciaUpdater.start();
+
+
+
+        panel.add(tabliczkaCzasu);
+        panel.add(tabliczkaPunktow);
+        panel.add(tabliczkaZyc);
+        panel.add(returnButton);
+
 
         add(panel,"North");
         add(rozgrywka,"Center");
-    }
 
-    @Override
-    public void run() {
-        while (alive) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            rozgrywka.addPonkty(10);
-        }
-
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
