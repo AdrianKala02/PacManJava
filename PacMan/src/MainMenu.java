@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.security.Key;
 
 public class MainMenu extends JFrame{
     JLabel titleInMainMenu;
@@ -16,7 +19,6 @@ public class MainMenu extends JFrame{
 
         exitButton= new MyButton("EXIT");
         exitButton.addActionListener(e -> dispose());
-
         titleInMainMenu= new JLabel("The Pac-Man", SwingConstants.CENTER);
 
 

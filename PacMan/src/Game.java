@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.text.Utilities;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Game extends JFrame{
     JPanel panel;
@@ -16,10 +19,10 @@ public class Game extends JFrame{
             Game(){
         ponkty=0;
         alive=true;
-
         setTitle("ROZGRYWKA");
         setMinimumSize(new Dimension(400, 400));
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         panel= new JPanel();
@@ -29,7 +32,6 @@ public class Game extends JFrame{
         tabliczkaCzasu= new JLabel();
         tabliczkaPunktow= new JLabel();
         tabliczkaZyc =new JLabel();
-
 
         returnButton= new MyButton("return");
         returnButton.addActionListener(e ->{
@@ -45,8 +47,8 @@ public class Game extends JFrame{
 
 
 
+       //SwingUtilities.invokeLater(()->rozgrywka=new Rozgrywka());
         rozgrywka=new Rozgrywka();
-
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
@@ -70,6 +72,5 @@ u3= new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc:
         add(panel,"North");
         add(rozgrywka,"Center");
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
