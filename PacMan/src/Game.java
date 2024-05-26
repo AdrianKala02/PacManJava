@@ -17,7 +17,6 @@ public class Game extends JFrame{
     Updater<Integer> u1;
     Updater<Integer> u2;
     Updater<Integer> u3;
-    KeyManeuvering keyManeuvering;
             Game(){
         ponkty=0;
         alive=true;
@@ -51,7 +50,6 @@ public class Game extends JFrame{
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
-        keyManeuvering= new KeyManeuvering();
         returnButton.addKeyListener(rozgrywka.hero);
 
 

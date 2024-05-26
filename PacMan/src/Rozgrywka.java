@@ -40,9 +40,10 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            hero.setAclelerationY(1);
             hero.setPosX(hero.getPosX()+hero.getAclelerationX());
+            hero.setPosY(hero.getPosY()+hero.getAclelerationY());
                 repaint();
+                hero.setAclelerationY(0);
                 hero.setAclelerationX(0);
         }
     }
