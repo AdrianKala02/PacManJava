@@ -9,6 +9,8 @@ public class Rozgrywka extends JPanel implements Runnable {
     boolean przegrana;
 
     Hero hero;
+
+    ColisionHandler colisionHandler;
     //metody dla ponktow
     public int getPonkty() {return ponkty;}
     public void setPonkty(int ponkty) {this.ponkty = ponkty;}
@@ -25,6 +27,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
         hero=new Hero();
+        colisionHandler=new ColisionHandler(hero);
     }
     public void paint(Graphics g){
         Graphics2D g2d=(Graphics2D) g;
@@ -40,11 +43,12 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            hero.setPosX(hero.getPosX()+hero.getAclelerationX());
-            hero.setPosY(hero.getPosY()+hero.getAclelerationY());
-                repaint();
-                hero.setAclelerationY(0);
-                hero.setAclelerationX(0);
+            colisionHandler.colisionToWindow();
+            repaint();
+            hero.update();
+
+
+
         }
     }
 }

@@ -23,7 +23,6 @@ public class Hero implements KeyListener{
     private int speedX;
     private int speedY;
 
-
     Hero() {
         posX=0;
         posY=0;
@@ -34,6 +33,12 @@ public class Hero implements KeyListener{
         imageIcon = new ImageIcon("/Users/adriankala/Desktop/PacManAsets/PacMan/pk1.png");
     }
 
+    public void update(){
+        posX=(posX+aclelerationX);
+        posY=(posY+aclelerationY);
+    }
+
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -41,10 +46,15 @@ public class Hero implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-            if(e.getKeyChar()=='w'||e.getKeyCode()==KeyEvent.VK_UP){aclelerationY=-1;}
-            if(e.getKeyChar()=='s'||e.getKeyCode()==KeyEvent.VK_DOWN){aclelerationY=1;}
-            if(e.getKeyChar()=='a'||e.getKeyCode()==KeyEvent.VK_LEFT){aclelerationX=-1;}
-            if(e.getKeyChar()=='d'||e.getKeyCode()==KeyEvent.VK_RIGHT){aclelerationX=1;}
+
+
+        //dodać boolean dla ruchu aby postać mogła poruszać się tylko w lewo prawo albo góra dół
+            if(e.getKeyChar()=='w'||e.getKeyCode()==KeyEvent.VK_UP){aclelerationY=-1;aclelerationX=0;}
+           else if(e.getKeyChar()=='s'||e.getKeyCode()==KeyEvent.VK_DOWN){aclelerationY=1;aclelerationX=0;}
+            if(e.getKeyChar()=='a'||e.getKeyCode()==KeyEvent.VK_LEFT){aclelerationX=-1;aclelerationY=0;}
+           else if(e.getKeyChar()=='d'||e.getKeyCode()==KeyEvent.VK_RIGHT){aclelerationX=1;aclelerationY=0;}
+
+           if(e.getKeyCode()==KeyEvent.VK_SPACE){aclelerationX=0;aclelerationY=0;}
     }
 
     @Override
