@@ -18,7 +18,6 @@ public class Rozgrywka extends JPanel implements Runnable {
     public int getZycie() {return zycia;}
     public void setZycie(int zycia) {this.zycia = zycia;}
     public void addZycie(int zycia) {this.zycia+=zycia;}
-
     Rozgrywka(){
         ponkty=0;
         zycia=3;
@@ -26,7 +25,6 @@ public class Rozgrywka extends JPanel implements Runnable {
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
         hero=new Hero();
-        hero.addKeyListener(this);
     }
     public void paint(Graphics g){
         Graphics2D g2d=(Graphics2D) g;
@@ -42,6 +40,7 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            hero.setAclelerationY(1);
             hero.setPosX(hero.getPosX()+hero.getAclelerationX());
                 repaint();
                 hero.setAclelerationX(0);

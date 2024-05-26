@@ -3,6 +3,7 @@ import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Handler;
 
 public class Game extends JFrame{
     JPanel panel;
@@ -16,6 +17,7 @@ public class Game extends JFrame{
     Updater<Integer> u1;
     Updater<Integer> u2;
     Updater<Integer> u3;
+    KeyManeuvering keyManeuvering;
             Game(){
         ponkty=0;
         alive=true;
@@ -24,11 +26,8 @@ public class Game extends JFrame{
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
         panel= new JPanel();
         panel.setLayout(new GridLayout(0,4));
-
-
         tabliczkaCzasu= new JLabel();
         tabliczkaPunktow= new JLabel();
         tabliczkaZyc =new JLabel();
@@ -51,6 +50,10 @@ public class Game extends JFrame{
         rozgrywka=new Rozgrywka();
         Thread thread=new Thread(rozgrywka);
         thread.start();
+
+        keyManeuvering= new KeyManeuvering();
+        returnButton.addKeyListener(rozgrywka.hero);
+
 
         licznik = new TimerByThread();
         new Thread(licznik).start();

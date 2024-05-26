@@ -41,10 +41,7 @@ public class Hero implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-            if(e.getKeyChar()=='w'){aclelerationY=1;}
-            if(e.getKeyChar()=='s'){aclelerationY=-1;}
-            if(e.getKeyChar()=='a'){aclelerationX=-1;}
-            if(e.getKeyChar()=='d'){aclelerationX=1;}
+
     }
 
     @Override
