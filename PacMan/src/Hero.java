@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-public class Hero implements KeyListener{
-    ImageIcon imageIcon;
+public class Hero extends ObjCreator implements KeyListener{
     public int getPosX() {return posX;}
     public void setPosX(int posX) {this.posX = posX;}
     public int getPosY() {return posY;}
@@ -23,14 +22,14 @@ public class Hero implements KeyListener{
     private int speedX;
     private int speedY;
 
-    Hero() {
+    Hero(String url) {
+        super(url);
         posX=0;
         posY=0;
         aclelerationX=0;
         aclelerationY=0;
         speedX=0;
         speedY=0;
-        imageIcon = new ImageIcon("/Users/adriankala/Desktop/PacManAsets/PacMan/pk1.png");
     }
 
     public void update(){

@@ -26,12 +26,12 @@ public class Rozgrywka extends JPanel implements Runnable {
         przegrana=false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
-        hero=new Hero();
+        hero=new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan2.png");
         colisionHandler=new ColisionHandler(hero);
     }
     public void paint(Graphics g){
         Graphics2D g2d=(Graphics2D) g;
-        g2d.drawImage(hero.imageIcon.getImage(),hero.getPosX(),hero.getPosY(),null);
+        g2d.drawImage(hero.sprite,hero.getPosX(),hero.getPosY(),null);
     }
 
     @Override
