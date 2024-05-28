@@ -8,7 +8,5 @@ public enum DIRECTION {
     private DIRECTION(int  degrees) {
         this. degrees =  degrees;
     }
-    public int getDegreee(){
-        return degrees;
-    }
+    public int getDegreee(){return degrees;}
 }

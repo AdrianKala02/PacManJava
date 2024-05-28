@@ -5,13 +5,32 @@ import java.io.File;
 import java.io.IOException;
 
 public class ObjCreator implements Runnable{
-
     BufferedImage spriteSheet;
     BufferedImage sprite;
     DIRECTION direction;
+    ColorRGB mapIdColor;
 
+    private int posX;
+    private int posY;
     private int width;
     private int height;
+    boolean directChange;
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
 
     public int getWidth() {
         return width;
@@ -29,10 +48,17 @@ public class ObjCreator implements Runnable{
         this.height = height;
     }
 
-    ObjCreator(String url){
+    String url;
+
+    ObjCreator(String url,ColorRGB mapIdColor){
+        this.url=url;
+        this.mapIdColor=mapIdColor;
+        posX=0;
+        posY=0;
         width=32;
         height=32;
         direction=DIRECTION.E;
+        directChange=false;
             try {
                 spriteSheet = ImageIO.read(new File(url));
                 //use heigh to X because my arts are 32x32 but in sprite sheet have few imgs so more wight than height

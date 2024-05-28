@@ -8,12 +8,15 @@ public class AnimateHandler{
    private int currentFrame;
    private boolean directionGoLeft;
 
+   private int size;
+
    ANIAMTIONTYPE aType;
     AnimateHandler(BufferedImage sheet,ObjCreator objCreator,int updateInterval,ANIAMTIONTYPE aType){
+        size=32;
         currentFrame=0;
         directionGoLeft=true;
         this.aType=aType;
-        animateFrames =sheet.getWidth()/32;
+        animateFrames =sheet.getWidth()/size;
         //                              ^
         //                              |
         ///NIE UDAŁO SIĘ ZAŁATWIĆ OD RĘKI BARDZIEJ GENERYCZEGO DOBIERANIA OBRAZÓW, POJEDYŃCZY PNG MUSI BYĆ 32
@@ -33,7 +36,7 @@ public class AnimateHandler{
     }
     private BufferedImage animationLoop(){
         if(currentFrame>=animateFrames)currentFrame=0;
-        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*currentFrame,objCreator.direction.getDegreee()*32,objCreator.getHeight(),objCreator.getHeight());
+        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
         currentFrame++;
         return sprite;
     }
@@ -48,7 +51,7 @@ public class AnimateHandler{
 
         if (currentFrame == 0) {directionGoLeft=true;}
         /*end*/
-        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*currentFrame,objCreator.direction.getDegreee()*32,objCreator.getHeight(),objCreator.getHeight());
+        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
         return sprite;
     }
 }
