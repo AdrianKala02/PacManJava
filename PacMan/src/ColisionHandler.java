@@ -1,10 +1,10 @@
 public class ColisionHandler {
 
-   public static Hero hero;
+//   public static Hero hero;
 
-    ColisionHandler(Hero hero){
-            ColisionHandler.hero =hero;
-    }
+//    ColisionHandler(Hero hero){
+//            ColisionHandler.hero =hero;
+//    }
 //    public void objToboj(){
 //        void ColisionHandler::objToboj(Hero hero, ObjCreator const& wall){
 //            sf::FloatRect playerBounds= hero.shape.getGlobalBounds();
@@ -42,7 +42,7 @@ public class ColisionHandler {
 //        }
 //    }
 
-    public void colisionToWindow(){
+    public void colisionToWindow(Hero hero){
 
         if(hero.getPosX()>400){
             hero.setAclelerationX(0);
@@ -62,5 +62,16 @@ public class ColisionHandler {
             hero.setPosY(hero.getPosY()+1);
         }
     }
-
+    public  <T extends ObjCreator> void colisionObjToObj(Hero hero, T obj){
+        FloatRect playerBounds= hero.shape.getGlobalBounds();
+        FloatRect wallBounds= obj.sprite
+            //bottom
+            if(playerBounds.top<wallBounds.top
+                    &&playerBounds.top+playerBounds.height<wallBounds.top+wallBounds.height
+                    && playerBounds.left<wallBounds.left+wallBounds.width
+                    &&playerBounds.left+playerBounds.width>wallBounds.left){
+                hero.setAclelerationY(0);
+                hero.shape.setPosition(playerBounds.left,wallBounds.top-playerBounds.height);
+            }
+   }
 }

@@ -32,6 +32,11 @@ public class ObjCreator implements Runnable{
         this.posY = posY;
     }
 
+    public void setPosition(int posX,int posY){
+        this.posX=posX;
+        this.posY=posY;
+    }
+
     public int getWidth() {
         return width;
     }

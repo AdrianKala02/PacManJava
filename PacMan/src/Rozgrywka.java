@@ -24,7 +24,6 @@ public class Rozgrywka extends JPanel implements Runnable {
     public void setZycie(int zycia) {this.zycia = zycia;}
     public void addZycie(int zycia) {this.zycia+=zycia;}
     AnimateHandler heroAnimateHandler;
-
     ArrayList<Blok> blokiNO1;
     Rozgrywka(){
         ponkty=0;
@@ -34,22 +33,21 @@ public class Rozgrywka extends JPanel implements Runnable {
         setFocusable(true);
 
         //inicjalizacja bytów
-        hero=new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan3.png",new ColorRGB(12,12,12));
+        hero=new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan3.png",new ColorRGB(0,255,0));
         blokA=new Blok("/Users/adriankala/Desktop/PacManAsets/Wall/wall.png",new ColorRGB(0,0,0));
 
         //modyfikacje
-        colisionHandler=new ColisionHandler(hero);
+        colisionHandler=new ColisionHandler();
         heroAnimateHandler= new AnimateHandler(hero.spriteSheet,hero,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
 
         //dodanie bytów do list, najpierw do arraylist dla kategorii a potem do ogólnej 2D
-        ArrayList<Hero> heros= new ArrayList<>();
         ArrayList<Blok> bloki= new ArrayList<>();
         bloki.add(blokA);
 
         blokiNO1=new ArrayList<>();
 
         //inicjalizacja mapy
-        mapaTest1=new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png",bloki,blokiNO1);
+        mapaTest1=new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png",bloki,blokiNO1,hero);
 
     }
     public void paint(Graphics g){
@@ -61,15 +59,6 @@ public class Rozgrywka extends JPanel implements Runnable {
         for (Blok blok:blokiNO1){
             g2d.drawImage(blok.sprite,blok.getPosX(),blok.getPosY(),null);
         }
-//        for(int i =0;i<10;i++){
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//            g2d.drawImage(blokA.sprite,32*i,32,null);
-//        }
     }
 
     @Override
@@ -81,7 +70,8 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            colisionHandler.colisionToWindow();
+            colisionHandler.colisionToWindow(hero);
+            colisionHandler.colisionObjToObj(hero,blokiNO1.get(0));
             hero.update();
             repaint();
 
