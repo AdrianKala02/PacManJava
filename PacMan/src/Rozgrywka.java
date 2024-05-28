@@ -27,9 +27,9 @@ public class Rozgrywka extends JPanel implements Runnable {
         przegrana=false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
-        hero=new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan2.png");
+        hero=new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan3.png");
         colisionHandler=new ColisionHandler(hero);
-        heroAnimateHandler= new AnimateHandler(hero.spriteSheet,hero,300,ANIAMTIONTYPE.ANIMATIONLOOP);
+        heroAnimateHandler= new AnimateHandler(hero.spriteSheet,hero,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
 
     }
     public void paint(Graphics g){

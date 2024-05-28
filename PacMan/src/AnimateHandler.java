@@ -13,11 +13,14 @@ public class AnimateHandler{
         currentFrame=0;
         directionGoLeft=true;
         this.aType=aType;
-        animateFrames =sheet.getWidth()/sheet.getHeight();
+        animateFrames =sheet.getWidth()/32;
+        //                              ^
+        //                              |
+        ///NIE UDAŁO SIĘ ZAŁATWIĆ OD RĘKI BARDZIEJ GENERYCZEGO DOBIERANIA OBRAZÓW, POJEDYŃCZY PNG MUSI BYĆ 32
 //        System.out.println("szerokość: "+sheet.getWidth()+"wysokość: "+sheet.getHeight());
 //        System.out.println("ilość klatek: "+animateFrames);
         this.objCreator=objCreator;
-        objCreator.sprite=objCreator.spriteSheet.getSubimage(0,0,objCreator.spriteSheet.getHeight(),objCreator.spriteSheet.getHeight());
+        objCreator.sprite=objCreator.spriteSheet.getSubimage(0,0,objCreator.getWidth(),objCreator.getHeight());
         updater=new Updater<>(this::animationChooser,objCreator::setSprite,updateInterval);
         updater.start();
     }
@@ -30,7 +33,7 @@ public class AnimateHandler{
     }
     private BufferedImage animationLoop(){
         if(currentFrame>=animateFrames)currentFrame=0;
-        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.spriteSheet.getHeight()*currentFrame,0,objCreator.spriteSheet.getHeight(),objCreator.spriteSheet.getHeight());
+        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*currentFrame,objCreator.direction.getDegreee()*32,objCreator.getHeight(),objCreator.getHeight());
         currentFrame++;
         return sprite;
     }
@@ -45,7 +48,7 @@ public class AnimateHandler{
 
         if (currentFrame == 0) {directionGoLeft=true;}
         /*end*/
-        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.spriteSheet.getHeight()*currentFrame,0,objCreator.spriteSheet.getHeight(),objCreator.spriteSheet.getHeight());
+        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*currentFrame,objCreator.direction.getDegreee()*32,objCreator.getHeight(),objCreator.getHeight());
         return sprite;
     }
 }
