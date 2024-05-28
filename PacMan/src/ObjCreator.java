@@ -23,4 +23,7 @@ public class ObjCreator implements Runnable{
     public void run() {
 
     }
+    public void setSprite(BufferedImage sprite) {
+        this.sprite = sprite;
+    }
 }

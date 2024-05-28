@@ -20,6 +20,7 @@ public class Rozgrywka extends JPanel implements Runnable {
     public int getZycie() {return zycia;}
     public void setZycie(int zycia) {this.zycia = zycia;}
     public void addZycie(int zycia) {this.zycia+=zycia;}
+    AnimateHandler heroAnimateHandler;
     Rozgrywka(){
         ponkty=0;
         zycia=3;
@@ -28,8 +29,11 @@ public class Rozgrywka extends JPanel implements Runnable {
         setFocusable(true);
         hero=new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan2.png");
         colisionHandler=new ColisionHandler(hero);
+        heroAnimateHandler= new AnimateHandler(hero.spriteSheet,hero,300,ANIAMTIONTYPE.ANIMATIONLOOP);
+
     }
     public void paint(Graphics g){
+        super.paintComponent(g);
         Graphics2D g2d=(Graphics2D) g;
         g2d.drawImage(hero.sprite,hero.getPosX(),hero.getPosY(),null);
     }
@@ -44,8 +48,9 @@ public class Rozgrywka extends JPanel implements Runnable {
                 throw new RuntimeException(e);
             }
             colisionHandler.colisionToWindow();
-            repaint();
             hero.update();
+            repaint();
+
 
 
 
