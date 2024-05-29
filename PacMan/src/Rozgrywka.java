@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
 
 public class Rozgrywka extends JPanel implements Runnable {
 
@@ -45,22 +44,24 @@ public class Rozgrywka extends JPanel implements Runnable {
         bloki.add(blokA);
 
         blokiNO1=new ArrayList<>();
-
         //inicjalizacja mapy
         mapaTest1=new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png",bloki,blokiNO1,hero);
 
-    }
-    public void paint(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2d=(Graphics2D) g;
-        g2d.drawImage(hero.sprite,hero.getPosX(),hero.getPosY(),null);
 
 
-        for (Blok blok:blokiNO1){
-            g2d.drawImage(blok.sprite,blok.getPosX(),blok.getPosY(),null);
+
+
+        setLayout(new GridLayout(10, 10));
+         JLabel[][] grid=new JLabel[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                grid[i][j] = new JLabel();
+                grid[i][j].setHorizontalAlignment(SwingConstants.CENTER);
+                grid[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                add(grid[i][j]);
+            }
         }
     }
-
     @Override
     public void run() {
         System.out.println(Thread.currentThread()+" "+getClass().getName());
@@ -70,14 +71,8 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            colisionHandler.colisionToWindow(hero);
-            colisionHandler.colisionObjToObj(hero,blokiNO1.get(0));
             hero.update();
             repaint();
-
-
-
-
         }
     }
 }
