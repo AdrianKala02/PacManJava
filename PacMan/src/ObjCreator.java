@@ -9,29 +9,26 @@ public class ObjCreator implements Runnable{
     BufferedImage sprite;
     DIRECTION direction;
     ColorRGB mapIdColor;
-
     private int posX;
     private int posY;
     private int width;
     private int height;
     boolean directChange;
-
+    private Character idChar;
+    public Character getIdChar() {return idChar;}
+    public void setIdChar(Character idChar) {this.idChar = idChar;}
     public int getPosX() {
         return posX;
     }
-
     public void setPosX(int posX) {
         this.posX = posX;
     }
-
     public int getPosY() {
         return posY;
     }
-
     public void setPosY(int posY) {
         this.posY = posY;
     }
-
     public void setPosition(int posX,int posY){
         this.posX=posX;
         this.posY=posY;
@@ -55,9 +52,10 @@ public class ObjCreator implements Runnable{
 
     String url;
 
-    ObjCreator(String url,ColorRGB mapIdColor){
+    ObjCreator(String url,ColorRGB mapIdColor,Character idChar){
         this.url=url;
         this.mapIdColor=mapIdColor;
+        this.idChar=idChar;
         posX=0;
         posY=0;
         width=32;

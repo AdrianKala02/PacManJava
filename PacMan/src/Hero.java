@@ -22,8 +22,8 @@ public class Hero extends ObjCreator implements KeyListener{
     private int speedX;
     private int speedY;
 
-    Hero(String url,ColorRGB mapIdColor) {
-        super(url,mapIdColor);
+    Hero(String url,ColorRGB mapIdColor,Character idChar) {
+        super(url,mapIdColor,idChar);
         posX=0;
         posY=0;
         aclelerationX=0;
@@ -33,8 +33,26 @@ public class Hero extends ObjCreator implements KeyListener{
     }
 
     public void update(){
+        System.out.println(posX+" "+posY);
         posX=(posX+aclelerationX);
         posY=(posY+aclelerationY);
+    }
+
+    public void updatePos(Character[][] gritCharMap){
+        int oldX = getPosX();
+        int oldY = getPosY();
+        update();
+
+        int newX =getPosX();
+        int newY = getPosY();
+
+        if (gritCharMap[newY][newX] == 'X') {
+            gritCharMap[oldY][oldX] = 'X';
+            gritCharMap[newY][newX] = getIdChar();
+        } else {
+            setPosX(oldX);
+            setPosY(oldY);
+        }
     }
 
 

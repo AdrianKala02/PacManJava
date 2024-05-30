@@ -21,7 +21,7 @@ public class Game extends JFrame{
         ponkty=0;
         alive=true;
         setTitle("ROZGRYWKA");
-        setMinimumSize(new Dimension(400, 400));
+        setMinimumSize(new Dimension(600, 600));
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());

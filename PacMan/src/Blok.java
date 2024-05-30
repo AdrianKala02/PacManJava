@@ -1,5 +1,5 @@
 public class Blok extends ObjCreator{
-    Blok(String url,ColorRGB mapIdColor) {
-        super(url,mapIdColor);
+    Blok(String url,ColorRGB mapIdColor,Character idChar) {
+        super(url,mapIdColor,idChar);
     }
 }
