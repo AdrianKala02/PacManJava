@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.logging.Handler;
 
-public class Game extends JFrame{
+public class Game extends MyJFrame{
     JPanel panel;
     JLabel tabliczkaCzasu,tabliczkaWszystkichPunktow,tabliczkaPunktow,tabliczkaZyc;
     volatile boolean alive;
@@ -22,9 +22,7 @@ public class Game extends JFrame{
         ponkty=0;
         alive=true;
         setTitle("ROZGRYWKA");
-        setMinimumSize(new Dimension(600, 600));
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         setLayout(new BorderLayout());
         panel= new JPanel();
         panel.setLayout(new GridLayout(0,5));
@@ -57,13 +55,26 @@ public class Game extends JFrame{
         licznik = new TimerByThread();
         new Thread(licznik).start();
 
-
         u1= new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),300);u1.start();
         u2= new Updater<>(rozgrywka::getWszystkiePonkty, pts -> tabliczkaWszystkichPunktow.setText("Wszystkie Punkty: " + pts),300);u2.start();
         u3= new Updater<>(rozgrywka::getHeroPoints, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);u3.start();
-        u4= new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);u4.start();
+        u4= new Updater<>(rozgrywka::getHeroHP, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);u4.start();
 
-
+        Thread tr= new Thread(()->{
+            while (!rozgrywka.isPrzegrana()){
+                try {
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){e.fillInStackTrace();}
+            }
+            SwingUtilities.invokeLater(()->new EndGame(rozgrywka.getWszystkiePonkty()));
+            System.out.println("GAME OVER");
+            u1.stopIt();
+            u2.stopIt();
+            u3.stopIt();
+            u4.stopIt();
+            licznik.stopIt();
+        });
+        tr.start();
 
 
         panel.add(tabliczkaCzasu);

@@ -4,12 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends MyJFrame{
     JLabel titleInMainMenu;
     MyButton newGameButton,highScoreButton,exitButton;
     JPanel panel;
     public MainMenu(){
-        setMinimumSize(new Dimension(400, 400));
         setTitle("main menu");
         newGameButton =new MyButton("NEW GAME");
         newGameButton.addActionListener(e->{SwingUtilities.invokeLater(()->new GameMapChooser());dispose();});
@@ -32,10 +31,6 @@ public class MainMenu extends JFrame{
         panel.add(highScoreButton);
         panel.add(exitButton);
 
-
         add(panel,BorderLayout.CENTER);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
-        setVisible(true);
     }
 }

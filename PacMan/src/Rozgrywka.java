@@ -9,37 +9,36 @@ public class Rozgrywka extends JPanel implements Runnable {
 
     private final long fps = 1000 / 144;
     private int wszystkiePonkty;
-    private int zycia;
     private boolean przegrana;
+    public boolean isPrzegrana() {return przegrana;}
+
     public void setPrzegrana(){przegrana=false;}
 
-    public Hero hero;
+    Hero hero;
+    Enemy enemy;
     Blok blokA;
     PointToCollect pointA;
     Map mapaTest1;
-    public int getWszystkiePonkty() {return wszystkiePonkty;}
+    public int getWszystkiePonkty() {return wszystkiePonkty+hero.getPonkty();}
     public void setWszystkiePonkty(int wszystkiePonkty) {this.wszystkiePonkty = wszystkiePonkty;}
     public int getHeroPoints(){return hero.getPonkty();}
-    public int getZycie() { return zycia; }
-    public void setZycie(int zycia) { this.zycia = zycia; }
-    public void addZycie(int zycia) { this.zycia += zycia; }
-
+    public int getHeroHP(){return hero.getZycia();}
     AnimateHandler heroAnimateHandler;
-
+    AnimateHandler enemyAnimateHandler;
     Rozgrywka() {
-        zycia = 3;
         przegrana = false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
         setLayout(new GridBagLayout());
         hero = new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan3.png", new ColorRGB(0, 255, 0), 'H');
+        enemy= new Enemy("/Users/adriankala/Desktop/PacManAsets/Ghost/SpriteSheet-Ghost2.png",new ColorRGB(255,0,0),'E');
         blokA = new Blok("/Users/adriankala/Desktop/PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
         pointA=new PointToCollect(1,"/Users/adriankala/Desktop/PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
         heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 100, ANIAMTIONTYPE.ANIMATIONPINGPONG);
+        enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONLOOP);
 
-
-        mapaTest1 = new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png", blokA, hero,pointA);
+        mapaTest1 = new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png", blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();
@@ -51,13 +50,13 @@ public class Rozgrywka extends JPanel implements Runnable {
     public void run() {
         System.out.println(Thread.currentThread() + " " + getClass().getName());
         while (!przegrana) {
+            if(getHeroHP()<=0){przegrana=true;}
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            hero.updatePos(mapaTest1.getGritCharMap());
+            mapaTest1.updatePos();
 
             if(mapaTest1.allPointsCollected(pointA)){
                 System.out.println("//====DONE====//");
@@ -65,6 +64,7 @@ public class Rozgrywka extends JPanel implements Runnable {
                 hero.setPonkty(0);
                 removeAll();
                 revalidate();
+
                 repaint();
                 hero.setAclelerationY(0);
                 hero.setAclelerationX(0);
@@ -72,5 +72,7 @@ public class Rozgrywka extends JPanel implements Runnable {
 
             };
         }
+        hero.stopIt();
+
     }
 }

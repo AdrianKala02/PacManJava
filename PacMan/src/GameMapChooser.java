@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class GameMapChooser extends JFrame{
+public class GameMapChooser extends MyJFrame{
     MyButton uruchomienieButton;
     JPanel panel,panelButtonow;
     JLabel label;
@@ -51,9 +51,5 @@ public class GameMapChooser extends JFrame{
         panel.add(panelButtonow);
         panel.add(uruchomienieButton);
         add(panel);
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pack();
-        setVisible(true);
     }
 }

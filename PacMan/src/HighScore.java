@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class HighScore extends JFrame implements Runnable {
+public class HighScore extends MyJFrame{
     boolean alive=true;
     JLabel titleInHighScore;
     JScrollPane scrollPane;
@@ -10,10 +10,6 @@ public class HighScore extends JFrame implements Runnable {
     JPanel tablica;
     MyButton returnButton;
     HighScore(){
-
-
-
-
         Integer[] a={12,13,14,15};
 
 
@@ -40,16 +36,7 @@ public class HighScore extends JFrame implements Runnable {
         tablica.add(scrollPane);
         tablica.add(returnButton);
 
-
         setTitle("Tablica Wynikow");
-        setMinimumSize(new Dimension(400, 400));
-        setVisible(true);
         add(tablica);
-
-    }
-
-    @Override
-    public void run() {
-
     }
 }

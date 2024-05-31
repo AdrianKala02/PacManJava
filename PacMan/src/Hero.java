@@ -11,21 +11,19 @@ public class Hero extends ObjCreator implements KeyListener{
     public void setAclelerationX(int aclelerationX) {this.aclelerationX = aclelerationX;}
     public int getAclelerationY() {return aclelerationY;}
     public void setAclelerationY(int aclelerationY) {this.aclelerationY = aclelerationY;}
-    public int getSpeedX() {return speedX;}
-    public void setSpeedX(int speedX) {this.speedX = speedX;}
-    public int getSpeedY() {return speedY;}
-    public void setSpeedY(int speedY) {this.speedY = speedY;}
-
     public int getPonkty() { return ponkty; }
     public void setPonkty(int ponkty) { this.ponkty = ponkty; }
     public void addPonkty(int ponkty) { this.ponkty += ponkty; }
     private int ponkty;
+    private int zycia;
+    public int getZycia() {return zycia;}
+    public void setZycia(int zycia) {this.zycia = zycia;}
+
+    public void addZycia(int zycia){this.zycia+=zycia;}
     private int posX;
     private int posY;
     private int aclelerationX;
     private int aclelerationY;
-    private int speedX;
-    private int speedY;
 
     private boolean alive;
     Character[][] gritCharMap;
@@ -34,9 +32,7 @@ public class Hero extends ObjCreator implements KeyListener{
         return alive;
     }
 
-    public void stopIt(boolean alive) {
-        this.alive = alive;
-    }
+    public void stopIt() {alive=false;}
 
     Hero(String url, ColorRGB mapIdColor, Character idChar) {
         super(url,mapIdColor,idChar);
@@ -44,9 +40,8 @@ public class Hero extends ObjCreator implements KeyListener{
         posY=0;
         aclelerationX=0;
         aclelerationY=0;
-        speedX=0;
-        speedY=0;
         ponkty=0;
+        zycia=3;
         alive=true;
     }
 
@@ -56,29 +51,29 @@ public class Hero extends ObjCreator implements KeyListener{
         posY=(posY+aclelerationY);
     }
 
-    public void updatePos(Character[][] gritCharMap){
-        this.gritCharMap=gritCharMap;
-        int oldX =posX;
-        int oldY = posY;
-
-        posX=(posX+aclelerationX);
-        posY=(posY+aclelerationY);
-
-        int newX =posX;
-        int newY = posY;
-
-        if (gritCharMap[newY][newX] != 'B') {
-
-            if(gritCharMap[newY][newX] == 'P'){
-                ponkty+=1;
-            }
-            gritCharMap[oldY][oldX] = 'X';
-            gritCharMap[newY][newX] = getIdChar();
-        } else {
-            posX=oldX;
-            posY=oldY;
-        }
-    }
+//    public void updatePos(Character[][] gritCharMap){
+//        this.gritCharMap=gritCharMap;
+//        int oldX =posX;
+//        int oldY = posY;
+//
+//        posX=(posX+aclelerationX);
+//        posY=(posY+aclelerationY);
+//
+//        int newX =posX;
+//        int newY = posY;
+//
+//        if (gritCharMap[newY][newX] != 'B') {
+//
+//            if(gritCharMap[newY][newX] == 'P'){
+//                ponkty+=1;
+//            }
+//            gritCharMap[oldY][oldX] = 'X';
+//            gritCharMap[newY][newX] = getIdChar();
+//        } else {
+//            posX=oldX;
+//            posY=oldY;
+//        }
+//    }
 
 
     @Override

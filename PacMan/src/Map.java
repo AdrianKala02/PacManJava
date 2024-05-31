@@ -19,10 +19,12 @@ public class Map implements Runnable{
     Hero hero;
     PointToCollect pointA;
 
-    Map(String url, Blok blokA, Hero hero, PointToCollect pointA){
+    Enemy enemyA;
+    Map(String url, Blok blokA, Hero hero, PointToCollect pointA,Enemy enemyA){
         this.blokA=blokA;
         this.hero=hero;
         this.pointA=pointA;
+        this.enemyA=enemyA;
         try {
             mapaPng = ImageIO.read(new File(url));
         }catch (IOException e){}
@@ -41,6 +43,8 @@ public class Map implements Runnable{
                 }
                 else if(pointA.mapIdColor.compareTo(new ColorRGB( mapaPng.getRGB(x,y)))){
                     gritCharMap[x][y]=pointA.getIdChar();
+                }else if(enemyA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x,y)))){
+                    gritCharMap[x][y]=enemyA.getIdChar();
                 }
             }
         }
@@ -70,7 +74,9 @@ public class Map implements Runnable{
                 }
                 else if(pointA.mapIdColor.compareTo(new ColorRGB( mapaPng.getRGB(x,y)))){
                     gritCharMap[x][y]=pointA.getIdChar();
-                }
+                }else if(enemyA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x,y)))){
+                gritCharMap[x][y]=enemyA.getIdChar();
+            }
             }
         }
         for (int i = 0; i < gritCharMap.length; i++) {
@@ -85,6 +91,8 @@ public class Map implements Runnable{
                 }
                 else if (gritCharMap[i][j] == pointA.getIdChar()) {
                     label.setIcon(pointA.imageIcon);
+                }else if (gritCharMap[i][j] == enemyA.getIdChar()) {
+                    label.setIcon(enemyA.imageIcon);
                 }
                 gritGame[i][j] = label;
                 gbc.gridx = j;
@@ -95,10 +103,36 @@ public class Map implements Runnable{
     }
 
 
+    public void updatePos() {
+        int oldX = hero.getPosX();
+        int oldY = hero.getPosY();
+
+        int newX = oldX + hero.getAclelerationX();
+        int newY = oldY + hero.getAclelerationY();
+
+        if (gritCharMap[newY][newX] != 'B') {
+            gritCharMap[oldY][oldX] = 'X';
+            if(gritCharMap[newY][newX] == 'E'){
+                hero.addZycia(-1);
+                gritCharMap[oldY][oldX] = 'E';
+            }
+           else if (gritCharMap[newY][newX] == 'P') {
+                hero.addPonkty(1);
+                gritCharMap[oldY][oldX] = 'X';
+            }
+
+            gritCharMap[newY][newX] = hero.getIdChar();
+            hero.setPosX(newX);
+            hero.setPosY(newY);
+        } else {
+            hero.setPosX(oldX);
+            hero.setPosY(oldY);
+        }
+    }
 
     @Override
     public void run() {
-        while (true) {
+        while (hero.isAlive()) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -114,6 +148,8 @@ public class Map implements Runnable{
                             gritGame[i][j].setIcon(blokA.imageIcon);
                         } else if (gritCharMap[i][j] == pointA.getIdChar()) {
                             gritGame[i][j].setIcon(pointA.imageIcon);
+                        } else if (gritCharMap[i][j] == enemyA.getIdChar()) {
+                            gritGame[i][j].setIcon(enemyA.imageIcon);
                         } else {
                             gritGame[i][j].setIcon(null);
                         }

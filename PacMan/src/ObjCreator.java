@@ -66,14 +66,13 @@ public class ObjCreator implements Runnable{
         directChange=false;
             try {
                 spriteSheet = ImageIO.read(new File(url));
-                //use heigh to X because my arts are 32x32 but in sprite sheet have few imgs so more wight than height
                 sprite=spriteSheet.getSubimage(0,0,width,height);
-
+                imageIcon= new ImageIcon(sprite);
             }catch (IOException e){
                 e.printStackTrace();
             }
 
-            imageIcon= new ImageIcon(sprite);
+
     }
 
     @Override
