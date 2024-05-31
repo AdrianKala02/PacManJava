@@ -8,19 +8,15 @@ import java.util.Arrays;
 public class Rozgrywka extends JPanel implements Runnable {
 
     private final long fps = 1000 / 144;
-
     private int wszystkiePonkty;
     private int zycia;
-    boolean przegrana;
-    Character[][] gritCharMap;
-    MyJlable[][] gritGame;
-   public Hero hero;
+    private boolean przegrana;
+    public void setPrzegrana(){przegrana=false;}
+
+    public Hero hero;
     Blok blokA;
     PointToCollect pointA;
     Map mapaTest1;
-    ColisionHandler colisionHandler;
-
-
     public int getWszystkiePonkty() {return wszystkiePonkty;}
     public void setWszystkiePonkty(int wszystkiePonkty) {this.wszystkiePonkty = wszystkiePonkty;}
     public int getHeroPoints(){return hero.getPonkty();}
@@ -44,40 +40,9 @@ public class Rozgrywka extends JPanel implements Runnable {
 
 
         mapaTest1 = new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png", blokA, hero,pointA);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gritCharMap = mapaTest1.getGritCharMap();
-        gritGame = new MyJlable[gritCharMap.length][gritCharMap[0].length];
-
-        for (int i = 0; i < gritCharMap.length; i++) {
-            for (int j = 0; j < gritCharMap[0].length; j++) {
-                MyJlable label = new MyJlable();
-                if (gritCharMap[i][j] == hero.getIdChar()) {
-                    hero.setPosX(i);
-                    hero.setPosY(j);
-                    label.setIcon(hero.imageIcon);
-                } else if (gritCharMap[i][j] == blokA.getIdChar()) {
-                    label.setIcon(blokA.imageIcon);
-                }
-                else if (gritCharMap[i][j] == pointA.getIdChar()) {
-                    label.setIcon(pointA.imageIcon);
-                }
-                gritGame[i][j] = label;
-                gbc.gridx = j;
-                gbc.gridy = i;
-                add(label, gbc);
-            }
-        }
-
-        mapaTest1.setGritGame(gritGame);
-        mapaTest1.setGritCharMap(gritCharMap);
-
+        mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();
-
-        Thread th2= new Thread( ()->hero.updatePos(gritCharMap));
-        th2.start();
 
         addKeyListener(hero);
     }
@@ -92,12 +57,19 @@ public class Rozgrywka extends JPanel implements Runnable {
                 throw new RuntimeException(e);
             }
 
-            hero.updatePos(gritCharMap);
+            hero.updatePos(mapaTest1.getGritCharMap());
 
             if(mapaTest1.allPointsCollected(pointA)){
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();
                 hero.setPonkty(0);
+                removeAll();
+                revalidate();
+                repaint();
+                hero.setAclelerationY(0);
+                hero.setAclelerationX(0);
+                mapaTest1.inicjal(this);
+
             };
         }
     }

@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class Map implements Runnable{
         }catch (IOException e){}
 
         gritCharMap=new Character[mapaPng.getWidth()][mapaPng.getHeight()];
+        gritGame = new MyJlable[gritCharMap.length][gritCharMap[0].length];
 
         for(int y =0;y<mapaPng.getHeight();y++){
             for(int x=0;x<mapaPng.getWidth();x++){
@@ -53,6 +55,47 @@ public class Map implements Runnable{
             }}
         return true;
     }
+
+    public void inicjal(JPanel rozgrywka){
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        for(int y =0;y<mapaPng.getHeight();y++){
+            for(int x=0;x<mapaPng.getWidth();x++){
+                gritCharMap[x][y]='X';
+                if(hero.mapIdColor.compareTo(new ColorRGB( mapaPng.getRGB(x,y)))){
+                    gritCharMap[x][y]=hero.getIdChar();
+                }
+                else if(blokA.mapIdColor.compareTo(new ColorRGB( mapaPng.getRGB(x,y)))) {
+                    gritCharMap[x][y]=blokA.getIdChar();
+                }
+                else if(pointA.mapIdColor.compareTo(new ColorRGB( mapaPng.getRGB(x,y)))){
+                    gritCharMap[x][y]=pointA.getIdChar();
+                }
+            }
+        }
+        for (int i = 0; i < gritCharMap.length; i++) {
+            for (int j = 0; j < gritCharMap[0].length; j++) {
+                MyJlable label = new MyJlable();
+                if (gritCharMap[i][j] == hero.getIdChar()) {
+                    hero.setPosX(i);
+                    hero.setPosY(j);
+                    label.setIcon(hero.imageIcon);
+                } else if (gritCharMap[i][j] == blokA.getIdChar()) {
+                    label.setIcon(blokA.imageIcon);
+                }
+                else if (gritCharMap[i][j] == pointA.getIdChar()) {
+                    label.setIcon(pointA.imageIcon);
+                }
+                gritGame[i][j] = label;
+                gbc.gridx = j;
+                gbc.gridy = i;
+                rozgrywka.add(label, gbc);
+            }
+        }
+    }
+
+
+
     @Override
     public void run() {
         while (true) {

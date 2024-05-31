@@ -18,7 +18,7 @@ public class Game extends JFrame{
     Updater<Integer> u2;
     Updater<Integer> u3;
     Updater<Integer> u4;
-            Game(){
+    Game(){
         ponkty=0;
         alive=true;
         setTitle("ROZGRYWKA");
@@ -42,6 +42,7 @@ public class Game extends JFrame{
             u2.stopIt();
             u3.stopIt();
             u4.stopIt();
+            rozgrywka.setPrzegrana();
             SwingUtilities.invokeLater(()->new MainMenu());
             dispose();
         });
@@ -51,16 +52,16 @@ public class Game extends JFrame{
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
-                returnButton.addKeyListener(rozgrywka.hero);
+        returnButton.addKeyListener(rozgrywka.hero);
 
-                licznik = new TimerByThread();
+        licznik = new TimerByThread();
         new Thread(licznik).start();
 
 
-u1= new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),300);u1.start();
-u2= new Updater<>(rozgrywka::getWszystkiePonkty, pts -> tabliczkaWszystkichPunktow.setText("Wszystkie Punkty: " + pts),300);u2.start();
-u3= new Updater<>(rozgrywka::getHeroPoints, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);u3.start();
-u4= new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);u4.start();
+        u1= new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),300);u1.start();
+        u2= new Updater<>(rozgrywka::getWszystkiePonkty, pts -> tabliczkaWszystkichPunktow.setText("Wszystkie Punkty: " + pts),300);u2.start();
+        u3= new Updater<>(rozgrywka::getHeroPoints, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);u3.start();
+        u4= new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);u4.start();
 
 
 
@@ -73,7 +74,7 @@ u4= new Updater<>(rozgrywka::getZycie, lives -> tabliczkaZyc.setText("Ilosc Zyc:
 
 
         add(panel,"North");
-       SwingUtilities.invokeLater( ()->add(rozgrywka,"Center"));
+        SwingUtilities.invokeLater( ()->add(rozgrywka,"Center"));
 
     }
 }
