@@ -15,6 +15,11 @@ public class Hero extends ObjCreator implements KeyListener{
     public void setSpeedX(int speedX) {this.speedX = speedX;}
     public int getSpeedY() {return speedY;}
     public void setSpeedY(int speedY) {this.speedY = speedY;}
+
+    public int getPonkty() { return ponkty; }
+    public void setPonkty(int ponkty) { this.ponkty = ponkty; }
+    public void addPonkty(int ponkty) { this.ponkty += ponkty; }
+    private int ponkty;
     private int posX;
     private int posY;
     private int aclelerationX;
@@ -22,7 +27,18 @@ public class Hero extends ObjCreator implements KeyListener{
     private int speedX;
     private int speedY;
 
-    Hero(String url,ColorRGB mapIdColor,Character idChar) {
+    private boolean alive;
+    Character[][] gritCharMap;
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void stopIt(boolean alive) {
+        this.alive = alive;
+    }
+
+    Hero(String url, ColorRGB mapIdColor, Character idChar) {
         super(url,mapIdColor,idChar);
         posX=0;
         posY=0;
@@ -30,6 +46,8 @@ public class Hero extends ObjCreator implements KeyListener{
         aclelerationY=0;
         speedX=0;
         speedY=0;
+        ponkty=0;
+        alive=true;
     }
 
     public void update(){
@@ -39,19 +57,26 @@ public class Hero extends ObjCreator implements KeyListener{
     }
 
     public void updatePos(Character[][] gritCharMap){
-        int oldX = getPosX();
-        int oldY = getPosY();
-        update();
+        this.gritCharMap=gritCharMap;
+        int oldX =posX;
+        int oldY = posY;
 
-        int newX =getPosX();
-        int newY = getPosY();
+        posX=(posX+aclelerationX);
+        posY=(posY+aclelerationY);
 
-        if (gritCharMap[newY][newX] == 'X') {
+        int newX =posX;
+        int newY = posY;
+
+        if (gritCharMap[newY][newX] != 'B') {
+
+            if(gritCharMap[newY][newX] == 'P'){
+                ponkty+=1;
+            }
             gritCharMap[oldY][oldX] = 'X';
             gritCharMap[newY][newX] = getIdChar();
         } else {
-            setPosX(oldX);
-            setPosY(oldY);
+            posX=oldX;
+            posY=oldY;
         }
     }
 

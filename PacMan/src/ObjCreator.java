@@ -52,6 +52,8 @@ public class ObjCreator implements Runnable{
 
     String url;
 
+    ImageIcon imageIcon;
+
     ObjCreator(String url,ColorRGB mapIdColor,Character idChar){
         this.url=url;
         this.mapIdColor=mapIdColor;
@@ -70,6 +72,8 @@ public class ObjCreator implements Runnable{
             }catch (IOException e){
                 e.printStackTrace();
             }
+
+            imageIcon= new ImageIcon(sprite);
     }
 
     @Override
@@ -79,4 +83,5 @@ public class ObjCreator implements Runnable{
     public void setSprite(BufferedImage sprite) {
         this.sprite = sprite;
     }
+    public void setImageIcon(ImageIcon imageIcon){this.imageIcon=imageIcon;}
 }
