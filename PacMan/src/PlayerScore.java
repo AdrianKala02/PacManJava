@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class PlayerScore implements Serializable {
+public class PlayerScore implements Serializable,Comparable<PlayerScore>{
     private String nickname;
     private int score;
     private String mapType;
@@ -20,5 +20,10 @@ public class PlayerScore implements Serializable {
     public String toString(){
 
         return nickname+" "+score+" "+mapType;
+    }
+
+    @Override
+    public int compareTo(PlayerScore other) {
+        return Integer.compare(other.score, this.score);
     }
 }

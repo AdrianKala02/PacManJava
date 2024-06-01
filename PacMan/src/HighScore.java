@@ -22,6 +22,8 @@ public class HighScore extends MyJFrame{
             titleInHighScore= new JLabel("Brak Histori najlepszych graczy");
         }else {
             players=readAndWriteObj.readIt();
+
+            players.sort(PlayerScore::compareTo);
             DefaultListModel<PlayerScore> bump=new DefaultListModel<>();
 
             for(PlayerScore ps:players){
