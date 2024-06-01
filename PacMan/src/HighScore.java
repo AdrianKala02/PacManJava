@@ -10,25 +10,26 @@ public class HighScore extends MyJFrame{
     JLabel titleInHighScore;
     JScrollPane scrollPane;
     JList<PlayerScore> lista;
+
+    ArrayList<PlayerScore> players;
     JPanel tablica;
     MyButton returnButton;
     HighScore(){
-        PlayerScore playerScore=null;
-        try {
-            FileInputStream fileIn = new FileInputStream("ScoreBoard.ser");
-            ObjectInputStream in= new ObjectInputStream(fileIn);
-            playerScore=(PlayerScore) in.readObject();
-            in.close();
-            fileIn.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
-        PlayerScore[] ps= new PlayerScore[2];
-        ps[0]=playerScore;
-        lista=new JList<>(ps);
+        ReadAndWriteObj<PlayerScore> readAndWriteObj=new ReadAndWriteObj<>("ScoreBoard.ser");
+        if(!readAndWriteObj.isExistFile()){
+            lista=new JList<>();
+            titleInHighScore= new JLabel("Brak Histori najlepszych graczy");
+        }else {
+            players=readAndWriteObj.readIt();
+            DefaultListModel<PlayerScore> bump=new DefaultListModel<>();
+
+            for(PlayerScore ps:players){
+              bump.addElement(ps);
+            }
+            lista = new JList<>(bump);
+            titleInHighScore = new JLabel("Najlepsi");
+        }
         lista.setLayoutOrientation(JList.VERTICAL);
 
         scrollPane = new JScrollPane();
@@ -37,7 +38,7 @@ public class HighScore extends MyJFrame{
         tablica= new JPanel();
         tablica.setLayout(new GridLayout(0,1));
 
-        titleInHighScore= new JLabel("NAJLEPSI");
+
 
         returnButton=new MyButton("return");
         returnButton.addActionListener(e->{

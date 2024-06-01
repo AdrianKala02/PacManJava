@@ -4,6 +4,7 @@ public class GameMapChooser extends MyJFrame{
     MyButton uruchomienieButton;
     JPanel panel,panelButtonow;
     JLabel label;
+    ButtonGroup grupaMap;
     GameMapChooser(){
         setTitle("Wybór mapy");
 
@@ -12,15 +13,20 @@ public class GameMapChooser extends MyJFrame{
 
 
 
-        JRadioButton mapa1=new JRadioButton("map1");
+        MyJRadioButton mapa1=new MyJRadioButton("map1");
+        mapa1.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png");
         mapa1.setSelected(true);
-        JRadioButton mapa2=new JRadioButton("map2");
-        JRadioButton mapa3=new JRadioButton("map3");
-        JRadioButton mapa4=new JRadioButton("map4");
-        JRadioButton mapa5=new JRadioButton("map5");
+        MyJRadioButton mapa2=new MyJRadioButton("map2");
+        mapa2.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap2.png");
+        MyJRadioButton mapa3=new MyJRadioButton("map3");
+        mapa3.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap3.png");
+        MyJRadioButton mapa4=new MyJRadioButton("map4");
+        mapa4.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap4.png");
+        MyJRadioButton mapa5=new MyJRadioButton("map5");
+        mapa5.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap5.png");
 
 
-        ButtonGroup grupaMap= new ButtonGroup();
+        grupaMap= new ButtonGroup();
         grupaMap.add(mapa1);
         grupaMap.add(mapa2);
         grupaMap.add(mapa3);
@@ -30,7 +36,7 @@ public class GameMapChooser extends MyJFrame{
 
 
         uruchomienieButton= new MyButton("uruchom grę");
-        uruchomienieButton.addActionListener(e->{this.dispose();SwingUtilities.invokeLater(()->new Game());});
+        uruchomienieButton.addActionListener(e->{this.dispose();SwingUtilities.invokeLater(()->new Game(grupaMap.getSelection().getActionCommand()));});
 
 
 

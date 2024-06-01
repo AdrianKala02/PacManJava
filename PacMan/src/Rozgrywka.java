@@ -19,13 +19,15 @@ public class Rozgrywka extends JPanel implements Runnable {
     Blok blokA;
     PointToCollect pointA;
     Map mapaTest1;
+    private String mapUrl;
     public int getWszystkiePonkty() {return wszystkiePonkty+hero.getPonkty();}
     public void setWszystkiePonkty(int wszystkiePonkty) {this.wszystkiePonkty = wszystkiePonkty;}
     public int getHeroPoints(){return hero.getPonkty();}
     public int getHeroHP(){return hero.getZycia();}
     AnimateHandler heroAnimateHandler;
     AnimateHandler enemyAnimateHandler;
-    Rozgrywka() {
+    Rozgrywka(String mapUrl) {
+        this.mapUrl=mapUrl;
         przegrana = false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
@@ -38,7 +40,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 100, ANIAMTIONTYPE.ANIMATIONPINGPONG);
         enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONLOOP);
 
-        mapaTest1 = new Map("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png", blokA, hero,pointA,enemy);
+        mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();

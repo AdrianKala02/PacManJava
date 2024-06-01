@@ -18,7 +18,9 @@ public class Game extends MyJFrame{
     Updater<Integer> u2;
     Updater<Integer> u3;
     Updater<Integer> u4;
-    Game(){
+    String mapUrl;
+    Game(String mapUrl){
+        this.mapUrl=mapUrl;
         ponkty=0;
         alive=true;
         setTitle("ROZGRYWKA");
@@ -46,7 +48,7 @@ public class Game extends MyJFrame{
         });
 
 
-        rozgrywka=new Rozgrywka();
+        rozgrywka=new Rozgrywka(mapUrl);
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
@@ -66,13 +68,18 @@ public class Game extends MyJFrame{
                     Thread.sleep(1000);
                 }catch (InterruptedException e){e.fillInStackTrace();}
             }
-            SwingUtilities.invokeLater(()->new EndGame(rozgrywka.getWszystkiePonkty()));
+            //it takes url and takes what is after last '/' so the file name
+            //then splits string with dot and takes first element of []
+            String nameOfTheFile=mapUrl.substring(mapUrl.lastIndexOf("/") + 1).split("\\.")[0];
+
+            SwingUtilities.invokeLater(()->new EndGame(rozgrywka.getWszystkiePonkty(), nameOfTheFile));
             System.out.println("GAME OVER");
             u1.stopIt();
             u2.stopIt();
             u3.stopIt();
             u4.stopIt();
             licznik.stopIt();
+            dispose();
         });
         tr.start();
 

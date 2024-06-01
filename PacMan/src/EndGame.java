@@ -1,29 +1,31 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class EndGame extends MyJFrame {
-    EndGame(int WszystkiePonkty){
+    EndGame(int WszystkiePonkty,String nrMapy){
         JPanel panel= new JPanel();
-        JLabel label= new JLabel();
-        label.setText("Twój wynik: "+WszystkiePonkty);
+        JLabel labelWynik= new JLabel("Twój wynik: "+WszystkiePonkty,SwingConstants.CENTER);
+        JLabel labelPytanie= new JLabel("Podaj Proszę swój nick",SwingConstants.CENTER);
+        JTextField pobieraczNicku= new JTextField();
+        MyButton exitButton = new MyButton("EXIT AND SAVE");
+        exitButton.addActionListener(e->{
+            String nickGivenByUser=pobieraczNicku.getText();
 
+            PlayerScore playerScore=new PlayerScore(nickGivenByUser,WszystkiePonkty,nrMapy);
+            ReadAndWriteObj<PlayerScore> readAndWriteObj= new ReadAndWriteObj<>("ScoreBoard.ser");
+            readAndWriteObj.writeItEnchanted(playerScore);
+            dispose();
+        });
 
-        panel.add(label);
+        panel.add(labelWynik);
+        panel.add(labelPytanie);
+        panel.add(pobieraczNicku);
+        panel.add(exitButton);
+        panel.setLayout(new GridLayout(panel.getComponentCount(),0));
         add(panel);
-
-        PlayerScore playerScore=new PlayerScore("Fuzzy",WszystkiePonkty,1);
-
-        try {
-            FileOutputStream fileOut = new FileOutputStream("ScoreBoard.ser");
-            ObjectOutputStream out= new ObjectOutputStream(fileOut);
-            out.writeObject(playerScore);
-            out.close();
-            fileOut.close();
-            System.out.println("Player score saved");
-        }catch (IOException e){
-            e.printStackTrace();
-        }
     }
 }
