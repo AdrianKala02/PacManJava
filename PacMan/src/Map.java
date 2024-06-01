@@ -18,7 +18,6 @@ public class Map implements Runnable{
     Blok blokA;
     Hero hero;
     PointToCollect pointA;
-
     Enemy enemyA;
     Map(String url, Blok blokA, Hero hero, PointToCollect pointA,Enemy enemyA){
         this.blokA=blokA;
@@ -49,7 +48,6 @@ public class Map implements Runnable{
             }
         }
     }
-
     public boolean allPointsCollected(PointToCollect pointA){
         for(int y =0;y<gritCharMap.length;y++){
             for(int x=0;x<gritCharMap[0].length;x++){
@@ -92,6 +90,8 @@ public class Map implements Runnable{
                 else if (gritCharMap[i][j] == pointA.getIdChar()) {
                     label.setIcon(pointA.imageIcon);
                 }else if (gritCharMap[i][j] == enemyA.getIdChar()) {
+                    enemyA.setPosX(i);
+                    enemyA.setPosY(j);
                     label.setIcon(enemyA.imageIcon);
                 }
                 gritGame[i][j] = label;
@@ -127,6 +127,30 @@ public class Map implements Runnable{
         } else {
             hero.setPosX(oldX);
             hero.setPosY(oldY);
+        }
+    }
+    public void updatePosE() {
+        int oldX = enemyA.getPosX();
+        int oldY = enemyA.getPosY();
+
+        int newX = oldX + enemyA.getAclelerationX();
+        int newY = oldY + enemyA.getAclelerationY();
+
+        if (gritCharMap[newY][newX] != 'B') {
+            gritCharMap[oldY][oldX] = 'X';
+            if(gritCharMap[newY][newX] == 'E'){
+                gritCharMap[oldY][oldX] = 'E';
+            }
+            else if (gritCharMap[newY][newX] == 'P') {
+                gritCharMap[oldY][oldX] = 'P';
+            }
+
+            gritCharMap[newY][newX] = enemyA.getIdChar();
+            enemyA.setPosX(newX);
+            enemyA.setPosY(newY);
+        } else {
+            enemyA.setPosX(oldX);
+            enemyA.setPosY(oldY);
         }
     }
 

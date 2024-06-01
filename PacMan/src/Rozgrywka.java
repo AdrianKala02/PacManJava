@@ -44,8 +44,6 @@ public class Rozgrywka extends JPanel implements Runnable {
         mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();
-
-        addKeyListener(hero);
     }
 
     @Override
@@ -58,16 +56,16 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            mapaTest1.updatePos();
+            enemy.setAclelerationY(-1);
 
+            mapaTest1.updatePos();
+            mapaTest1.updatePosE();
             if(mapaTest1.allPointsCollected(pointA)){
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();
                 hero.setPonkty(0);
                 removeAll();
                 revalidate();
-
-                repaint();
                 hero.setAclelerationY(0);
                 hero.setAclelerationX(0);
                 mapaTest1.inicjal(this);
