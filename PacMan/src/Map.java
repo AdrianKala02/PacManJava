@@ -146,7 +146,8 @@ public class Map implements Runnable {
             if (gritCharMap[newY][newX] == 'P') {
                 enemyA.charUnder = 'P';
                 enemyA.isUnder = true;
-            } else {
+            }
+            else {
                 enemyA.isUnder = false;
             }
 

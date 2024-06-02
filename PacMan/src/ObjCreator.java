@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ObjCreator implements Runnable{
+public class ObjCreator{
     BufferedImage spriteSheet;
     BufferedImage sprite;
     DIRECTION direction;
@@ -72,11 +72,6 @@ public class ObjCreator implements Runnable{
                 e.printStackTrace();
             }
 
-
-    }
-
-    @Override
-    public void run() {
 
     }
     public void setSprite(BufferedImage sprite) {

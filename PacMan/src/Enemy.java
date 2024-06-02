@@ -1,7 +1,8 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
-public class Enemy extends ObjCreator{
+public class Enemy extends ObjCreator implements Runnable{
     private int posX;
     private int posY;
     private int aclelerationX;
@@ -48,17 +49,39 @@ public class Enemy extends ObjCreator{
         public void stopIt() {alive=false;}
 
 
-        public void move(KeyEvent e) {
 
 
-//            //dodać boolean dla ruchu aby postać mogła poruszać się tylko w lewo prawo albo góra dół
-            if(e.getKeyChar()=='t'||e.getKeyCode()==KeyEvent.VK_UP){
-                System.out.println("SKDLAJDLAKSDJHALSKDJHALSDKJADS"); aclelerationY=-1;aclelerationX=0;super.direction=DIRECTION.N;directChange=true;}
-//            else if(e.getKeyChar()=='s'||e.getKeyCode()==KeyEvent.VK_DOWN){aclelerationY=1;aclelerationX=0;super.direction=DIRECTION.S;directChange=true;}
-//            if(e.getKeyChar()=='a'||e.getKeyCode()==KeyEvent.VK_LEFT){aclelerationX=-1;aclelerationY=0;super.direction=DIRECTION.W;directChange=true;}
-//            else if(e.getKeyChar()=='d'||e.getKeyCode()==KeyEvent.VK_RIGHT){aclelerationX=1;aclelerationY=0;super.direction=DIRECTION.E;directChange=true;}
-//
-//            if(e.getKeyCode()==KeyEvent.VK_SPACE){aclelerationX=0;aclelerationY=0;}
-//            super.directChange=false;
+    public void goUp(){aclelerationY=-1;aclelerationX=0;super.direction=DIRECTION.N;directChange=true;}
+    public void goDown(){aclelerationY=1;aclelerationX=0;super.direction=DIRECTION.S;directChange=true;}
+    public void goLeft(){aclelerationX=-1;aclelerationY=0;super.direction=DIRECTION.W;directChange=true;}
+    public void goRight(){aclelerationX=1;aclelerationY=0;super.direction=DIRECTION.E;directChange=true;}
+        @Override
+        public void run() {
+            Random random = new Random();
+            while (alive) {
+                int direction = random.nextInt(4);
+                switch (direction) {
+                    case 0:
+                        goUp();
+                        break;
+                    case 1:
+                        goDown();
+                        break;
+                    case 2:
+                        goLeft();
+                        break;
+                    case 3:
+                        goRight();
+                        break;
+                }
+
+                //super.directChange=false;
+                try {
+                    Thread.sleep(1000); // Ruch co sekundę
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
         }
 }

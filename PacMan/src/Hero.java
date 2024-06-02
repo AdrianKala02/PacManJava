@@ -18,15 +18,12 @@ public class Hero extends ObjCreator implements KeyListener{
     private int zycia;
     public int getZycia() {return zycia;}
     public void setZycia(int zycia) {this.zycia = zycia;}
-
     public void addZycia(int zycia){this.zycia+=zycia;}
     private int posX;
     private int posY;
     private int aclelerationX;
     private int aclelerationY;
-
     private boolean alive;
-    Character[][] gritCharMap;
 
     public boolean isAlive() {
         return alive;
@@ -45,37 +42,6 @@ public class Hero extends ObjCreator implements KeyListener{
         alive=true;
     }
 
-    public void update(){
-        System.out.println(posX+" "+posY);
-        posX=(posX+aclelerationX);
-        posY=(posY+aclelerationY);
-    }
-
-//    public void updatePos(Character[][] gritCharMap){
-//        this.gritCharMap=gritCharMap;
-//        int oldX =posX;
-//        int oldY = posY;
-//
-//        posX=(posX+aclelerationX);
-//        posY=(posY+aclelerationY);
-//
-//        int newX =posX;
-//        int newY = posY;
-//
-//        if (gritCharMap[newY][newX] != 'B') {
-//
-//            if(gritCharMap[newY][newX] == 'P'){
-//                ponkty+=1;
-//            }
-//            gritCharMap[oldY][oldX] = 'X';
-//            gritCharMap[newY][newX] = getIdChar();
-//        } else {
-//            posX=oldX;
-//            posY=oldY;
-//        }
-//    }
-
-
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -90,8 +56,6 @@ public class Hero extends ObjCreator implements KeyListener{
            else if(e.getKeyChar()=='s'||e.getKeyCode()==KeyEvent.VK_DOWN){aclelerationY=1;aclelerationX=0;super.direction=DIRECTION.S;directChange=true;}
             if(e.getKeyChar()=='a'||e.getKeyCode()==KeyEvent.VK_LEFT){aclelerationX=-1;aclelerationY=0;super.direction=DIRECTION.W;directChange=true;}
            else if(e.getKeyChar()=='d'||e.getKeyCode()==KeyEvent.VK_RIGHT){aclelerationX=1;aclelerationY=0;super.direction=DIRECTION.E;directChange=true;}
-
-           if(e.getKeyCode()==KeyEvent.VK_SPACE){aclelerationX=0;aclelerationY=0;}
            super.directChange=false;
     }
 
