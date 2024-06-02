@@ -19,7 +19,6 @@ public class Rozgrywka extends JPanel implements Runnable {
     Blok blokA;
     PointToCollect pointA;
     Map mapaTest1;
-    private String mapUrl;
     public int getWszystkiePonkty() {return wszystkiePonkty+hero.getPonkty();}
     public void setWszystkiePonkty(int wszystkiePonkty) {this.wszystkiePonkty = wszystkiePonkty;}
     public int getHeroPoints(){return hero.getPonkty();}
@@ -27,7 +26,6 @@ public class Rozgrywka extends JPanel implements Runnable {
     AnimateHandler heroAnimateHandler;
     AnimateHandler enemyAnimateHandler;
     Rozgrywka(String mapUrl) {
-        this.mapUrl=mapUrl;
         przegrana = false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
@@ -45,7 +43,6 @@ public class Rozgrywka extends JPanel implements Runnable {
         Thread th=new Thread(mapaTest1);
         th.start();
     }
-
     @Override
     public void run() {
         System.out.println(Thread.currentThread() + " " + getClass().getName());
@@ -56,7 +53,7 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            enemy.setAclelerationY(-1);
+            enemy.setAclelerationX(-1);
 
             mapaTest1.updatePos();
             mapaTest1.updatePosE();

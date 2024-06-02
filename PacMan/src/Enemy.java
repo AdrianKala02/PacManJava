@@ -7,13 +7,29 @@ public class Enemy extends ObjCreator{
     private int aclelerationX;
     private int aclelerationY;
     private boolean alive;
+     int posXUnder;
+     int posYUnder;
+    boolean isUnder;
+    char charUnder;
+
+    int posXUnderOLDER;
+    int posYUnderOLDER;
+    boolean isUnderOLDER;
+    char charUnderOLDER;
     Enemy(String url, ColorRGB mapIdColor, Character idChar) {
         super(url, mapIdColor, idChar);
+        isUnder=false;
+        isUnderOLDER=false;
         posX=0;
         posY=0;
         aclelerationX=0;
         aclelerationY=0;
         alive=true;
+    }
+    public void somethingIsThere( int y,int x,char c){
+        posYUnder=y;
+        posXUnder=x;
+        charUnder=c;
     }
         public int getPosX() {return posX;}
         public void setPosX(int posX) {this.posX = posX;}
@@ -31,57 +47,6 @@ public class Enemy extends ObjCreator{
 
         public void stopIt() {alive=false;}
 
-        public void update(){
-            System.out.println(posX+" "+posY);
-            posX=(posX+aclelerationX);
-            posY=(posY+aclelerationY);
-        }
-    public void updatePos(Character[][] gritCharMap){
-        this.gritCharMap=gritCharMap;
-        int oldX =posX;
-        int oldY = posY;
-
-        posX=(posX+aclelerationX);
-        posY=(posY+aclelerationY);
-
-        int newX =posX;
-        int newY = posY;
-
-    if (gritCharMap[newY][newX] != 'B') {
-        gritCharMap[oldY][oldX] = 'X';
-        if (gritCharMap[newY][newX] == 'P') {
-            gritCharMap[oldY][oldX] = 'P';
-        }
-
-        gritCharMap[newY][newX] = getIdChar();
-        setPosX(newX);
-        setPosY(newY);
-    } else {
-        setPosX(oldX);
-        setPosY(oldY);
-    }
-    }
-//public void updatePos() {
-//    int oldX = getPosX();
-//    int oldY = getPosY();
-//
-//    int newX = oldX + getAclelerationX();
-//    int newY = oldY + getAclelerationY();
-//
-//    if (gritCharMap[newY][newX] != 'B') {
-//        gritCharMap[oldY][oldX] = 'X';
-//        if (gritCharMap[newY][newX] == 'P') {
-//            gritCharMap[oldY][oldX] = 'P';
-//        }
-//
-//        gritCharMap[newY][newX] = getIdChar();
-//        setPosX(newX);
-//        setPosY(newY);
-//    } else {
-//        setPosX(oldX);
-//        setPosY(oldY);
-//    }
-//}
 
         public void move(KeyEvent e) {
 
