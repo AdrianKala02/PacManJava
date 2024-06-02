@@ -75,7 +75,7 @@ public class Enemy extends ObjCreator implements Runnable{
                         break;
                 }
 
-                //super.directChange=false;
+                super.directChange=false;
                 try {
                     Thread.sleep(1000); // Ruch co sekundę
                 } catch (InterruptedException e) {
