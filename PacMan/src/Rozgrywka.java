@@ -30,10 +30,10 @@ public class Rozgrywka extends JPanel implements Runnable {
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
         setLayout(new GridBagLayout());
-        hero = new Hero("/Users/adriankala/Desktop/PacManAsets/PacMan/SpriteSheet-PacMan3.png", new ColorRGB(0, 255, 0), 'H');
-        enemy= new Enemy("/Users/adriankala/Desktop/PacManAsets/Ghost/SpriteSheet-Ghost2.png",new ColorRGB(255,0,0),'E');
-        blokA = new Blok("/Users/adriankala/Desktop/PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
-        pointA=new PointToCollect(1,"/Users/adriankala/Desktop/PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
+        hero = new Hero("./PacManAsets/PacMan/SpriteSheet-PacMan3.png", new ColorRGB(0, 255, 0), 'H');
+        enemy= new Enemy("./PacManAsets/Ghost/SpriteSheet-Ghost2.png",new ColorRGB(255,0,0),'E');
+        blokA = new Blok("./PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
+        pointA=new PointToCollect(1,"./PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
         heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 200, ANIAMTIONTYPE.ANIMATIONPINGPONG);
         enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
@@ -45,6 +45,8 @@ public class Rozgrywka extends JPanel implements Runnable {
 
         Thread enemyMove=new Thread(enemy);
         enemyMove.start();
+
+
     }
     @Override
     public void run() {
@@ -60,14 +62,7 @@ public class Rozgrywka extends JPanel implements Runnable {
             mapaTest1.updatePosE();
             mapaTest1.colisionEvade();
             mapaTest1.refresh();
-            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
-                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
-                    System.out.print(mapaTest1.getGritCharMap()[y][x]+" ");
-                }
-                System.out.println();
-            }
-            System.out.println("============================");
-            if(mapaTest1.allPointsCollected(pointA)){
+            if(mapaTest1.allPointsCollected(pointA)&&!enemy.isUnder){
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();
                 hero.setPonkty(0);
