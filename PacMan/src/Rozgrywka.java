@@ -35,7 +35,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         blokA = new Blok("/Users/adriankala/Desktop/PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
         pointA=new PointToCollect(1,"/Users/adriankala/Desktop/PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
-        heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 100, ANIAMTIONTYPE.ANIMATIONPINGPONG);
+        heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 200, ANIAMTIONTYPE.ANIMATIONPINGPONG);
         enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
 
         mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
@@ -58,7 +58,7 @@ public class Rozgrywka extends JPanel implements Runnable {
             }
             mapaTest1.updatePos();
             mapaTest1.updatePosE();
-
+            mapaTest1.colisionEvade();
             mapaTest1.refresh();
             for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
                 for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {

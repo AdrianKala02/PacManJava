@@ -15,12 +15,16 @@ public class Map implements Runnable {
     public Character[][] getGritCharMap() { return gritCharMap; }
     public void setGritCharMap(Character[][] gritCharMap) { this.gritCharMap = gritCharMap; }
 
+    boolean hToE;
+    boolean eToH;
     Blok blokA;
     Hero hero;
     PointToCollect pointA;
     Enemy enemyA;
 
     Map(String url, Blok blokA, Hero hero, PointToCollect pointA, Enemy enemyA) {
+        eToH=false;
+        hToE=false;
         this.blokA = blokA;
         this.hero = hero;
         this.pointA = pointA;
@@ -120,11 +124,15 @@ public class Map implements Runnable {
             gritCharMap[newY][newX] = hero.getIdChar();
             hero.setPosX(newX);
             hero.setPosY(newY);
+        } else if (gritCharMap[newY][newX] == 'E'||(enemyA.getPosX()+enemyA.getAclelerationX()==hero.getPosX())&&(enemyA.getPosY()+enemyA.getAclelerationY()==hero.getPosY())) {
+           hToE=true;
         } else {
             hero.setPosX(oldX);
             hero.setPosY(oldY);
         }
     }
+
+
 
     public void updatePosE() {
         int newX = enemyA.getPosX() + enemyA.getAclelerationX();
@@ -157,11 +165,31 @@ public class Map implements Runnable {
             enemyA.setPosX(newX);
             enemyA.setPosY(newY);
             gritCharMap[newY][newX] = 'E';
-        }else if(gritCharMap[newY][newX] == 'H'){
-            hero.addZycia(-1);
+        }else if(gritCharMap[newY][newX] == 'H'||(hero.getPosX()+hero.getAclelerationX()==enemyA.getPosX())&&(hero.getPosY()+hero.getAclelerationY()==enemyA.getPosY())){
+              eToH=true;
         }
     }
 
+public void colisionEvade(){
+        if(eToH||hToE){
+            flipPos();
+            hero.addZycia(-1);
+            eToH=false;
+            hToE=false;
+        }
+}
+    public void flipPos(){
+        int tmpX=hero.getPosX();
+        int tmpY=hero.getPosY();
+
+        hero.setPosX(enemyA.getPosX());
+        hero.setPosY(enemyA.getPosY());
+        gritCharMap[enemyA.getPosY()][enemyA.getPosX()]='H';
+
+        enemyA.setPosX(tmpX);
+        enemyA.setPosY(tmpY);
+        gritCharMap[tmpY][tmpX]='E';
+    }
 
     public void refresh() {
         SwingUtilities.invokeLater(() -> {
