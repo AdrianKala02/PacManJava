@@ -40,8 +40,8 @@ public class Rozgrywka extends JPanel implements Runnable {
 
         mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
-        Thread th=new Thread(mapaTest1);
-        th.start();
+//        Thread th=new Thread(mapaTest1);
+//        th.start();
 
         Thread enemyMove=new Thread(enemy);
         enemyMove.start();
@@ -56,9 +56,17 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
             mapaTest1.updatePos();
             mapaTest1.updatePosE();
+
+            mapaTest1.refresh();
+            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
+                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
+                    System.out.print(mapaTest1.getGritCharMap()[y][x]+" ");
+                }
+                System.out.println();
+            }
+            System.out.println("============================");
             if(mapaTest1.allPointsCollected(pointA)){
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();

@@ -109,12 +109,10 @@ public class Map implements Runnable {
         int newX = oldX + hero.getAclelerationX();
         int newY = oldY + hero.getAclelerationY();
 
-        if (gritCharMap[newY][newX] != 'B') {
+        if (gritCharMap[newY][newX] != 'B'&&gritCharMap[newY][newX] != 'E') {
             gritCharMap[oldY][oldX] = 'X';
-            if (gritCharMap[newY][newX] == 'E') {
-                hero.addZycia(-1);
-                gritCharMap[oldY][oldX] = 'E';
-            } else if (gritCharMap[newY][newX] == 'P') {
+
+              if (gritCharMap[newY][newX] == 'P') {
                 hero.addPonkty(1);
                 gritCharMap[oldY][oldX] = 'X';
             }
@@ -133,7 +131,8 @@ public class Map implements Runnable {
         int newY = enemyA.getPosY() + enemyA.getAclelerationY();
 
         // Sprawdzenie, czy nowa pozycja nie jest blokadą ('B')
-        if (gritCharMap[newY][newX] != 'B') {
+        if (gritCharMap[newY][newX] != 'B'&&gritCharMap[newY][newX] != 'H') {
+
 
             // Aktualizacja poprzedniej pozycji przeciwnika na mapie
             if (enemyA.isUnder) {
@@ -147,6 +146,9 @@ public class Map implements Runnable {
                 enemyA.charUnder = 'P';
                 enemyA.isUnder = true;
             }
+//            if (gritCharMap[newY][newX] == 'H') {
+//                gritCharMap[ enemyA.getPosY()][ enemyA.getPosX()]='H';
+//            }
             else {
                 enemyA.isUnder = false;
             }
@@ -155,11 +157,31 @@ public class Map implements Runnable {
             enemyA.setPosX(newX);
             enemyA.setPosY(newY);
             gritCharMap[newY][newX] = 'E';
+        }else if(gritCharMap[newY][newX] == 'H'){
+            hero.addZycia(-1);
         }
     }
 
 
-
+    public void refresh() {
+        SwingUtilities.invokeLater(() -> {
+            for (int y = 0; y < gritGame.length; y++) {
+                for (int x = 0; x < gritGame[0].length; x++) {
+                    if (gritCharMap[y][x] == hero.getIdChar()) {
+                        gritGame[y][x].setIcon(hero.imageIcon);
+                    } else if (gritCharMap[y][x] == blokA.getIdChar()) {
+                        gritGame[y][x].setIcon(blokA.imageIcon);
+                    } else if (gritCharMap[y][x] == pointA.getIdChar()) {
+                        gritGame[y][x].setIcon(pointA.imageIcon);
+                    } else if (gritCharMap[y][x] == enemyA.getIdChar()) {
+                        gritGame[y][x].setIcon(enemyA.imageIcon);
+                    } else {
+                        gritGame[y][x].setIcon(null);
+                    }
+                }
+            }
+        });
+    }
 
     @Override
     public void run() {
@@ -169,24 +191,7 @@ public class Map implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            SwingUtilities.invokeLater(() -> {
-                for (int y = 0; y < gritGame.length; y++) {
-                    for (int x = 0; x < gritGame[0].length; x++) {
-                        if (gritCharMap[y][x] == hero.getIdChar()) {
-                            gritGame[y][x].setIcon(hero.imageIcon);
-                        } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                            gritGame[y][x].setIcon(blokA.imageIcon);
-                        } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                            gritGame[y][x].setIcon(pointA.imageIcon);
-                        } else if (gritCharMap[y][x] == enemyA.getIdChar()) {
-                            gritGame[y][x].setIcon(enemyA.imageIcon);
-                        } else {
-                            gritGame[y][x].setIcon(null);
-                        }
-                    }
-                }
-            });
+                refresh();
         }
     }
 }
