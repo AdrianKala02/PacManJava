@@ -17,6 +17,26 @@ public class Enemy extends ObjCreator implements Runnable{
     int posYUnderOLDER;
     boolean isUnderOLDER;
     char charUnderOLDER;
+
+   private int startPosX;
+
+    public int getStartPosX() {
+        return startPosX;
+    }
+
+    public void setStartPosX(int startPosX) {
+        this.startPosX = startPosX;
+    }
+
+    public int getStartPosY() {
+        return startPosY;
+    }
+
+    public void setStartPosY(int startPosY) {
+        this.startPosY = startPosY;
+    }
+
+    private int startPosY;
     Enemy(String url, ColorRGB mapIdColor, Character idChar) {
         super(url, mapIdColor, idChar);
         isUnder=false;
@@ -84,10 +104,9 @@ public class Enemy extends ObjCreator implements Runnable{
                         goRight();
                         break;
                 }
-
                 super.directChange=false;
                 try {
-                    Thread.sleep(1000); // Ruch co sekundę
+                    Thread.sleep(250);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

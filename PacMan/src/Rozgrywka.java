@@ -73,6 +73,9 @@ public class Rozgrywka extends JPanel implements Runnable {
                 System.out.println();
             }
             System.out.println("//+======================+//");
+
+
+            //przezucic na osobny thred i ustawić sleep na 1500ms
             if(mapaTest1.allPointsCollected(pointA)){
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();
@@ -81,7 +84,7 @@ public class Rozgrywka extends JPanel implements Runnable {
                 revalidate();
                 hero.setAclelerationY(0);
                 hero.setAclelerationX(0);
-                mapaTest1.inicjal(this);
+                mapaTest1.inicjalV2(this);
 
             };
         }
