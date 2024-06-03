@@ -11,8 +11,12 @@ import java.awt.*;
 public class EndGame extends MyJFrame {
     EndGame(int WszystkiePonkty,String nrMapy){
         JPanel panel= new JPanel();
-        JLabel labelWynik= new JLabel("Twój wynik: "+WszystkiePonkty,SwingConstants.CENTER);
-        JLabel labelPytanie= new JLabel("Podaj Proszę swój nick",SwingConstants.CENTER);
+        MyJlable labelWynik= new MyJlable();
+        labelWynik.setText("Twój wynik: "+WszystkiePonkty);
+        labelWynik.setHorizontalAlignment(0);
+        MyJlable labelPytanie= new MyJlable();
+        labelPytanie.setHorizontalAlignment(0);
+        labelPytanie.setText("Podaj Proszę swój nick");
         JTextField pobieraczNicku= new JTextField();
         MyButton exitButton = new MyButton("EXIT AND SAVE");
         exitButton.addActionListener(e->{
@@ -21,7 +25,8 @@ public class EndGame extends MyJFrame {
             PlayerScore playerScore=new PlayerScore(nickGivenByUser,WszystkiePonkty,nrMapy);
             ReadAndWriteObj<PlayerScore> readAndWriteObj= new ReadAndWriteObj<>("ScoreBoard.ser");
             readAndWriteObj.writeItEnchanted(playerScore);
-            dispose();
+           dispose();
+           System.exit(0);
             }else{
                 JOptionPane.showMessageDialog(this,"proszę podać nazwę","brak nazwy",JOptionPane.PLAIN_MESSAGE);
             }
