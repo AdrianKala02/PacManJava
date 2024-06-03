@@ -49,7 +49,27 @@ public class Rozgrywka extends JPanel implements Runnable {
             Thread enemyMove = new Thread(enemy1);
             enemyMove.start();
         }
+        Thread checkRestartMap=new Thread(()->
+        {
+            while (!przegrana){
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if(mapaTest1.allPointsCollected()){
+                System.out.println("//====DONE====//");
+                wszystkiePonkty+=hero.getPonkty();
+                hero.setPonkty(0);
+                removeAll();
+                revalidate();
+                hero.setAclelerationY(0);
+                hero.setAclelerationX(0);
+                mapaTest1.inicjalV2(this);
 
+            }
+        }});
+        checkRestartMap.start();
     }
     @Override
     public void run() {
@@ -76,17 +96,7 @@ public class Rozgrywka extends JPanel implements Runnable {
 
 
             //przezucic na osobny thred i ustawić sleep na 1500ms
-            if(mapaTest1.allPointsCollected(pointA)){
-                System.out.println("//====DONE====//");
-                wszystkiePonkty+=hero.getPonkty();
-                hero.setPonkty(0);
-                removeAll();
-                revalidate();
-                hero.setAclelerationY(0);
-                hero.setAclelerationX(0);
-                mapaTest1.inicjalV2(this);
 
-            };
         }
         hero.stopIt();
 
