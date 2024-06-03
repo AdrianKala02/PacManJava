@@ -46,21 +46,20 @@ public class Rozgrywka extends JPanel implements Runnable {
         blokA = new Blok("./PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
         pointA=new PointToCollect(1,"./PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
-        heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 200, ANIAMTIONTYPE.ANIMATIONPINGPONG);
+        heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 150, ANIAMTIONTYPE.ANIMATIONPINGPONG);
        // AnimateHandler enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
 
         mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
-//        Thread th=new Thread(mapaTest1);
-//        th.start();
+        Thread th=new Thread(mapaTest1);
+        th.start();
         enemyGang=mapaTest1.allEnemy;
         for(Enemy enemy1:enemyGang) {
             new AnimateHandler(enemy1.spriteSheet,enemy1,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
             Thread enemyMove = new Thread(enemy1);
             enemyMove.start();
         }
-        Thread checkRestartMap=new Thread(()->
-        {
+        Thread checkRestartMap=new Thread(()-> {
             while (!przegrana){
             try {
                 Thread.sleep(1000);
@@ -80,6 +79,41 @@ public class Rozgrywka extends JPanel implements Runnable {
             }
         }});
         checkRestartMap.start();
+
+        Thread heroPos=new Thread(()-> {
+            while (!przegrana) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                mapaTest1.updatePos();
+            }
+        });
+        heroPos.start();
+        Thread enemyPos=new Thread(()->{
+            while (!przegrana){
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                mapaTest1.updatePosE();
+            }
+        });
+        enemyPos.start();
+
+        Thread colisonEv=new Thread(()->{
+            while (!przegrana){
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                mapaTest1.colisionEvade();
+            }
+        });
+        colisonEv.start();
     }
     @Override
     public void run() {
@@ -91,22 +125,13 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            mapaTest1.updatePos();
-            mapaTest1.updatePosE();
-            mapaTest1.colisionEvade();
-            mapaTest1.refresh();
-
-            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
-                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
-                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
-                }
-                System.out.println();
-            }
-            System.out.println("//+======================+//");
-
-
-            //przezucic na osobny thred i ustawić sleep na 1500ms
-
+//            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
+//                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
+//                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
+//                }
+//                System.out.println();
+//            }
+//            System.out.println("//+======================+//");
         }
         mapaTest1.stopIt();
         for(Enemy enemy:mapaTest1.allEnemy){

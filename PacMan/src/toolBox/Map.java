@@ -165,6 +165,9 @@ public class Map implements Runnable {
             hero.setPosY(newY);
             hero.setPosX(newX);
     }else {
+            if(gritCharMap[newY][newX] == 'E'){
+                hero.addZycia(-1);
+            }
             hero.setPosX(oldX);
             hero.setPosY(oldY);
         }
@@ -311,7 +314,7 @@ public class Map implements Runnable {
         while (alive) {
             System.out.println(Thread.currentThread()+" "+getClass().getName());
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
