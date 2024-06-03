@@ -1,9 +1,17 @@
+package GuiSides;
+
+import objectsForGame.Blok;
+import objectsForGame.Enemy;
+import objectsForGame.Hero;
+import objectsForGame.PointToCollect;
+import toolBox.ANIAMTIONTYPE;
+import toolBox.AnimateHandler;
+import toolBox.ColorRGB;
+import toolBox.Map;
+
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Rozgrywka extends JPanel implements Runnable {
 
@@ -12,8 +20,9 @@ public class Rozgrywka extends JPanel implements Runnable {
     private boolean przegrana;
     public boolean isPrzegrana() {return przegrana;}
 
-    public void setPrzegrana(){przegrana=false;}
+    public void stopIt(){przegrana=true;}
 
+    boolean rezygnacjaZWyboru;
     Hero hero;
     ArrayList<Enemy> enemyGang;
     Enemy enemy;
@@ -27,6 +36,7 @@ public class Rozgrywka extends JPanel implements Runnable {
     AnimateHandler heroAnimateHandler;
 
     Rozgrywka(String mapUrl) {
+        rezygnacjaZWyboru=false;
         przegrana = false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
@@ -53,7 +63,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         {
             while (!przegrana){
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -73,8 +83,8 @@ public class Rozgrywka extends JPanel implements Runnable {
     }
     @Override
     public void run() {
-        System.out.println(Thread.currentThread() + " " + getClass().getName());
         while (!przegrana) {
+            System.out.println(Thread.currentThread()+" "+getClass().getName());
             if(getHeroHP()<=0){przegrana=true;}
             try {
                 Thread.sleep(200);
@@ -98,7 +108,9 @@ public class Rozgrywka extends JPanel implements Runnable {
             //przezucic na osobny thred i ustawić sleep na 1500ms
 
         }
-        hero.stopIt();
-
+        mapaTest1.stopIt();
+        for(Enemy enemy:mapaTest1.allEnemy){
+            enemy.stopIt();
+        }
     }
 }

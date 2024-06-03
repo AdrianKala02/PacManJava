@@ -1,5 +1,12 @@
+package toolBox;
+
+import MyGui.MyJlable;
+import objectsForGame.Blok;
+import objectsForGame.Enemy;
+import objectsForGame.Hero;
+import objectsForGame.PointToCollect;
+
 import javax.imageio.ImageIO;
-import javax.management.ListenerNotFoundException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,16 +23,18 @@ public class Map implements Runnable {
     private Character[][] gritCharMap;
     public Character[][] getGritCharMap() { return gritCharMap; }
     public void setGritCharMap(Character[][] gritCharMap) { this.gritCharMap = gritCharMap; }
-
+    private boolean alive;
     boolean hToE;
     boolean eToH;
     Blok blokA;
     Hero hero;
     PointToCollect pointA;
-    ArrayList<Enemy> allEnemy;
+    public ArrayList<Enemy> allEnemy;
     Enemy en;
 
-    Map(String url, Blok blokA, Hero hero, PointToCollect pointA,Enemy en) {
+    public void stopIt(){alive=false;}
+    public Map(String url, Blok blokA, Hero hero, PointToCollect pointA, Enemy en) {
+        alive=true;
         eToH=false;
         hToE=false;
         this.blokA = blokA;
@@ -299,7 +308,8 @@ public class Map implements Runnable {
 
     @Override
     public void run() {
-        while (hero.isAlive()) {
+        while (alive) {
+            System.out.println(Thread.currentThread()+" "+getClass().getName());
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

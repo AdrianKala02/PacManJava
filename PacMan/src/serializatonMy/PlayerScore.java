@@ -1,3 +1,5 @@
+package serializatonMy;
+
 import java.io.Serializable;
 
 public class PlayerScore implements Serializable,Comparable<PlayerScore>{

@@ -1,3 +1,7 @@
+package objectsForGame;
+
+import toolBox.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -5,15 +9,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class ObjCreator{
-    BufferedImage spriteSheet;
-    BufferedImage sprite;
-    DIRECTION direction;
-    ColorRGB mapIdColor;
+    public BufferedImage spriteSheet;
+    public BufferedImage sprite;
+    public DIRECTION direction;
+    public ColorRGB mapIdColor;
     private int posX;
     private int posY;
     private int width;
     private int height;
-    boolean directChange;
+    public boolean directChange;
     private Character idChar;
     public Character getIdChar() {return idChar;}
     public void setIdChar(Character idChar) {this.idChar = idChar;}
@@ -52,9 +56,9 @@ public class ObjCreator{
 
     String url;
 
-    ImageIcon imageIcon;
+    public ImageIcon imageIcon;
 
-    ObjCreator(String url,ColorRGB mapIdColor,Character idChar){
+    public ObjCreator(String url,ColorRGB mapIdColor,Character idChar){
         this.url=url;
         this.mapIdColor=mapIdColor;
         this.idChar=idChar;
@@ -62,7 +66,7 @@ public class ObjCreator{
         posY=0;
         width=32;
         height=32;
-        direction=DIRECTION.E;
+        direction= DIRECTION.E;
         directChange=false;
             try {
                 spriteSheet = ImageIO.read(new File(url));

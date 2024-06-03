@@ -1,3 +1,5 @@
+package toolBox;
+
 public enum ANIAMTIONTYPE {
     ANIMATIONLOOP,ANIMATIONPINGPONG;
 }

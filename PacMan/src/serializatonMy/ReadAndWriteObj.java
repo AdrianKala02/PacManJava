@@ -1,9 +1,11 @@
+package serializatonMy;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class ReadAndWriteObj<T> {
     String url;
-    ReadAndWriteObj(String ulr){this.url=ulr;}
+    public ReadAndWriteObj(String ulr){this.url=ulr;}
     public boolean isExistFile(){
         File file= new File(url);
         return file.isFile() && file.canRead();

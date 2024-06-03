@@ -1,3 +1,5 @@
+package toolBox;
+
 import static java.util.Objects.nonNull;
 
 public class TimerByThread extends Thread{
@@ -5,7 +7,7 @@ public class TimerByThread extends Thread{
     private boolean alive;
     private int zegar;
     private int updateInterval;
-    TimerByThread(){
+    public TimerByThread(){
         updateInterval=1000;
         alive=true;
         zegar=0;

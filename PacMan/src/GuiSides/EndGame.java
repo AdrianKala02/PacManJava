@@ -1,9 +1,12 @@
+package GuiSides;
+
+import MyGui.*;
+import serializatonMy.PlayerScore;
+import serializatonMy.ReadAndWriteObj;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+
 
 public class EndGame extends MyJFrame {
     EndGame(int WszystkiePonkty,String nrMapy){
@@ -13,12 +16,15 @@ public class EndGame extends MyJFrame {
         JTextField pobieraczNicku= new JTextField();
         MyButton exitButton = new MyButton("EXIT AND SAVE");
         exitButton.addActionListener(e->{
+            if(!pobieraczNicku.getText().trim().isEmpty()){
             String nickGivenByUser=pobieraczNicku.getText();
-
             PlayerScore playerScore=new PlayerScore(nickGivenByUser,WszystkiePonkty,nrMapy);
             ReadAndWriteObj<PlayerScore> readAndWriteObj= new ReadAndWriteObj<>("ScoreBoard.ser");
             readAndWriteObj.writeItEnchanted(playerScore);
             dispose();
+            }else{
+                JOptionPane.showMessageDialog(this,"proszę podać nazwę","brak nazwy",JOptionPane.PLAIN_MESSAGE);
+            }
         });
 
         panel.add(labelWynik);

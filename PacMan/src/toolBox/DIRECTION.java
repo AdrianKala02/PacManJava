@@ -1,3 +1,5 @@
+package toolBox;
+
 public enum DIRECTION {
     N(0),
     E(1),

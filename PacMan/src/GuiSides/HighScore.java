@@ -1,11 +1,15 @@
+package GuiSides;
+
+import MyGui.MyButton;
+import MyGui.MyJFrame;
+import serializatonMy.PlayerScore;
+import serializatonMy.ReadAndWriteObj;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-public class HighScore extends MyJFrame{
+public class HighScore extends MyJFrame {
     boolean alive=true;
     JLabel titleInHighScore;
     JScrollPane scrollPane;

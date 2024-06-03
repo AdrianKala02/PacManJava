@@ -1,5 +1,9 @@
+package toolBox;
+
+import objectsForGame.ObjCreator;
+import toolBox.ANIAMTIONTYPE;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class AnimateHandler{
@@ -17,7 +21,7 @@ public class AnimateHandler{
         alive = false;
     }
    ANIAMTIONTYPE aType;
-    AnimateHandler(BufferedImage sheet,ObjCreator objCreator,int updateInterval,ANIAMTIONTYPE aType){
+    public AnimateHandler(BufferedImage sheet, ObjCreator objCreator, int updateInterval, ANIAMTIONTYPE aType){
         alive=true;
         size=32;
         currentFrame=0;

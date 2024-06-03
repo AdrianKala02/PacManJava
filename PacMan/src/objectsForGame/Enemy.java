@@ -1,5 +1,8 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+package objectsForGame;
+
+import toolBox.ColorRGB;
+import toolBox.DIRECTION;
+
 import java.util.Random;
 
 public class Enemy extends ObjCreator implements Runnable{
@@ -10,8 +13,8 @@ public class Enemy extends ObjCreator implements Runnable{
     private boolean alive;
      int posXUnder;
      int posYUnder;
-    boolean isUnder;
-    char charUnder;
+    public boolean isUnder;
+    public char charUnder;
 
     int posXUnderOLDER;
     int posYUnderOLDER;
@@ -37,7 +40,7 @@ public class Enemy extends ObjCreator implements Runnable{
     }
 
     private int startPosY;
-    Enemy(String url, ColorRGB mapIdColor, Character idChar) {
+    public Enemy(String url, ColorRGB mapIdColor, Character idChar) {
         super(url, mapIdColor, idChar);
         isUnder=false;
         isUnderOLDER=false;
@@ -47,7 +50,7 @@ public class Enemy extends ObjCreator implements Runnable{
         aclelerationY=0;
         alive=true;
     }
-    Enemy(Enemy en){
+    public Enemy(Enemy en){
         super(en.url,en.mapIdColor,en.getIdChar());
         isUnder=false;
         isUnderOLDER=false;
@@ -81,14 +84,15 @@ public class Enemy extends ObjCreator implements Runnable{
 
 
 
-    public void goUp(){aclelerationY=-1;aclelerationX=0;super.direction=DIRECTION.N;directChange=true;}
-    public void goDown(){aclelerationY=1;aclelerationX=0;super.direction=DIRECTION.S;directChange=true;}
-    public void goLeft(){aclelerationX=-1;aclelerationY=0;super.direction=DIRECTION.W;directChange=true;}
-    public void goRight(){aclelerationX=1;aclelerationY=0;super.direction=DIRECTION.E;directChange=true;}
+    public void goUp(){aclelerationY=-1;aclelerationX=0;super.direction= DIRECTION.N;directChange=true;}
+    public void goDown(){aclelerationY=1;aclelerationX=0;super.direction= DIRECTION.S;directChange=true;}
+    public void goLeft(){aclelerationX=-1;aclelerationY=0;super.direction= DIRECTION.W;directChange=true;}
+    public void goRight(){aclelerationX=1;aclelerationY=0;super.direction= DIRECTION.E;directChange=true;}
         @Override
         public void run() {
             Random random = new Random();
             while (alive) {
+                System.out.println(Thread.currentThread()+" "+getClass().getName());
                 int direction = random.nextInt(4);
                 switch (direction) {
                     case 0:

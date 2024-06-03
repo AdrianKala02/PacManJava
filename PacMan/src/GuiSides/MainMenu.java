@@ -1,10 +1,12 @@
+package GuiSides;
+
+import MyGui.MyButton;
+import MyGui.MyJFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.security.Key;
 
-public class MainMenu extends MyJFrame{
+public class MainMenu extends MyJFrame {
     JLabel titleInMainMenu;
     MyButton newGameButton,highScoreButton,exitButton;
     JPanel panel;

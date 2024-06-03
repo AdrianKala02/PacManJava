@@ -1,5 +1,7 @@
+package MyGui;
+
 public class MyJRadioButton extends javax.swing.JRadioButton {
-    MyJRadioButton(String text){
+    public MyJRadioButton(String text){
         setText(text);
     }
 }

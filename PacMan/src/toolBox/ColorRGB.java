@@ -1,4 +1,4 @@
-import java.awt.image.BufferedImage;
+package toolBox;
 
 public class ColorRGB {
 
@@ -14,13 +14,13 @@ public class ColorRGB {
             pixel[2]=0;
     }
     //gets that strange notUserFriednly value;
-    ColorRGB(int BufferedImageRGB){
+   public ColorRGB(int BufferedImageRGB){
          pixel=new Integer[3];
          pixel[2] = BufferedImageRGB & 0xff;
          pixel[1] = (BufferedImageRGB & 0xff00) >> 8;
          pixel[0] = (BufferedImageRGB & 0xff0000) >> 16;
     }
-    ColorRGB(int r,int g,int b){
+   public ColorRGB(int r,int g,int b){
         pixel=new Integer[3];
         pixel[2] =b;
         pixel[1] =g;

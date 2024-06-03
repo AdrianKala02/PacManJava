@@ -1,11 +1,14 @@
-import javax.swing.*;
-import javax.swing.text.Utilities;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.logging.Handler;
+package GuiSides;
 
-public class Game extends MyJFrame{
+import MyGui.MyButton;
+import MyGui.MyJFrame;
+import toolBox.TimerByThread;
+import toolBox.Updater;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Game extends MyJFrame {
     JPanel panel;
     JLabel tabliczkaCzasu,tabliczkaWszystkichPunktow,tabliczkaPunktow,tabliczkaZyc;
     volatile boolean alive;
@@ -35,6 +38,7 @@ public class Game extends MyJFrame{
 
         returnButton= new MyButton("return");
         returnButton.addActionListener(e ->{
+            rozgrywka.rezygnacjaZWyboru=true;
             alive=false;
             System.out.println("YOU NEED TO STOP THE CLOCK");
             licznik.stopIt();
@@ -42,7 +46,7 @@ public class Game extends MyJFrame{
             u2.stopIt();
             u3.stopIt();
             u4.stopIt();
-            rozgrywka.setPrzegrana();
+            rozgrywka.stopIt();
             SwingUtilities.invokeLater(()->new MainMenu());
             dispose();
         });
@@ -64,6 +68,7 @@ public class Game extends MyJFrame{
 
         Thread tr= new Thread(()->{
             while (!rozgrywka.isPrzegrana()){
+                System.out.println(Thread.currentThread()+" "+getClass().getName());
                 try {
                     Thread.sleep(1000);
                 }catch (InterruptedException e){e.fillInStackTrace();}
@@ -71,8 +76,9 @@ public class Game extends MyJFrame{
             //it takes url and takes what is after last '/' so the file name
             //then splits string with dot and takes first element of []
             String nameOfTheFile=mapUrl.substring(mapUrl.lastIndexOf("/") + 1).split("\\.")[0];
-
-            SwingUtilities.invokeLater(()->new EndGame(rozgrywka.getWszystkiePonkty(), nameOfTheFile));
+            if(!rozgrywka.rezygnacjaZWyboru) {
+                SwingUtilities.invokeLater(() -> new EndGame(rozgrywka.getWszystkiePonkty(), nameOfTheFile));
+            }
             System.out.println("GAME OVER");
             u1.stopIt();
             u2.stopIt();
