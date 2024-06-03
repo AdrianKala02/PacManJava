@@ -47,10 +47,10 @@ public class Hero extends ObjCreator implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         //dodać boolean dla ruchu aby postać mogła poruszać się tylko w lewo prawo albo góra dół
-            if(e.getKeyChar()=='w'||e.getKeyCode()==KeyEvent.VK_UP){aclelerationY=-1;aclelerationX=0;super.direction= DIRECTION.N;}
-           else if(e.getKeyChar()=='s'||e.getKeyCode()==KeyEvent.VK_DOWN){aclelerationY=1;aclelerationX=0;super.direction= DIRECTION.S;}
-            if(e.getKeyChar()=='a'||e.getKeyCode()==KeyEvent.VK_LEFT){aclelerationX=-1;aclelerationY=0;super.direction= DIRECTION.W;}
-           else if(e.getKeyChar()=='d'||e.getKeyCode()==KeyEvent.VK_RIGHT){aclelerationX=1;aclelerationY=0;super.direction= DIRECTION.E;}
+            if(e.getKeyChar()=='w'||e.getKeyCode()==KeyEvent.VK_UP){System.out.println("W");aclelerationY=-1;aclelerationX=0;super.direction= DIRECTION.N;}
+           else if(e.getKeyChar()=='s'||e.getKeyCode()==KeyEvent.VK_DOWN){System.out.println("S");aclelerationY=1;aclelerationX=0;super.direction= DIRECTION.S;}
+            if(e.getKeyChar()=='a'||e.getKeyCode()==KeyEvent.VK_LEFT){aclelerationX=-1;System.out.println("A");aclelerationY=0;super.direction= DIRECTION.W;}
+           else if(e.getKeyChar()=='d'||e.getKeyCode()==KeyEvent.VK_RIGHT){aclelerationX=1;System.out.println("D");aclelerationY=0;super.direction= DIRECTION.E;}
 
     }
 

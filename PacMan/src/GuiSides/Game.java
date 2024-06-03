@@ -68,7 +68,7 @@ public class Game extends MyJFrame {
 
         Thread tr= new Thread(()->{
             while (!rozgrywka.isPrzegrana()){
-                System.out.println(Thread.currentThread()+" "+getClass().getName());
+                //!// System.out.println(Thread.currentThread()+" "+getClass().getName());
                 try {
                     Thread.sleep(1000);
                 }catch (InterruptedException e){e.fillInStackTrace();}

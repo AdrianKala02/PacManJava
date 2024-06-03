@@ -29,7 +29,7 @@ public class TimerByThread extends Thread{
    };
     @Override
     public void run() {
-        System.out.println(Thread.currentThread()+" "+getClass().getName());
+        //!// System.out.println(Thread.currentThread()+" "+getClass().getName());
        while (alive) {
            try {
                Thread.sleep(updateInterval);

@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class Map implements Runnable {
     BufferedImage mapaPng;
-    private MyJlable[][] gritGame;
+   volatile private MyJlable[][] gritGame;
     public MyJlable[][] getGritGame() { return gritGame; }
     public void setGritGame(MyJlable[][] gritGame) { this.gritGame = gritGame; }
 
-    private Character[][] gritCharMap;
+    volatile private Character[][] gritCharMap;
     public Character[][] getGritCharMap() { return gritCharMap; }
     public void setGritCharMap(Character[][] gritCharMap) { this.gritCharMap = gritCharMap; }
     private boolean alive;
@@ -312,9 +312,9 @@ public class Map implements Runnable {
     @Override
     public void run() {
         while (alive) {
-            System.out.println(Thread.currentThread()+" "+getClass().getName());
+            //!// System.out.println(Thread.currentThread()+" "+getClass().getName());
             try {
-                Thread.sleep(200);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

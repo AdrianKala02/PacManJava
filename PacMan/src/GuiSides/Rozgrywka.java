@@ -83,7 +83,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         Thread heroPos=new Thread(()-> {
             while (!przegrana) {
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(250);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -118,7 +118,7 @@ public class Rozgrywka extends JPanel implements Runnable {
     @Override
     public void run() {
         while (!przegrana) {
-            System.out.println(Thread.currentThread()+" "+getClass().getName());
+            //!//  System.out.println(Thread.currentThread()+" "+getClass().getName());
             if(getHeroHP()<=0){przegrana=true;}
             try {
                 Thread.sleep(200);

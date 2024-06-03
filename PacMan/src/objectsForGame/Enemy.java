@@ -92,7 +92,7 @@ public class Enemy extends ObjCreator implements Runnable{
         public void run() {
             Random random = new Random();
             while (alive) {
-                System.out.println(Thread.currentThread()+" "+getClass().getName());
+                //!// System.out.println(Thread.currentThread()+" "+getClass().getName());
                 int direction = random.nextInt(4);
                 switch (direction) {
                     case 0:

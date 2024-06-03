@@ -19,7 +19,7 @@ public class Updater<T> extends Thread {
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread()+" "+getClass().getName());
+       //!// System.out.println(Thread.currentThread()+" "+getClass().getName());
 
         while (alive) {
             try {
