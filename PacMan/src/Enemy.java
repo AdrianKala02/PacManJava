@@ -27,6 +27,16 @@ public class Enemy extends ObjCreator implements Runnable{
         aclelerationY=0;
         alive=true;
     }
+    Enemy(Enemy en){
+        super(en.url,en.mapIdColor,en.getIdChar());
+        isUnder=false;
+        isUnderOLDER=false;
+        posX=0;
+        posY=0;
+        aclelerationX=0;
+        aclelerationY=0;
+        alive=true;
+    }
     public void somethingIsThere( int y,int x,char c){
         posYUnder=y;
         posXUnder=x;

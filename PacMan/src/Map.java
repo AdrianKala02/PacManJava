@@ -1,9 +1,11 @@
 import javax.imageio.ImageIO;
+import javax.management.ListenerNotFoundException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Map implements Runnable {
     BufferedImage mapaPng;
@@ -20,15 +22,17 @@ public class Map implements Runnable {
     Blok blokA;
     Hero hero;
     PointToCollect pointA;
-    Enemy enemyA;
+    ArrayList<Enemy> allEnemy;
+    Enemy en;
 
-    Map(String url, Blok blokA, Hero hero, PointToCollect pointA, Enemy enemyA) {
+    Map(String url, Blok blokA, Hero hero, PointToCollect pointA,Enemy en) {
         eToH=false;
         hToE=false;
         this.blokA = blokA;
         this.hero = hero;
         this.pointA = pointA;
-        this.enemyA = enemyA;
+        allEnemy = new ArrayList<>();
+        this.en=en;
         try {
             mapaPng = ImageIO.read(new File(url));
         } catch (IOException e) {
@@ -47,9 +51,10 @@ public class Map implements Runnable {
                     gritCharMap[y][x] = blokA.getIdChar();
                 } else if (pointA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
                     gritCharMap[y][x] = pointA.getIdChar();
-                } else if (enemyA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
-                    gritCharMap[y][x] = enemyA.getIdChar();
+                }else if (en.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
+                    gritCharMap[y][x] = en.getIdChar();
                 }
+
             }
         }
     }
@@ -77,11 +82,12 @@ public class Map implements Runnable {
                     gritCharMap[y][x] = blokA.getIdChar();
                 } else if (pointA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
                     gritCharMap[y][x] = pointA.getIdChar();
-                } else if (enemyA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
-                    gritCharMap[y][x] = enemyA.getIdChar();
+                } else if (en.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
+                    gritCharMap[y][x] = en.getIdChar();
                 }
             }
         }
+
         for (int y = 0; y < gritCharMap.length; y++) {
             for (int x = 0; x < gritCharMap[0].length; x++) {
                 MyJlable label = new MyJlable();
@@ -93,11 +99,17 @@ public class Map implements Runnable {
                     label.setIcon(blokA.imageIcon);
                 } else if (gritCharMap[y][x] == pointA.getIdChar()) {
                     label.setIcon(pointA.imageIcon);
-                } else if (gritCharMap[y][x] == enemyA.getIdChar()) {
-                    enemyA.setPosX(x); // Zamienione współrzędne
-                    enemyA.setPosY(y);
-                    label.setIcon(enemyA.imageIcon);
                 }
+
+                if (gritCharMap[y][x] == en.getIdChar()) {
+
+                    Enemy enK= new Enemy(en);
+                    enK.setPosX(x); // Zamienione współrzędne
+                    enK.setPosY(y);
+                    label.setIcon(enK.imageIcon);
+                    allEnemy.add(enK);
+                }
+
                 gritGame[y][x] = label;
                 gbc.gridx = x;
                 gbc.gridy = y;
@@ -106,8 +118,9 @@ public class Map implements Runnable {
         }
     }
 
-    public void updatePos() {
-        int oldX = hero.getPosX();
+    //i need sleep so for now Quick deevolution where pacman and ghost see each other as blocks
+    public void updatePos(){
+                int oldX = hero.getPosX();
         int oldY = hero.getPosY();
 
         int newX = oldX + hero.getAclelerationX();
@@ -116,100 +129,154 @@ public class Map implements Runnable {
         if (gritCharMap[newY][newX] != 'B'&&gritCharMap[newY][newX] != 'E') {
             gritCharMap[oldY][oldX] = 'X';
 
-              if (gritCharMap[newY][newX] == 'P') {
+            if (gritCharMap[newY][newX] == 'P') {
                 hero.addPonkty(1);
                 gritCharMap[oldY][oldX] = 'X';
             }
-
-            gritCharMap[newY][newX] = hero.getIdChar();
-            hero.setPosX(newX);
+            gritCharMap[newY][newX]=hero.getIdChar();
             hero.setPosY(newY);
-        } else if (gritCharMap[newY][newX] == 'E'||(enemyA.getPosX()+enemyA.getAclelerationX()==hero.getPosX())&&(enemyA.getPosY()+enemyA.getAclelerationY()==hero.getPosY())) {
-           hToE=true;
-        } else {
+            hero.setPosX(newX);
+    }else {
             hero.setPosX(oldX);
             hero.setPosY(oldY);
         }
     }
-
-
-
-    public void updatePosE() {
-        int newX = enemyA.getPosX() + enemyA.getAclelerationX();
-        int newY = enemyA.getPosY() + enemyA.getAclelerationY();
-
-        // Sprawdzenie, czy nowa pozycja nie jest blokadą ('B')
-        if (gritCharMap[newY][newX] != 'B'&&gritCharMap[newY][newX] != 'H') {
-
-
-            // Aktualizacja poprzedniej pozycji przeciwnika na mapie
-            if (enemyA.isUnder) {
-                gritCharMap[enemyA.getPosY()][enemyA.getPosX()] = enemyA.charUnder;
-            } else {
-                gritCharMap[enemyA.getPosY()][enemyA.getPosX()] = 'X';
-            }
-
-            // Jeśli przeciwnik porusza się przez punkt ('P')
-            if (gritCharMap[newY][newX] == 'P') {
-                enemyA.charUnder = 'P';
-                enemyA.isUnder = true;
-            }
-//            if (gritCharMap[newY][newX] == 'H') {
-//                gritCharMap[ enemyA.getPosY()][ enemyA.getPosX()]='H';
+//    public void updatePos() {
+//        int oldX = hero.getPosX();
+//        int oldY = hero.getPosY();
+//
+//        int newX = oldX + hero.getAclelerationX();
+//        int newY = oldY + hero.getAclelerationY();
+//
+//        if (gritCharMap[newY][newX] != 'B'&&gritCharMap[newY][newX] != 'E') {
+//            gritCharMap[oldY][oldX] = 'X';
+//
+//            if (gritCharMap[newY][newX] == 'P') {
+//                hero.addPonkty(1);
+//                gritCharMap[oldY][oldX] = 'X';
 //            }
-            else {
-                enemyA.isUnder = false;
-            }
+//
+//            gritCharMap[newY][newX] = hero.getIdChar();
+//            hero.setPosX(newX);
+//            hero.setPosY(newY);
+//        }else if (gritCharMap[newY][newX] == 'E') {
+//                hToE = true;
+//        }else {
+//
+//            hero.setPosX(oldX);
+//            hero.setPosY(oldY);
+//
+//        }
+//
+//    }
 
-            // Przeniesienie przeciwnika na nową pozycję
-            enemyA.setPosX(newX);
-            enemyA.setPosY(newY);
-            gritCharMap[newY][newX] = 'E';
-        }else if(gritCharMap[newY][newX] == 'H'||(hero.getPosX()+hero.getAclelerationX()==enemyA.getPosX())&&(hero.getPosY()+hero.getAclelerationY()==enemyA.getPosY())){
-              eToH=true;
+        public void updatePosE(){
+        for(Enemy enemy:allEnemy){
+            int newX=enemy.getPosX()+enemy.getAclelerationX();
+            int newY=enemy.getPosY()+enemy.getAclelerationY();
+
+            if(gritCharMap[newY][newX]!='B'&&gritCharMap[newY][newX]!='H'){
+
+
+                if(enemy.isUnder){
+                    gritCharMap[enemy.getPosY()][enemy.getPosX()]=enemy.charUnder;
+                }else {
+                    gritCharMap[enemy.getPosY()][enemy.getPosX()]='X';
+                }
+                if(gritCharMap[newY][newX]=='P'){
+                    enemy.charUnder='P';
+                    enemy.isUnder=true;
+                }else {
+                    enemy.isUnder=false;
+                }
+                enemy.setPosX(newX);
+                enemy.setPosY(newY);
+                gritCharMap[newY][newX]='E';
+            }else if(gritCharMap[newY][newX]=='H'){
+                hero.addZycia(-1);
+            }
+        }
+        }
+//    public void updatePosE() {
+//        for (Enemy enemy : allEnemy) {
+//            int oldX = enemy.getPosX();
+//            int oldY = enemy.getPosY();
+//
+//            int newX = oldX + enemy.getAclelerationX();
+//            int newY = oldY + enemy.getAclelerationY();
+//
+//            if (gritCharMap[newY][newX] != 'B' && gritCharMap[newY][newX] != 'H') {
+//                if (enemy.isUnder) {
+//                    gritCharMap[oldY][oldX] = enemy.charUnder;
+//                } else {
+//                    gritCharMap[oldY][oldX] = 'X';
+//                }
+//
+//                if (gritCharMap[newY][newX] == 'P') {
+//                    enemy.charUnder = 'P';
+//                    enemy.isUnder = true;
+//                } else {
+//                    enemy.isUnder = false;
+//                }
+//
+//                gritCharMap[newY][newX] = 'E';
+//                enemy.setPosX(newX);
+//                enemy.setPosY(newY);
+//            } else if (gritCharMap[newY][newX] == 'H') {
+//                eToH = true;
+//            }
+//        }
+//    }
+
+
+    public void colisionEvade() {
+        if (eToH || hToE) {
+            flipPos();
+            hero.addZycia(-1);
+            eToH = false;
+            hToE = false;
         }
     }
 
-public void colisionEvade(){
-        if(eToH||hToE){
-            flipPos();
-            hero.addZycia(-1);
-            eToH=false;
-            hToE=false;
+    public void flipPos() {
+        for (Enemy enemy : allEnemy) {
+            int tmpX = hero.getPosX();
+            int tmpY = hero.getPosY();
+
+            hero.setPosX(enemy.getPosX());
+            hero.setPosY(enemy.getPosY());
+            gritCharMap[enemy.getPosY()][enemy.getPosX()] = 'H';
+
+            enemy.setPosX(tmpX);
+            enemy.setPosY(tmpY);
+            gritCharMap[tmpY][tmpX] = 'E';
         }
-}
-    public void flipPos(){
-        int tmpX=hero.getPosX();
-        int tmpY=hero.getPosY();
-
-        hero.setPosX(enemyA.getPosX());
-        hero.setPosY(enemyA.getPosY());
-        gritCharMap[enemyA.getPosY()][enemyA.getPosX()]='H';
-
-        enemyA.setPosX(tmpX);
-        enemyA.setPosY(tmpY);
-        gritCharMap[tmpY][tmpX]='E';
     }
 
     public void refresh() {
         SwingUtilities.invokeLater(() -> {
             for (int y = 0; y < gritGame.length; y++) {
                 for (int x = 0; x < gritGame[0].length; x++) {
+                    gritGame[y][x].setIcon(null);
+
                     if (gritCharMap[y][x] == hero.getIdChar()) {
                         gritGame[y][x].setIcon(hero.imageIcon);
                     } else if (gritCharMap[y][x] == blokA.getIdChar()) {
                         gritGame[y][x].setIcon(blokA.imageIcon);
                     } else if (gritCharMap[y][x] == pointA.getIdChar()) {
                         gritGame[y][x].setIcon(pointA.imageIcon);
-                    } else if (gritCharMap[y][x] == enemyA.getIdChar()) {
-                        gritGame[y][x].setIcon(enemyA.imageIcon);
-                    } else {
-                        gritGame[y][x].setIcon(null);
+                    }
+
+                    for (Enemy enemy : allEnemy) {
+                        if(y==enemy.getPosY()&&x== enemy.getPosX()) {
+                            gritGame[y][x].setIcon(enemy.imageIcon);
+                        }
                     }
                 }
             }
         });
     }
+
 
     @Override
     public void run() {
@@ -219,7 +286,7 @@ public void colisionEvade(){
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-                refresh();
+            refresh();
         }
     }
 }

@@ -15,6 +15,7 @@ public class Rozgrywka extends JPanel implements Runnable {
     public void setPrzegrana(){przegrana=false;}
 
     Hero hero;
+    ArrayList<Enemy> enemyGang;
     Enemy enemy;
     Blok blokA;
     PointToCollect pointA;
@@ -24,7 +25,7 @@ public class Rozgrywka extends JPanel implements Runnable {
     public int getHeroPoints(){return hero.getPonkty();}
     public int getHeroHP(){return hero.getZycia();}
     AnimateHandler heroAnimateHandler;
-    AnimateHandler enemyAnimateHandler;
+
     Rozgrywka(String mapUrl) {
         przegrana = false;
         setBackground(new Color(98, 158, 225));
@@ -36,16 +37,18 @@ public class Rozgrywka extends JPanel implements Runnable {
         pointA=new PointToCollect(1,"./PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
         heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 200, ANIAMTIONTYPE.ANIMATIONPINGPONG);
-        enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
+       // AnimateHandler enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
 
         mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
 //        Thread th=new Thread(mapaTest1);
 //        th.start();
-
-        Thread enemyMove=new Thread(enemy);
-        enemyMove.start();
-
+        enemyGang=mapaTest1.allEnemy;
+        for(Enemy enemy1:enemyGang) {
+            new AnimateHandler(enemy1.spriteSheet,enemy1,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
+            Thread enemyMove = new Thread(enemy1);
+            enemyMove.start();
+        }
 
     }
     @Override
@@ -62,7 +65,15 @@ public class Rozgrywka extends JPanel implements Runnable {
             mapaTest1.updatePosE();
             mapaTest1.colisionEvade();
             mapaTest1.refresh();
-            if(mapaTest1.allPointsCollected(pointA)&&!enemy.isUnder){
+
+            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
+                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
+                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
+                }
+                System.out.println();
+            }
+            System.out.println("//+======================+//");
+            if(mapaTest1.allPointsCollected(pointA)){
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();
                 hero.setPonkty(0);

@@ -14,16 +14,16 @@ public class GameMapChooser extends MyJFrame{
 
 
         MyJRadioButton mapa1=new MyJRadioButton("map1");
-        mapa1.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap1.png");
+        mapa1.setActionCommand("./PacManAsets/Maps/testMap1.png");
         mapa1.setSelected(true);
         MyJRadioButton mapa2=new MyJRadioButton("map2");
-        mapa2.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap2.png");
+        mapa2.setActionCommand("./PacManAsets/Maps/testMap2.png");
         MyJRadioButton mapa3=new MyJRadioButton("map3");
-        mapa3.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap3.png");
+        mapa3.setActionCommand("./PacManAsets/Maps/testMap3.png");
         MyJRadioButton mapa4=new MyJRadioButton("map4");
-        mapa4.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap4.png");
+        mapa4.setActionCommand("./PacManAsets/Maps/testMap4.png");
         MyJRadioButton mapa5=new MyJRadioButton("map5");
-        mapa5.setActionCommand("/Users/adriankala/Desktop/PacManAsets/Maps/testMap5.png");
+        mapa5.setActionCommand("./PacManAsets/Maps/testMap5.png");
 
 
         grupaMap= new ButtonGroup();
