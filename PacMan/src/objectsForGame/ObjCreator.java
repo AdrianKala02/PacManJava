@@ -56,12 +56,33 @@ public class ObjCreator{
 
     String url;
 
+   private int scaledX;
+   private int scaledY;
+
+    public int getScaledX() {
+        return scaledX;
+    }
+
+    public void setScaledX(int scaledX) {
+        this.scaledX = scaledX;
+    }
+
+    public int getScaledY() {
+        return scaledY;
+    }
+
+    public void setScaledY(int scaledY) {
+        this.scaledY = scaledY;
+    }
+
     public ImageIcon imageIcon;
 
     public ObjCreator(String url,ColorRGB mapIdColor,Character idChar){
         this.url=url;
         this.mapIdColor=mapIdColor;
         this.idChar=idChar;
+        scaledX=32;
+        scaledY=32;
         posX=0;
         posY=0;
         width=32;

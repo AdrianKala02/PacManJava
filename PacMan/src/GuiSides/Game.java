@@ -88,8 +88,6 @@ public class Game extends MyJFrame {
             dispose();
         });
         tr.start();
-
-
         panel.add(tabliczkaCzasu);
         panel.add(tabliczkaWszystkichPunktow);
         panel.add(tabliczkaPunktow);
@@ -99,6 +97,7 @@ public class Game extends MyJFrame {
 
         add(panel,"North");
         SwingUtilities.invokeLater( ()->add(rozgrywka,"Center"));
+
 
     }
 }

@@ -154,6 +154,7 @@ public class Enemy extends ObjCreator implements Runnable{
             Random random = new Random();
             while (alive){
                 int chanceToDropPower = random.nextInt(4);
+                System.out.println("asdasd: "+chanceToDropPower);
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

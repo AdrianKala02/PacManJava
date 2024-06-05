@@ -1,5 +1,7 @@
 package toolBox;
 
+import GuiSides.Rozgrywka;
+import MyGui.MyJFrame;
 import MyGui.MyJlable;
 import objectsForGame.*;
 
@@ -27,6 +29,10 @@ import java.util.ArrayList;
                         //S - shield
                         //Q - speedster
 public class Map implements Runnable {
+
+
+    public int heightRozgrywka;
+    public int widthRozgrywka;
     BufferedImage mapaPng;
    volatile private MyJlable[][] gritGame;
     public MyJlable[][] getGritGame() { return gritGame; }
@@ -45,6 +51,11 @@ public class Map implements Runnable {
     public ArrayList<Enemy> allEnemy;
     Enemy en;
 
+    ObjCreator freezBOOST;
+    ObjCreator goHomeBOOST;
+    ObjCreator shiledBOOST;
+    ObjCreator slowThinkBOOST;
+    ObjCreator speedsterBOOST;
     SuperPower superPower;
 
     public void stopIt(){alive=false;}
@@ -67,6 +78,16 @@ public class Map implements Runnable {
         gritCharMap = new Character[mapaPng.getHeight()][mapaPng.getWidth()]; // Zamienione wymiary
         gritGame = new MyJlable[gritCharMap.length][gritCharMap[0].length];
 
+
+
+        freezBOOST=new ObjCreator("./PacManAsets/Boost/freazer-BOOST.png",new ColorRGB(1,1,1),'F');
+        goHomeBOOST=new ObjCreator("./PacManAsets/Boost/goHome-BOOST.png",new ColorRGB(1,1,1),'T');
+        shiledBOOST=new ObjCreator("./PacManAsets/Boost/shield-BOOST.png",new ColorRGB(1,1,1),'S');
+        slowThinkBOOST=new ObjCreator("./PacManAsets/Boost/slowThink-BOOST.png",new ColorRGB(1,1,1),'A');
+        speedsterBOOST=new ObjCreator("./PacManAsets/Boost/speedster-BOOST.png",new ColorRGB(1,1,1),'Q');
+
+
+
         loadPngToCharMap();
     }
 
@@ -87,6 +108,7 @@ public class Map implements Runnable {
     }
 
     public void inicjal(JPanel rozgrywka) {
+
         GridBagConstraints gbc = new GridBagConstraints();
 
         loadPngToCharMap();
@@ -135,6 +157,19 @@ public class Map implements Runnable {
         }
     }
 
+    public void powerBoostScale(int heightRozgrywka,int widthRozgrywka){
+        this.widthRozgrywka=widthRozgrywka;
+        this.heightRozgrywka=heightRozgrywka;
+
+        int cellWidth = widthRozgrywka / gritGame[0].length;
+        int cellHeight = heightRozgrywka / gritGame.length;
+        freezBOOST.imageIcon=new ImageIcon(freezBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+        slowThinkBOOST.imageIcon=new ImageIcon(slowThinkBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+        goHomeBOOST.imageIcon=new ImageIcon(goHomeBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+        shiledBOOST.imageIcon=new ImageIcon(shiledBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+        speedsterBOOST.imageIcon=new ImageIcon(speedsterBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+
+    }
     public void inicjalV2(JPanel rozgrywka) {
         GridBagConstraints gbc = new GridBagConstraints();
         loadPngToCharMap();
@@ -163,9 +198,8 @@ public class Map implements Runnable {
             }
         }
     }
-    //i need sleep so for now Quick deevolution where pacman and ghost see each other as blocks
     public void updatePos(){
-                int oldX = hero.getPosX();
+        int oldX = hero.getPosX();
         int oldY = hero.getPosY();
 
         int newX = oldX + hero.getAclelerationX();
@@ -199,34 +233,6 @@ public class Map implements Runnable {
             hero.setPosY(oldY);
         }
     }
-//    public void updatePos() {
-//        int oldX = hero.getPosX();
-//        int oldY = hero.getPosY();
-//
-//        int newX = oldX + hero.getAclelerationX();
-//        int newY = oldY + hero.getAclelerationY();
-//
-//        if (gritCharMap[newY][newX] != 'B'&&gritCharMap[newY][newX] != 'E') {
-//            gritCharMap[oldY][oldX] = 'X';
-//
-//            if (gritCharMap[newY][newX] == 'P') {
-//                hero.addPonkty(1);
-//                gritCharMap[oldY][oldX] = 'X';
-//            }
-//
-//            gritCharMap[newY][newX] = hero.getIdChar();
-//            hero.setPosX(newX);
-//            hero.setPosY(newY);
-//        }else if (gritCharMap[newY][newX] == 'E') {
-//                hToE = true;
-//        }else {
-//
-//            hero.setPosX(oldX);
-//            hero.setPosY(oldY);
-//
-//        }
-//
-//    }
 
         public void updatePosE(){
         if(notFreezed) {
@@ -245,7 +251,23 @@ public class Map implements Runnable {
                     if (gritCharMap[newY][newX] == 'P') {
                         enemy.charUnder = 'P';
                         enemy.isUnder = true;
-                    } else {
+                    } else if (gritCharMap[newY][newX] == 'F') {
+                        enemy.charUnder = 'F';
+                        enemy.isUnder = true;
+                    } else if (gritCharMap[newY][newX] == 'A') {
+                        enemy.charUnder = 'A';
+                        enemy.isUnder = true;
+                    } else if (gritCharMap[newY][newX] == 'S') {
+                        enemy.charUnder = 'S';
+                        enemy.isUnder = true;
+                    } else if (gritCharMap[newY][newX] == 'Q') {
+                        enemy.charUnder = 'Q';
+                        enemy.isUnder = true;
+                    } else if (gritCharMap[newY][newX] == 'T') {
+                        enemy.charUnder = 'T';
+                        enemy.isUnder = true;
+                    }
+                    else {
                         enemy.isUnder = false;
                     }
                     enemy.setPosX(newX);
@@ -254,43 +276,14 @@ public class Map implements Runnable {
                 } else if (gritCharMap[newY][newX] == 'H') {
                     hero.addZycia(-1);
                 }
-                if(enemy.dropThatBomb){
+                if(enemy.dropThatBomb&&!enemy.isUnder&&gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=='X'){
                     gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=enemy.getGift();
                     enemy.dropThatBomb=false;
                 }
             }
         }
         }
-//    public void updatePosE() {
-//        for (Enemy enemy : allEnemy) {
-//            int oldX = enemy.getPosX();
-//            int oldY = enemy.getPosY();
-//
-//            int newX = oldX + enemy.getAclelerationX();
-//            int newY = oldY + enemy.getAclelerationY();
-//
-//            if (gritCharMap[newY][newX] != 'B' && gritCharMap[newY][newX] != 'H') {
-//                if (enemy.isUnder) {
-//                    gritCharMap[oldY][oldX] = enemy.charUnder;
-//                } else {
-//                    gritCharMap[oldY][oldX] = 'X';
-//                }
-//
-//                if (gritCharMap[newY][newX] == 'P') {
-//                    enemy.charUnder = 'P';
-//                    enemy.isUnder = true;
-//                } else {
-//                    enemy.isUnder = false;
-//                }
-//
-//                gritCharMap[newY][newX] = 'E';
-//                enemy.setPosX(newX);
-//                enemy.setPosY(newY);
-//            } else if (gritCharMap[newY][newX] == 'H') {
-//                eToH = true;
-//            }
-//        }
-//    }
+
     public void colisionEvade() {
         if (eToH || hToE) {
             flipPos();
@@ -317,24 +310,67 @@ public class Map implements Runnable {
         }
     }
 
+    public void reSize(int height,int width){
+        int cellWidth = width / gritGame[0].length;
+        int cellHeight = height / gritGame.length;
+        for (int y = 0; y < gritGame.length; y++) {
+            for (int x = 0; x < gritGame[0].length; x++) {
+                if (gritCharMap[y][x] == hero.getIdChar()) {
+                    hero.setScaledX(cellWidth);
+                    hero.setScaledY(cellHeight);
+                    hero.imageIcon=new ImageIcon(hero.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                } else if (gritCharMap[y][x] == blokA.getIdChar()) {
+                    blokA.imageIcon=new ImageIcon(blokA.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                } else if (gritCharMap[y][x] == pointA.getIdChar()) {
+                    pointA.imageIcon=new ImageIcon(pointA.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                } else if (gritCharMap[y][x] == en.getIdChar()){
+                    for (Enemy enemy : allEnemy) {
+                        if(y==enemy.getPosY()&&x==enemy.getPosX()) {
+                            enemy.setScaledX(cellWidth);
+                            enemy.setScaledY(cellHeight);
+                            enemy.imageIcon=new ImageIcon(enemy.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                        }
+                    }
+                    //BOOSTERS
+                    //F - freez
+                    //A - slowThink
+                    //T - goHome
+                    //S - shield
+                    //Q - speedster
+                }else if (gritCharMap[y][x] == 'F') {
+                    freezBOOST.imageIcon=new ImageIcon(freezBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                }else if (gritCharMap[y][x] == 'A') {
+                    slowThinkBOOST.imageIcon=new ImageIcon(slowThinkBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                }else if (gritCharMap[y][x] == 'T') {
+                    goHomeBOOST.imageIcon=new ImageIcon(goHomeBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                }else if (gritCharMap[y][x] == 'S') {
+                    shiledBOOST.imageIcon=new ImageIcon(shiledBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                }else if (gritCharMap[y][x] == 'Q') {
+                    speedsterBOOST.imageIcon=new ImageIcon(speedsterBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                }
+
+
+                else {
+                    gritGame[y][x].setIcon(null);
+                }
+            }
+        }
+    }
+
     public void refresh() {
         SwingUtilities.invokeLater(() -> {
-            int panelWidth = gritGame[0][0].getParent().getWidth();
-            int panelHeight = gritGame[0][0].getParent().getHeight();
-            int cellWidth = panelWidth / gritGame[0].length;
-            int cellHeight = panelHeight / gritGame.length;
             for (int y = 0; y < gritGame.length; y++) {
                 for (int x = 0; x < gritGame[0].length; x++) {
                     if (gritCharMap[y][x] == hero.getIdChar()) {
-                        gritGame[y][x].setIcon(new ImageIcon(hero.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
+                        gritGame[y][x].setIcon(hero.imageIcon);
                     } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                        gritGame[y][x].setIcon(new ImageIcon(blokA.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
+                        gritGame[y][x].setIcon(blokA.imageIcon);
                     } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                        gritGame[y][x].setIcon(new ImageIcon(pointA.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
+                        gritGame[y][x].setIcon(pointA.imageIcon);
                     } else if (gritCharMap[y][x] == en.getIdChar()){
                         for (Enemy enemy : allEnemy) {
                             if(y==enemy.getPosY()&&x==enemy.getPosX()) {
-                                gritGame[y][x].setIcon(new ImageIcon(enemy.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
+                                gritGame[y][x].setIcon(enemy.imageIcon);
 
                             }
                         }
@@ -345,18 +381,16 @@ public class Map implements Runnable {
                         //S - shield
                         //Q - speedster
                     }else if (gritCharMap[y][x] == 'F') {
-                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/freazer-BOOST.png"));
+                        gritGame[y][x].setIcon(freezBOOST.imageIcon);
                     }else if (gritCharMap[y][x] == 'A') {
-                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/slowThink-BOOST.png"));
+                        gritGame[y][x].setIcon(slowThinkBOOST.imageIcon);
                     }else if (gritCharMap[y][x] == 'T') {
-                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/goHome-BOOST.png"));
+                        gritGame[y][x].setIcon(goHomeBOOST.imageIcon);
                     }else if (gritCharMap[y][x] == 'S') {
-                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/shield-BOOST.png"));
+                        gritGame[y][x].setIcon(shiledBOOST.imageIcon);
                     }else if (gritCharMap[y][x] == 'Q') {
-                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/speedster-BOOST.png"));
+                        gritGame[y][x].setIcon(speedsterBOOST.imageIcon);
                     }
-
-
                     else {
                         gritGame[y][x].setIcon(null);
                     }

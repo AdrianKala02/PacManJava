@@ -11,6 +11,9 @@ import toolBox.Map;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 public class Rozgrywka extends JPanel implements Runnable {
@@ -46,13 +49,12 @@ public class Rozgrywka extends JPanel implements Runnable {
         pointA=new PointToCollect(1,"./PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
         heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 150, ANIAMTIONTYPE.ANIMATIONPINGPONG);
-       // AnimateHandler enemyAnimateHandler=new AnimateHandler(enemy.spriteSheet,enemy,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
-
         mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();
         enemyGang=mapaTest1.allEnemy;
+        setSize(600,600);
         for(Enemy enemy1:enemyGang) {
             new AnimateHandler(enemy1.spriteSheet,enemy1,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
             Thread enemyMove = new Thread(enemy1);
@@ -113,6 +115,14 @@ public class Rozgrywka extends JPanel implements Runnable {
             }
         });
         colisonEv.start();
+
+        mapaTest1.powerBoostScale(getHeight(),getWidth());
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                mapaTest1.reSize(getSize().height,getSize().width);
+            }
+        });
         setLayout(new GridLayout(mapaTest1.getGritCharMap().length,mapaTest1.getGritCharMap()[0].length));
     }
 
@@ -126,13 +136,13 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
-                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
-                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
-                }
-                System.out.println();
-            }
-            System.out.println("//+======================+//");
+//            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
+//                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
+//                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
+//                }
+//                System.out.println();
+//            }
+//            System.out.println("//+======================+//");
         }
         mapaTest1.stopIt();
         for(Enemy enemy:mapaTest1.allEnemy){

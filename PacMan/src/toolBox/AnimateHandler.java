@@ -32,8 +32,6 @@ public class AnimateHandler{
         this.objCreator=objCreator;
         objCreator.sprite=objCreator.spriteSheet.getSubimage(0,0,objCreator.getWidth(),objCreator.getHeight());
         objCreator.imageIcon=new ImageIcon(objCreator.sprite);
-       // objCreator.imageIcon = new ImageIcon( objCreator.imageIcon.getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH));  // transform it back
-
         updater=new Updater<>(this::animationChooser,objCreator::setImageIcon,updateInterval);
         updater.start();
     }
@@ -44,11 +42,14 @@ public class AnimateHandler{
             default: throw new IllegalStateException("Uwaga, podany typ animacji nie istnieje: ->"+aType.name());
         }
     }
+
+
     private ImageIcon animationLoop(){
         if(currentFrame>=animateFrames)currentFrame=0;
-        ImageIcon sprite=new ImageIcon(objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight()));
+        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
+        ImageIcon img= new ImageIcon(sprite.getScaledInstance(objCreator.getScaledX(),objCreator.getScaledY(),Image.SCALE_SMOOTH));
         currentFrame++;
-        return sprite;
+        return img;
     }
     private ImageIcon animationPingPong(){
         /*begin*///making ping pong
@@ -61,7 +62,8 @@ public class AnimateHandler{
 
         if (currentFrame == 0) {directionGoLeft=true;}
         /*end*/
-        ImageIcon sprite=new ImageIcon(objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight()));
-        return sprite;
+        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
+        ImageIcon img= new ImageIcon(sprite.getScaledInstance(objCreator.getScaledX(),objCreator.getScaledY(),Image.SCALE_SMOOTH));
+        return img;
     }
 }
