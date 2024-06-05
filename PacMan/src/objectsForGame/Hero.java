@@ -28,6 +28,33 @@ public class Hero extends ObjCreator implements KeyListener{
     private int aclelerationX;
     private int aclelerationY;
 
+    private volatile boolean coverToDmg;
+    private int speed;
+    private int iniciatedSpeed;
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public boolean isCoverToDmg() {
+        return coverToDmg;
+    }
+
+    public void setCoverToDmg(boolean coverToDmg) {
+        this.coverToDmg = coverToDmg;
+    }
+
+    public int getIniciatedSpeed() {
+        return iniciatedSpeed;
+    }
+
+    public void setIniciatedSpeed(int iniciatedSpeed) {
+        this.iniciatedSpeed = iniciatedSpeed;
+    }
 
     public Hero(String url, ColorRGB mapIdColor, Character idChar) {
         super(url,mapIdColor,idChar);
@@ -37,6 +64,9 @@ public class Hero extends ObjCreator implements KeyListener{
         aclelerationY=0;
         ponkty=0;
         zycia=3;
+        iniciatedSpeed=250;
+        speed=iniciatedSpeed;
+        coverToDmg=false;
     }
 
     @Override

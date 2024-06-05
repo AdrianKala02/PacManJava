@@ -1,10 +1,7 @@
 package toolBox;
 
 import MyGui.MyJlable;
-import objectsForGame.Blok;
-import objectsForGame.Enemy;
-import objectsForGame.Hero;
-import objectsForGame.PointToCollect;
+import objectsForGame.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,12 +11,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+
+                    //GRIT CHAR MAP LEGEND
+                        //H - hero/pacman
+                        //E - enemy/ghost
+                        //P - point
+                        //B - blok/wall
+
+
+                    //BOOSTERS
+                        //F - freez
+                        //A - slowThink
+                        //T - goHome
+                        //S - shield
+                        //Q - speedster
 public class Map implements Runnable {
     BufferedImage mapaPng;
    volatile private MyJlable[][] gritGame;
     public MyJlable[][] getGritGame() { return gritGame; }
     public void setGritGame(MyJlable[][] gritGame) { this.gritGame = gritGame; }
 
+    public boolean notFreezed;
     volatile private Character[][] gritCharMap;
     public Character[][] getGritCharMap() { return gritCharMap; }
     public void setGritCharMap(Character[][] gritCharMap) { this.gritCharMap = gritCharMap; }
@@ -32,8 +45,11 @@ public class Map implements Runnable {
     public ArrayList<Enemy> allEnemy;
     Enemy en;
 
+    SuperPower superPower;
+
     public void stopIt(){alive=false;}
     public Map(String url, Blok blokA, Hero hero, PointToCollect pointA, Enemy en) {
+        superPower=new SuperPower();
         alive=true;
         eToH=false;
         hToE=false;
@@ -41,6 +57,7 @@ public class Map implements Runnable {
         this.hero = hero;
         this.pointA = pointA;
         allEnemy = new ArrayList<>();
+        notFreezed=true;
         this.en=en;
         try {
             mapaPng = ImageIO.read(new File(url));
@@ -160,6 +177,16 @@ public class Map implements Runnable {
             if (gritCharMap[newY][newX] == 'P') {
                 hero.addPonkty(1);
                 gritCharMap[oldY][oldX] = 'X';
+            } else if (gritCharMap[newY][newX] == 'F') {
+                superPower.freazer(this);
+            }else if (gritCharMap[newY][newX] == 'A') {
+                superPower.slowThink(allEnemy);
+            }else if (gritCharMap[newY][newX] == 'T') {
+                superPower.goHome(allEnemy);
+            }else if (gritCharMap[newY][newX] == 'S') {
+                superPower.sheeldIt(hero);
+            }else if (gritCharMap[newY][newX] == 'Q') {
+                superPower.speedster(hero);
             }
             gritCharMap[newY][newX]=hero.getIdChar();
             hero.setPosY(newY);
@@ -202,29 +229,35 @@ public class Map implements Runnable {
 //    }
 
         public void updatePosE(){
-        for(Enemy enemy:allEnemy){
-            int newX=enemy.getPosX()+enemy.getAclelerationX();
-            int newY=enemy.getPosY()+enemy.getAclelerationY();
+        if(notFreezed) {
+            for (Enemy enemy : allEnemy) {
+                enemy.setOldPosX(enemy.getPosX());
+                enemy.setOldPosY(enemy.getPosY());
+                int newX = enemy.getPosX() + enemy.getAclelerationX();
+                int newY = enemy.getPosY() + enemy.getAclelerationY();
 
-            if(gritCharMap[newY][newX]!='B'&&gritCharMap[newY][newX]!='E'&&gritCharMap[newY][newX]!='H'){
-
-
-                if(enemy.isUnder){
-                    gritCharMap[enemy.getPosY()][enemy.getPosX()]=enemy.charUnder;
-                }else {
-                    gritCharMap[enemy.getPosY()][enemy.getPosX()]='X';
+                if (gritCharMap[newY][newX] != 'B' && gritCharMap[newY][newX] != 'E' && gritCharMap[newY][newX] != 'H') {
+                    if (enemy.isUnder) {
+                        gritCharMap[enemy.getPosY()][enemy.getPosX()] = enemy.charUnder;
+                    } else {
+                        gritCharMap[enemy.getPosY()][enemy.getPosX()] = 'X';
+                    }
+                    if (gritCharMap[newY][newX] == 'P') {
+                        enemy.charUnder = 'P';
+                        enemy.isUnder = true;
+                    } else {
+                        enemy.isUnder = false;
+                    }
+                    enemy.setPosX(newX);
+                    enemy.setPosY(newY);
+                    gritCharMap[newY][newX] = 'E';
+                } else if (gritCharMap[newY][newX] == 'H') {
+                    hero.addZycia(-1);
                 }
-                if(gritCharMap[newY][newX]=='P'){
-                    enemy.charUnder='P';
-                    enemy.isUnder=true;
-                }else {
-                    enemy.isUnder=false;
+                if(enemy.dropThatBomb){
+                    gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=enemy.getGift();
+                    enemy.dropThatBomb=false;
                 }
-                enemy.setPosX(newX);
-                enemy.setPosY(newY);
-                gritCharMap[newY][newX]='E';
-            }else if(gritCharMap[newY][newX]=='H'){
-                hero.addZycia(-1);
             }
         }
         }
@@ -258,12 +291,12 @@ public class Map implements Runnable {
 //            }
 //        }
 //    }
-
-
     public void colisionEvade() {
         if (eToH || hToE) {
             flipPos();
-            hero.addZycia(-1);
+            if(!hero.isCoverToDmg()) {
+                hero.addZycia(-1);
+            }
             eToH = false;
             hToE = false;
         }
@@ -300,7 +333,26 @@ public class Map implements Runnable {
                                 gritGame[y][x].setIcon(enemy.imageIcon);
                             }
                         }
-                    }else {
+                        //BOOSTERS
+                        //F - freez
+                        //A - slowThink
+                        //T - goHome
+                        //S - shield
+                        //Q - speedster
+                    }else if (gritCharMap[y][x] == 'F') {
+                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/freazer-BOOST.png"));
+                    }else if (gritCharMap[y][x] == 'A') {
+                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/slowThink-BOOST.png"));
+                    }else if (gritCharMap[y][x] == 'T') {
+                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/goHome-BOOST.png"));
+                    }else if (gritCharMap[y][x] == 'S') {
+                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/shield-BOOST.png"));
+                    }else if (gritCharMap[y][x] == 'Q') {
+                        gritGame[y][x].setIcon(new ImageIcon("./PacManAsets/Boost/speedster-BOOST.png"));
+                    }
+
+
+                    else {
                         gritGame[y][x].setIcon(null);
                     }
                 }

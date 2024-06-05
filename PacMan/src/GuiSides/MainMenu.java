@@ -19,7 +19,7 @@ public class MainMenu extends MyJFrame {
         highScoreButton.addActionListener(e->{SwingUtilities.invokeLater(()->new HighScore());dispose();});
 
         exitButton= new MyButton("EXIT");
-        exitButton.addActionListener(e -> dispose());
+        exitButton.addActionListener(e -> {dispose();System.exit(0);});
         titleInMainMenu= new JLabel("The Pac-Man", SwingConstants.CENTER);
 
 

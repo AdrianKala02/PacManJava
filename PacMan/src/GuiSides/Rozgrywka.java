@@ -83,7 +83,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         Thread heroPos=new Thread(()-> {
             while (!przegrana) {
                 try {
-                    Thread.sleep(250);
+                    Thread.sleep(hero.getSpeed());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -125,13 +125,13 @@ public class Rozgrywka extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-//            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
-//                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
-//                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
-//                }
-//                System.out.println();
-//            }
-//            System.out.println("//+======================+//");
+            for (int y = 0; y < mapaTest1.getGritCharMap().length; y++) {
+                for (int x = 0; x < mapaTest1.getGritCharMap()[0].length; x++) {
+                    System.out.print(mapaTest1.getGritCharMap()[y][x] + " ");
+                }
+                System.out.println();
+            }
+            System.out.println("//+======================+//");
         }
         mapaTest1.stopIt();
         for(Enemy enemy:mapaTest1.allEnemy){

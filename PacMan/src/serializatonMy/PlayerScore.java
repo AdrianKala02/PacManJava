@@ -12,7 +12,6 @@ public class PlayerScore implements Serializable,Comparable<PlayerScore>{
     public void setNickname(String nickname) {this.nickname = nickname;}
     public int getScore() {return score;}
     public void setScore(int score) {this.score = score;}
-
     public PlayerScore(String nickname, int score, String mapType) {
         this.nickname = nickname;
         this.score = score;
@@ -20,10 +19,8 @@ public class PlayerScore implements Serializable,Comparable<PlayerScore>{
     }
     @Override
     public String toString(){
-
         return nickname+" "+score+" "+mapType;
     }
-
     @Override
     public int compareTo(PlayerScore other) {
         return Integer.compare(other.score, this.score);

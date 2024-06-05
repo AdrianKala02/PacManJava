@@ -3,7 +3,9 @@ package objectsForGame;
 import toolBox.ColorRGB;
 import toolBox.DIRECTION;
 
+import java.nio.channels.Pipe;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Enemy extends ObjCreator implements Runnable{
     private int posX;
@@ -11,17 +13,29 @@ public class Enemy extends ObjCreator implements Runnable{
     private int aclelerationX;
     private int aclelerationY;
     private boolean alive;
-     int posXUnder;
-     int posYUnder;
     public boolean isUnder;
     public char charUnder;
 
-    int posXUnderOLDER;
-    int posYUnderOLDER;
-    boolean isUnderOLDER;
-    char charUnderOLDER;
-
    private int startPosX;
+
+   private int oldPosX;
+   private int oldPosY;
+
+    public int getOldPosX() {
+        return oldPosX;
+    }
+
+    public void setOldPosX(int oldPosX) {
+        this.oldPosX = oldPosX;
+    }
+
+    public int getOldPosY() {
+        return oldPosY;
+    }
+
+    public void setOldPosY(int oldPosY) {
+        this.oldPosY = oldPosY;
+    }
 
     public int getStartPosX() {
         return startPosX;
@@ -38,32 +52,52 @@ public class Enemy extends ObjCreator implements Runnable{
     public void setStartPosY(int startPosY) {
         this.startPosY = startPosY;
     }
-
     private int startPosY;
+
+    public int getSpeedToChangeDirection() {
+        return speedToChangeDirection;
+    }
+
+    public void setSpeedToChangeDirection(int speedToChangeDirection) {
+        this.speedToChangeDirection = speedToChangeDirection;
+    }
+
+    private int speedToChangeDirection;
+    private int iniciatedSpeedToChangeDirection;
+
+    public int getIniciatedSpeedToChangeDirection() {
+        return iniciatedSpeedToChangeDirection;
+    }
+
+    public void setIniciatedSpeedToChangeDirection(int iniciatedSpeedToChangeDirection) {
+        this.iniciatedSpeedToChangeDirection = iniciatedSpeedToChangeDirection;
+    }
+
     public Enemy(String url, ColorRGB mapIdColor, Character idChar) {
         super(url, mapIdColor, idChar);
         isUnder=false;
-        isUnderOLDER=false;
         posX=0;
         posY=0;
         aclelerationX=0;
         aclelerationY=0;
         alive=true;
+        iniciatedSpeedToChangeDirection=300;
+        speedToChangeDirection=iniciatedSpeedToChangeDirection;
+        dropThatBomb=false;
     }
     public Enemy(Enemy en){
         super(en.url,en.mapIdColor,en.getIdChar());
-        isUnder=false;
-        isUnderOLDER=false;
-        posX=0;
-        posY=0;
-        aclelerationX=0;
-        aclelerationY=0;
-        alive=true;
-    }
-    public void somethingIsThere( int y,int x,char c){
-        posYUnder=y;
-        posXUnder=x;
-        charUnder=c;
+        isUnder=en.isUnder;
+        posX=en.getPosX();
+        posY=en.getPosY();
+        aclelerationX=en.getAclelerationX();
+        aclelerationY=en.aclelerationY;
+        alive=en.alive;
+        startPosX=en.startPosX;
+        startPosY=en.startPosY;
+        charUnder=en.charUnder;
+        speedToChangeDirection=en.speedToChangeDirection;
+        dropThatBomb=en.dropThatBomb;
     }
         public int getPosX() {return posX;}
         public void setPosX(int posX) {this.posX = posX;}
@@ -73,23 +107,65 @@ public class Enemy extends ObjCreator implements Runnable{
         public void setAclelerationX(int aclelerationX) {this.aclelerationX = aclelerationX;}
         public int getAclelerationY() {return aclelerationY;}
         public void setAclelerationY(int aclelerationY) {this.aclelerationY = aclelerationY;}
-        Character[][] gritCharMap;
-
         public boolean isAlive() {
             return alive;
         }
-
         public void stopIt() {alive=false;}
 
+        public boolean dropThatBomb;
 
 
+    //F - freez
+    //A - slowThink
+    //T - goHome
+    //S - shield
+    //Q - speedster
+    public char getGift(){
+        char rr = 0;
+            Random random = new Random();
+            random.nextInt(5);
+            switch (random.nextInt(5)){
+                case 0:
+                    rr='F';
+                    break;
+                case 1:
+                    rr='A';
+                    break;
+                case 2:
+                    rr='T';
+                    break;
+                case 3:
+                    rr='S';
+                    break;
+                case 4:
+                    rr='Q';
+                    break;
+            };
 
+            return rr;
+    }
     public void goUp(){aclelerationY=-1;aclelerationX=0;super.direction= DIRECTION.N;directChange=true;}
     public void goDown(){aclelerationY=1;aclelerationX=0;super.direction= DIRECTION.S;directChange=true;}
     public void goLeft(){aclelerationX=-1;aclelerationY=0;super.direction= DIRECTION.W;directChange=true;}
     public void goRight(){aclelerationX=1;aclelerationY=0;super.direction= DIRECTION.E;directChange=true;}
         @Override
         public void run() {
+        Thread randomPower= new Thread(()->{
+            Random random = new Random();
+            while (alive){
+                int chanceToDropPower = random.nextInt(4);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                if(chanceToDropPower==0&&!isUnder){
+                    //make a power
+                    dropThatBomb=true;
+                }
+            }
+        });
+        randomPower.start();
             Random random = new Random();
             while (alive) {
                 //!// System.out.println(Thread.currentThread()+" "+getClass().getName());
@@ -110,11 +186,10 @@ public class Enemy extends ObjCreator implements Runnable{
                 }
                 super.directChange=false;
                 try {
-                    Thread.sleep(250);
+                    Thread.sleep(speedToChangeDirection);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-
             }
         }
 }
