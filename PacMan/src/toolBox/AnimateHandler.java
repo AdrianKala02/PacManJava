@@ -4,6 +4,7 @@ import objectsForGame.ObjCreator;
 import toolBox.ANIAMTIONTYPE;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class AnimateHandler{
@@ -31,6 +32,8 @@ public class AnimateHandler{
         this.objCreator=objCreator;
         objCreator.sprite=objCreator.spriteSheet.getSubimage(0,0,objCreator.getWidth(),objCreator.getHeight());
         objCreator.imageIcon=new ImageIcon(objCreator.sprite);
+       // objCreator.imageIcon = new ImageIcon( objCreator.imageIcon.getImage().getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH));  // transform it back
+
         updater=new Updater<>(this::animationChooser,objCreator::setImageIcon,updateInterval);
         updater.start();
     }

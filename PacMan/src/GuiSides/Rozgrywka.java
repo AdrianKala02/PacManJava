@@ -40,7 +40,6 @@ public class Rozgrywka extends JPanel implements Runnable {
         przegrana = false;
         setBackground(new Color(98, 158, 225));
         setFocusable(true);
-        setLayout(new GridBagLayout());
         hero = new Hero("./PacManAsets/PacMan/SpriteSheet-PacMan3.png", new ColorRGB(0, 255, 0), 'H');
         enemy= new Enemy("./PacManAsets/Ghost/SpriteSheet-Ghost2.png",new ColorRGB(255,0,0),'E');
         blokA = new Blok("./PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
@@ -114,8 +113,9 @@ public class Rozgrywka extends JPanel implements Runnable {
             }
         });
         colisonEv.start();
+        setLayout(new GridLayout(mapaTest1.getGritCharMap().length,mapaTest1.getGritCharMap()[0].length));
     }
-    
+
     @Override
     public void run() {
         while (!przegrana) {

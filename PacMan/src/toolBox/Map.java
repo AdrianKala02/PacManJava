@@ -319,18 +319,23 @@ public class Map implements Runnable {
 
     public void refresh() {
         SwingUtilities.invokeLater(() -> {
+            int panelWidth = gritGame[0][0].getParent().getWidth();
+            int panelHeight = gritGame[0][0].getParent().getHeight();
+            int cellWidth = panelWidth / gritGame[0].length;
+            int cellHeight = panelHeight / gritGame.length;
             for (int y = 0; y < gritGame.length; y++) {
                 for (int x = 0; x < gritGame[0].length; x++) {
                     if (gritCharMap[y][x] == hero.getIdChar()) {
-                        gritGame[y][x].setIcon(hero.imageIcon);
+                        gritGame[y][x].setIcon(new ImageIcon(hero.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
                     } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                        gritGame[y][x].setIcon(blokA.imageIcon);
+                        gritGame[y][x].setIcon(new ImageIcon(blokA.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
                     } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                        gritGame[y][x].setIcon(pointA.imageIcon);
+                        gritGame[y][x].setIcon(new ImageIcon(pointA.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
                     } else if (gritCharMap[y][x] == en.getIdChar()){
                         for (Enemy enemy : allEnemy) {
                             if(y==enemy.getPosY()&&x==enemy.getPosX()) {
-                                gritGame[y][x].setIcon(enemy.imageIcon);
+                                gritGame[y][x].setIcon(new ImageIcon(enemy.imageIcon.getImage().getScaledInstance(cellWidth, cellHeight,  java.awt.Image.SCALE_SMOOTH)));
+
                             }
                         }
                         //BOOSTERS
