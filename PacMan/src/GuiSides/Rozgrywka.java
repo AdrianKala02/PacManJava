@@ -115,6 +115,7 @@ public class Rozgrywka extends JPanel implements Runnable {
         });
         colisonEv.start();
     }
+    
     @Override
     public void run() {
         while (!przegrana) {
