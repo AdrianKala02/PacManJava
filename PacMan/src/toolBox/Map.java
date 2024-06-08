@@ -227,9 +227,7 @@ public class Map implements Runnable {
             hero.setPosX(newX);
     }else {
             if(gritCharMap[newY][newX] == 'E'){
-                if(!hero.isCoverToDmg()) {
-                    hero.addZycia(-1);
-                }
+                hToE=true;
             }
             hero.setPosX(oldX);
             hero.setPosY(oldY);
@@ -276,9 +274,7 @@ public class Map implements Runnable {
                     enemy.setPosY(newY);
                     gritCharMap[newY][newX] = 'E';
                 } else if (gritCharMap[newY][newX] == 'H') {
-                    if(!hero.isCoverToDmg()) {
-                        hero.addZycia(-1);
-                    }
+                    eToH=true;
                 }
                 if(enemy.dropThatBomb&&!enemy.isUnder&&gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=='X'){
                     gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=enemy.getGift();
