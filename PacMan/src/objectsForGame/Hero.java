@@ -27,7 +27,6 @@ public class Hero extends ObjCreator implements KeyListener{
     private int posY;
     private int aclelerationX;
     private int aclelerationY;
-
     private volatile boolean coverToDmg;
     private int speed;
     private int iniciatedSpeed;
@@ -63,7 +62,7 @@ public class Hero extends ObjCreator implements KeyListener{
         aclelerationX=0;
         aclelerationY=0;
         ponkty=0;
-        zycia=3;
+        zycia=10;
         iniciatedSpeed=250;
         speed=iniciatedSpeed;
         coverToDmg=false;

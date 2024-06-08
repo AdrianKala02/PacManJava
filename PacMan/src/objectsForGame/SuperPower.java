@@ -46,6 +46,7 @@ public class SuperPower {
     //speedUP pacman
     public void speedster(Hero hero){
            hero.setSpeed(150);
+        // working
 
         Thread th = new Thread(()->{
             try {
@@ -60,7 +61,7 @@ public class SuperPower {
     }
     //for x time pacman is invulnerable
     public void sheeldIt(Hero hero){
-        //not working
+        // working
         hero.setCoverToDmg(true);
         Thread th = new Thread(()->{
             try {
@@ -74,8 +75,11 @@ public class SuperPower {
     }
 
     //setAllGhosts start position
-    public void goHome(ArrayList<Enemy> enemies){
+    public void goHome(ArrayList<Enemy> enemies, Character[][] gritCharMap){
+        // working
+
         for(Enemy enemy:enemies){
+            gritCharMap[enemy.getPosY()][enemy.getPosX()]='X';
             enemy.setPosX(enemy.getStartPosX());
             enemy.setPosY(enemy.getStartPosY());
         }

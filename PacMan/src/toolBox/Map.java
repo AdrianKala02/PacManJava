@@ -216,7 +216,7 @@ public class Map implements Runnable {
             }else if (gritCharMap[newY][newX] == 'A') {
                 superPower.slowThink(allEnemy);
             }else if (gritCharMap[newY][newX] == 'T') {
-                superPower.goHome(allEnemy);
+                superPower.goHome(allEnemy,gritCharMap);
             }else if (gritCharMap[newY][newX] == 'S') {
                 superPower.sheeldIt(hero);
             }else if (gritCharMap[newY][newX] == 'Q') {
@@ -227,7 +227,9 @@ public class Map implements Runnable {
             hero.setPosX(newX);
     }else {
             if(gritCharMap[newY][newX] == 'E'){
-                hero.addZycia(-1);
+                if(!hero.isCoverToDmg()) {
+                    hero.addZycia(-1);
+                }
             }
             hero.setPosX(oldX);
             hero.setPosY(oldY);
@@ -274,7 +276,9 @@ public class Map implements Runnable {
                     enemy.setPosY(newY);
                     gritCharMap[newY][newX] = 'E';
                 } else if (gritCharMap[newY][newX] == 'H') {
-                    hero.addZycia(-1);
+                    if(!hero.isCoverToDmg()) {
+                        hero.addZycia(-1);
+                    }
                 }
                 if(enemy.dropThatBomb&&!enemy.isUnder&&gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=='X'){
                     gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=enemy.getGift();
