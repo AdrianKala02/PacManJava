@@ -32,7 +32,7 @@ public class Game extends MyJFrame {
 
         setLayout(new BorderLayout());
         panel= new MyJPanel();
-        panel.setLayout(new GridLayout(0,5));
+        panel.setLayout(new GridLayout(1,5));
         tabliczkaCzasu= new MyJlable();
         tabliczkaWszystkichPunktow= new MyJlable();
         tabliczkaPunktow= new MyJlable();
@@ -64,9 +64,9 @@ public class Game extends MyJFrame {
         new Thread(licznik).start();
 
         u1= new Updater<>(licznik::getTime, time -> tabliczkaCzasu.setText("Czas: " + time),300);u1.start();
-        u2= new Updater<>(rozgrywka::getWszystkiePonkty, pts -> tabliczkaWszystkichPunktow.setText("Wszystkie Punkty: " + pts),300);u2.start();
-        u3= new Updater<>(rozgrywka::getHeroPoints, pts -> tabliczkaPunktow.setText("Punkty: " + pts), 300);u3.start();
-        u4= new Updater<>(rozgrywka::getHeroHP, lives -> tabliczkaZyc.setText("Ilosc Zyc: " + lives), 300);u4.start();
+        u2= new Updater<>(rozgrywka::getWszystkiePonkty, pts -> tabliczkaWszystkichPunktow.setText("Wsz. Pk: " + pts),300);u2.start();
+        u3= new Updater<>(rozgrywka::getHeroPoints, pts -> tabliczkaPunktow.setText("Pk: " + pts), 300);u3.start();
+        u4= new Updater<>(rozgrywka::getHeroHP, lives -> tabliczkaZyc.setText("Życia: " + lives), 300);u4.start();
 
         Thread tr= new Thread(()->{
             while (!rozgrywka.isPrzegrana()){

@@ -12,6 +12,7 @@ public class MyButton extends JButton {
         setBackground(new Color(245,169,91));
         setForeground(new Color(47, 72, 92));
         setFont(new Font(Font.SERIF,Font.PLAIN,20));
-        setBorderPainted(false);
+        setBorder(BorderFactory.createLineBorder(null,10));
+        //setBorderPainted(false);
     }
 }

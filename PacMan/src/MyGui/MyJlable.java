@@ -10,6 +10,7 @@ public class MyJlable extends JLabel {
         setMaximumSize(new Dimension(32,32));
         setBackground(new Color(47, 72, 92));
         setForeground(new Color(245,169,91));
-      setFont(new Font("Serif", Font.PLAIN, 20));
+        setFont(new Font("Serif", Font.PLAIN, 20));
+        setBorder(null);
     }
 }

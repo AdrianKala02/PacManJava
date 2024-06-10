@@ -116,8 +116,10 @@ public class Map implements Runnable {
             for (int x = 0; x < gritCharMap[0].length; x++) {
                 MyJlable label = new MyJlable();
                 if (gritCharMap[y][x] == hero.getIdChar()) {
-                    hero.setPosX(x); // Zamienione współrzędne
-                    hero.setPosY(y);
+                    hero.setStartPosX(x);
+                    hero.setStartPosY(y);
+                    hero.setPosX(hero.getStartPosX());
+                    hero.setPosY(hero.getStartPosY());
                     label.setIcon(hero.imageIcon);
                 } else if (gritCharMap[y][x] == blokA.getIdChar()) {
                     label.setIcon(blokA.imageIcon);
@@ -125,7 +127,7 @@ public class Map implements Runnable {
                     label.setIcon(pointA.imageIcon);
                 } else if (gritCharMap[y][x] == en.getIdChar()) {
                     Enemy enK= new Enemy(en);
-                    enK.setPosX(x); // Zamienione współrzędne
+                    enK.setPosX(x);
                     enK.setPosY(y);
                     enK.setStartPosX(x);
                     enK.setStartPosY(y);
@@ -177,8 +179,8 @@ public class Map implements Runnable {
             for (int x = 0; x < gritCharMap[0].length; x++) {
                 MyJlable label = new MyJlable();
                 if (gritCharMap[y][x] == hero.getIdChar()) {
-                    hero.setPosX(x); // Zamienione współrzędne
-                    hero.setPosY(y);
+                    hero.setPosX(hero.getStartPosX());
+                    hero.setPosY(hero.getStartPosY());
                     label.setIcon(hero.imageIcon);
                 } else if (gritCharMap[y][x] == blokA.getIdChar()) {
                     label.setIcon(blokA.imageIcon);
@@ -286,12 +288,36 @@ public class Map implements Runnable {
 
     public void colisionEvade() {
         if (eToH || hToE) {
-            flipPos();
-            if(!hero.isCoverToDmg()) {
-                hero.addZycia(-1);
+
+
+            //wybor w jaki sposób chcemy grać. Czy: one hit teleport to start position, more hp but to reset position
+            if(true){
+                if (!hero.isCoverToDmg()) {
+                    hero.addZycia(-1);
+
+                    gritCharMap[hero.getPosY()][hero.getPosX()]='X';
+
+
+                    hero.setPosX(hero.getStartPosX());
+                    hero.setPosY(hero.getStartPosY());
+
+                    gritCharMap[hero.getStartPosY()][hero.getStartPosX()]='H';
+                    hero.setAclelerationY(0);
+                    hero.setAclelerationX(0);
+
+                    superPower.goHome(allEnemy,gritCharMap);
+
+                    eToH = false;
+                    hToE = false;
+                }
+            }else {
+                flipPos();
+                if (!hero.isCoverToDmg()) {
+                    hero.addZycia(-1);
+                }
+                eToH = false;
+                hToE = false;
             }
-            eToH = false;
-            hToE = false;
         }
     }
 
