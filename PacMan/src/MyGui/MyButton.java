@@ -7,8 +7,11 @@ public class MyButton extends JButton {
 
     public MyButton(String text){
         setText(text);
-        setBackground(new Color(12,12,12));
-        setForeground(new Color(199, 43, 43));
+
+        setOpaque(true);
+        setBackground(new Color(245,169,91));
+        setForeground(new Color(47, 72, 92));
         setFont(new Font(Font.SERIF,Font.PLAIN,20));
+        setBorderPainted(false);
     }
 }

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class EndGame extends MyJFrame {
     EndGame(int WszystkiePonkty,String nrMapy){
-        JPanel panel= new JPanel();
+        MyJPanel panel= new MyJPanel();
         MyJlable labelWynik= new MyJlable();
         labelWynik.setText("Twój wynik: "+WszystkiePonkty);
         labelWynik.setHorizontalAlignment(0);
@@ -18,6 +18,9 @@ public class EndGame extends MyJFrame {
         labelPytanie.setHorizontalAlignment(0);
         labelPytanie.setText("Podaj Proszę swój nick");
         JTextField pobieraczNicku= new JTextField();
+        pobieraczNicku.setBackground(new Color(47, 72, 92));
+        pobieraczNicku.setFont(new Font(Font.SERIF,Font.PLAIN,20));
+        pobieraczNicku.setForeground(new Color(245,169,91));
         MyButton exitButton = new MyButton("EXIT AND SAVE");
         exitButton.addActionListener(e->{
             if(!pobieraczNicku.getText().trim().isEmpty()){

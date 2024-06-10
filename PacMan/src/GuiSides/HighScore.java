@@ -2,6 +2,7 @@ package GuiSides;
 
 import MyGui.MyButton;
 import MyGui.MyJFrame;
+import MyGui.MyJPanel;
 import MyGui.MyJlable;
 import serializatonMy.PlayerScore;
 import serializatonMy.ReadAndWriteObj;
@@ -17,7 +18,7 @@ public class HighScore extends MyJFrame {
     JList<PlayerScore> lista;
 
     ArrayList<PlayerScore> players;
-    JPanel tablica;
+    MyJPanel tablica;
     MyButton returnButton;
     HighScore(){
 
@@ -37,6 +38,11 @@ public class HighScore extends MyJFrame {
               bump.addElement(ps);
             }
             lista = new JList<>(bump);
+            lista.setBackground(new Color(47, 72, 92));
+            lista.setFont(new Font(Font.SERIF,Font.PLAIN,20));
+            lista.setForeground(new Color(245,169,91));
+
+
             DefaultListCellRenderer renderer =  (DefaultListCellRenderer)lista.getCellRenderer();
             renderer.setHorizontalAlignment(JLabel.CENTER);
             titleInHighScore.setText("Najlepsi");
@@ -45,7 +51,7 @@ public class HighScore extends MyJFrame {
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(lista);
 
-        tablica= new JPanel();
+        tablica= new MyJPanel();
         tablica.setLayout(new GridLayout(0,1));
 
 

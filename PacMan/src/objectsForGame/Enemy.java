@@ -87,6 +87,7 @@ public class Enemy extends ObjCreator implements Runnable{
     }
     public Enemy(Enemy en){
         super(en.url,en.mapIdColor,en.getIdChar());
+
         isUnder=en.isUnder;
         posX=en.getPosX();
         posY=en.getPosY();
@@ -96,6 +97,7 @@ public class Enemy extends ObjCreator implements Runnable{
         startPosX=en.startPosX;
         startPosY=en.startPosY;
         charUnder=en.charUnder;
+        iniciatedSpeedToChangeDirection=en.iniciatedSpeedToChangeDirection;
         speedToChangeDirection=en.speedToChangeDirection;
         dropThatBomb=en.dropThatBomb;
     }

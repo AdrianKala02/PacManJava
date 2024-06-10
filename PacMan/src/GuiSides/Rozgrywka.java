@@ -68,6 +68,7 @@ public class Rozgrywka extends JPanel implements Runnable {
                 throw new RuntimeException(e);
             }
             if(mapaTest1.allPointsCollected()){
+                mapaTest1.turnOffAllPowers();
                 System.out.println("//====DONE====//");
                 wszystkiePonkty+=hero.getPonkty();
                 hero.setPonkty(0);
@@ -76,7 +77,7 @@ public class Rozgrywka extends JPanel implements Runnable {
                 hero.setAclelerationY(0);
                 hero.setAclelerationX(0);
                 mapaTest1.inicjalV2(this);
-                mapaTest1.turnOffAllPowers();
+
             }
         }});
         checkRestartMap.start();

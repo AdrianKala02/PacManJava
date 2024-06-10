@@ -300,13 +300,15 @@ public class Map implements Runnable {
             int tmpX = hero.getPosX();
             int tmpY = hero.getPosY();
 
-            hero.setPosX(enemy.getPosX());
-            hero.setPosY(enemy.getPosY());
-            gritCharMap[enemy.getPosY()][enemy.getPosX()] = 'H';
+            if(hero.getPosX()+hero.getAclelerationX()==enemy.getPosX()&&hero.getPosY()+hero.getAclelerationY()==enemy.getPosY()) {
+                hero.setPosX(enemy.getPosX());
+                hero.setPosY(enemy.getPosY());
+                gritCharMap[enemy.getPosY()][enemy.getPosX()] = 'H';
 
-            enemy.setPosX(tmpX);
-            enemy.setPosY(tmpY);
-            gritCharMap[tmpY][tmpX] = 'E';
+                enemy.setPosX(tmpX);
+                enemy.setPosY(tmpY);
+                gritCharMap[tmpY][tmpX] = 'E';
+            }
         }
     }
 

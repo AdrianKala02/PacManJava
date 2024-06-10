@@ -82,6 +82,8 @@ public class SuperPower {
             gritCharMap[enemy.getPosY()][enemy.getPosX()]='X';
             enemy.setPosX(enemy.getStartPosX());
             enemy.setPosY(enemy.getStartPosY());
+            enemy.setOldPosX(enemy.getStartPosX());
+            enemy.setOldPosY(enemy.getStartPosY());
         }
     }
 

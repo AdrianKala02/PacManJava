@@ -2,6 +2,8 @@ package GuiSides;
 
 import MyGui.MyButton;
 import MyGui.MyJFrame;
+import MyGui.MyJPanel;
+import MyGui.MyJlable;
 import toolBox.TimerByThread;
 import toolBox.Updater;
 
@@ -9,8 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game extends MyJFrame {
-    JPanel panel;
-    JLabel tabliczkaCzasu,tabliczkaWszystkichPunktow,tabliczkaPunktow,tabliczkaZyc;
+    MyJPanel panel;
+    MyJlable tabliczkaCzasu,tabliczkaWszystkichPunktow,tabliczkaPunktow,tabliczkaZyc;
     volatile boolean alive;
     TimerByThread licznik;
     int ponkty;
@@ -29,12 +31,12 @@ public class Game extends MyJFrame {
         setTitle("ROZGRYWKA");
 
         setLayout(new BorderLayout());
-        panel= new JPanel();
+        panel= new MyJPanel();
         panel.setLayout(new GridLayout(0,5));
-        tabliczkaCzasu= new JLabel();
-        tabliczkaWszystkichPunktow= new JLabel();
-        tabliczkaPunktow= new JLabel();
-        tabliczkaZyc =new JLabel();
+        tabliczkaCzasu= new MyJlable();
+        tabliczkaWszystkichPunktow= new MyJlable();
+        tabliczkaPunktow= new MyJlable();
+        tabliczkaZyc =new MyJlable();
 
         returnButton= new MyButton("return");
         returnButton.addActionListener(e ->{

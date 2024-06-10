@@ -1,19 +1,19 @@
 package GuiSides;
 
-import MyGui.MyButton;
-import MyGui.MyJFrame;
-import MyGui.MyJRadioButton;
-import MyGui.MyJlable;
+import MyGui.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GameMapChooser extends MyJFrame {
     MyButton uruchomienieButton;
-    JPanel panelButtonow;
+    MyJPanel panel,panelButtonow;
     MyJlable label;
     ButtonGroup grupaMap;
     GameMapChooser(){
+        panel=new MyJPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
+        panel.setLayout(new GridLayout(4,1));
         setTitle("Wybór mapy");
         label=new MyJlable();
         label.setText("Proszę wybrać mapę");
@@ -30,7 +30,6 @@ public class GameMapChooser extends MyJFrame {
         MyJRadioButton mapa5=new MyJRadioButton("map5");
         mapa5.setActionCommand("./PacManAsets/Maps/testMap5.png");
 
-
         grupaMap= new ButtonGroup();
         grupaMap.add(mapa1);
         grupaMap.add(mapa2);
@@ -43,7 +42,7 @@ public class GameMapChooser extends MyJFrame {
         uruchomienieButton= new MyButton("uruchom grę");
         uruchomienieButton.addActionListener(e->{this.dispose();SwingUtilities.invokeLater(()->new Game(grupaMap.getSelection().getActionCommand()));});
 
-        panelButtonow=new JPanel();
+        panelButtonow=new MyJPanel();
         panelButtonow.add(mapa1);
         panelButtonow.add(mapa2);
         panelButtonow.add(mapa3);
@@ -51,8 +50,10 @@ public class GameMapChooser extends MyJFrame {
         panelButtonow.add(mapa5);
 
         setLayout(new GridLayout(0,1));
-        add(label);
-        add(panelButtonow);
-        add(uruchomienieButton);
+        panel.add(label);
+        panel.add(panelButtonow);
+        panel.add(uruchomienieButton);
+
+        add(panel,BorderLayout.CENTER);
     }
 }
