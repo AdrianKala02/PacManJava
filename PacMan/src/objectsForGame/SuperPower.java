@@ -85,4 +85,13 @@ public class SuperPower {
         }
     }
 
+    public void offAll(Map map,ArrayList<Enemy> enemies,Hero hero){
+        map.notFreezed=true;
+        for(Enemy enemy:enemies){
+            enemy.setSpeedToChangeDirection(enemy.getIniciatedSpeedToChangeDirection());
+        }
+        hero.setSpeed(hero.getIniciatedSpeed());
+        hero.setCoverToDmg(false);
+
+    }
 }

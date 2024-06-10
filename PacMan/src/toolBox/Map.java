@@ -400,6 +400,9 @@ public class Map implements Runnable {
     }
 
 
+                    public void turnOffAllPowers(){
+                        superPower.offAll(this,allEnemy,hero);
+                    }
     @Override
     public void run() {
         while (alive) {
