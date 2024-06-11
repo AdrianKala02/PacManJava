@@ -13,8 +13,8 @@ public class Enemy extends ObjCreator implements Runnable{
     private int aclelerationX;
     private int aclelerationY;
     private boolean alive;
-    public boolean isUnder;
-    public char charUnder;
+    private boolean isUnder;
+    private char charUnder;
 
    private int startPosX;
 
@@ -86,7 +86,7 @@ public class Enemy extends ObjCreator implements Runnable{
         dropThatBomb=false;
     }
     public Enemy(Enemy en){
-        super(en.url,en.mapIdColor,en.getIdChar());
+        super(en.getUrl(),en.getMapIdColor(),en.getIdChar());
 
         isUnder=en.isUnder;
         posX=en.getPosX();
@@ -114,7 +114,35 @@ public class Enemy extends ObjCreator implements Runnable{
         }
         public void stopIt() {alive=false;}
 
-        public boolean dropThatBomb;
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isUnder() {
+        return isUnder;
+    }
+
+    public void setUnder(boolean under) {
+        isUnder = under;
+    }
+
+    public char getCharUnder() {
+        return charUnder;
+    }
+
+    public void setCharUnder(char charUnder) {
+        this.charUnder = charUnder;
+    }
+
+    public boolean isDropThatBomb() {
+        return dropThatBomb;
+    }
+
+    public void setDropThatBomb(boolean dropThatBomb) {
+        this.dropThatBomb = dropThatBomb;
+    }
+
+    private boolean dropThatBomb;
 
 
     //F - freez
@@ -146,10 +174,10 @@ public class Enemy extends ObjCreator implements Runnable{
 
             return rr;
     }
-    public void goUp(){aclelerationY=-1;aclelerationX=0;super.direction= DIRECTION.N;directChange=true;}
-    public void goDown(){aclelerationY=1;aclelerationX=0;super.direction= DIRECTION.S;directChange=true;}
-    public void goLeft(){aclelerationX=-1;aclelerationY=0;super.direction= DIRECTION.W;directChange=true;}
-    public void goRight(){aclelerationX=1;aclelerationY=0;super.direction= DIRECTION.E;directChange=true;}
+    public void goUp(){aclelerationY=-1;aclelerationX=0;super.setDirection(DIRECTION.N);setDirectChange(true);}
+    public void goDown(){aclelerationY=1;aclelerationX=0;super.setDirection(DIRECTION.S);setDirectChange(true);}
+    public void goLeft(){aclelerationX=-1;aclelerationY=0;super.setDirection(DIRECTION.W);setDirectChange(true);}
+    public void goRight(){aclelerationX=1;aclelerationY=0;super.setDirection(DIRECTION.E);setDirectChange(true);}
         @Override
         public void run() {
         Thread randomPower= new Thread(()->{
@@ -187,7 +215,7 @@ public class Enemy extends ObjCreator implements Runnable{
                         goRight();
                         break;
                 }
-                super.directChange=false;
+                super.setDirectChange(false);
                 try {
                     Thread.sleep(speedToChangeDirection);
                 } catch (InterruptedException e) {

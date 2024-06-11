@@ -13,7 +13,7 @@ public class SuperPower {
     //stop all Enemy for 10sec
     public void freazer(Map map){
         //work
-        map.notFreezed=false;
+        map.setNotFreezed(false);
 
         Thread th = new Thread(()->{
             try {
@@ -21,7 +21,7 @@ public class SuperPower {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            map.notFreezed=true;
+            map.setNotFreezed(true);
         });
         th.start();
     }
@@ -88,7 +88,7 @@ public class SuperPower {
     }
 
     public void offAll(Map map,ArrayList<Enemy> enemies,Hero hero){
-        map.notFreezed=true;
+        map.setNotFreezed(true);
         for(Enemy enemy:enemies){
             enemy.setSpeedToChangeDirection(enemy.getIniciatedSpeedToChangeDirection());
         }

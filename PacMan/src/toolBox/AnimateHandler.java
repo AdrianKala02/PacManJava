@@ -8,20 +8,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class AnimateHandler{
-    Updater<ImageIcon> updater;
-    ObjCreator objCreator;
+    private Updater<ImageIcon> updater;
+   private ObjCreator objCreator;
    private int animateFrames;
    private int currentFrame;
    private boolean directionGoLeft;
-
    private int size;
-
    private boolean alive;
-
-    public void stopIt() {
-        alive = false;
-    }
-   ANIAMTIONTYPE aType;
+   public void stopIt() {alive = false;}
+  private ANIAMTIONTYPE aType;
     public AnimateHandler(BufferedImage sheet, ObjCreator objCreator, int updateInterval, ANIAMTIONTYPE aType){
         alive=true;
         size=32;
@@ -30,8 +25,8 @@ public class AnimateHandler{
         this.aType=aType;
         animateFrames =sheet.getWidth()/size;
         this.objCreator=objCreator;
-        objCreator.sprite=objCreator.spriteSheet.getSubimage(0,0,objCreator.getWidth(),objCreator.getHeight());
-        objCreator.imageIcon=new ImageIcon(objCreator.sprite);
+        objCreator.setSprite(objCreator.getSpriteSheet().getSubimage(0,0,objCreator.getWidth(),objCreator.getHeight()));
+        objCreator.setImageIcon(new ImageIcon(objCreator.getSprite()));
         updater=new Updater<>(this::animationChooser,objCreator::setImageIcon,updateInterval);
         updater.start();
     }
@@ -46,7 +41,7 @@ public class AnimateHandler{
 
     private ImageIcon animationLoop(){
         if(currentFrame>=animateFrames)currentFrame=0;
-        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
+        BufferedImage sprite=objCreator.getSpriteSheet().getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.isDirectChange()?1:0)),objCreator.getDirection().getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
         ImageIcon img= new ImageIcon(sprite.getScaledInstance(objCreator.getScaledX(),objCreator.getScaledY(),Image.SCALE_SMOOTH));
         currentFrame++;
         return img;
@@ -62,7 +57,7 @@ public class AnimateHandler{
 
         if (currentFrame == 0) {directionGoLeft=true;}
         /*end*/
-        BufferedImage sprite=objCreator.spriteSheet.getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.directChange?1:0)),objCreator.direction.getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
+        BufferedImage sprite=objCreator.getSpriteSheet().getSubimage(objCreator.getHeight()*(currentFrame+(objCreator.isDirectChange()?1:0)),objCreator.getDirection().getDegreee()*size,objCreator.getHeight(),objCreator.getHeight());
         ImageIcon img= new ImageIcon(sprite.getScaledInstance(objCreator.getScaledX(),objCreator.getScaledY(),Image.SCALE_SMOOTH));
         return img;
     }

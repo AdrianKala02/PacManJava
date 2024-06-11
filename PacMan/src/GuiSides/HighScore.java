@@ -3,7 +3,7 @@ package GuiSides;
 import MyGui.MyButton;
 import MyGui.MyJFrame;
 import MyGui.MyJPanel;
-import MyGui.MyJlable;
+import MyGui.MyJlabel;
 import serializatonMy.PlayerScore;
 import serializatonMy.ReadAndWriteObj;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class HighScore extends MyJFrame {
     boolean alive=true;
-    MyJlable titleInHighScore;
+    MyJlabel titleInHighScore;
     JScrollPane scrollPane;
     JList<PlayerScore> lista;
 
@@ -23,7 +23,7 @@ public class HighScore extends MyJFrame {
     HighScore(){
 
         ReadAndWriteObj<PlayerScore> readAndWriteObj=new ReadAndWriteObj<>("ScoreBoard.ser");
-        titleInHighScore= new MyJlable();
+        titleInHighScore= new MyJlabel();
         titleInHighScore.setHorizontalAlignment(SwingConstants.CENTER);
         if(!readAndWriteObj.isExistFile()){
             lista=new JList<>();

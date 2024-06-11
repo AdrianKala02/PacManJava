@@ -11,10 +11,10 @@ import java.awt.*;
 public class EndGame extends MyJFrame {
     EndGame(int WszystkiePonkty,String nrMapy,String rodzajRozgrywki){
         MyJPanel panel= new MyJPanel();
-        MyJlable labelWynik= new MyJlable();
+        MyJlabel labelWynik= new MyJlabel();
         labelWynik.setText("Twój wynik: "+WszystkiePonkty);
         labelWynik.setHorizontalAlignment(0);
-        MyJlable labelPytanie= new MyJlable();
+        MyJlabel labelPytanie= new MyJlabel();
         labelPytanie.setHorizontalAlignment(0);
         labelPytanie.setText("Podaj Proszę swój nick");
         JTextField pobieraczNicku= new JTextField();

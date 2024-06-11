@@ -1,8 +1,6 @@
 package toolBox;
 
-import GuiSides.Rozgrywka;
-import MyGui.MyJFrame;
-import MyGui.MyJlable;
+import MyGui.MyJlabel;
 import objectsForGame.*;
 
 import javax.imageio.ImageIO;
@@ -29,36 +27,185 @@ import java.util.ArrayList;
                         //S - shield
                         //Q - speedster
 public class Map implements Runnable {
+                        public int getHeightRozgrywka() {
+                            return heightRozgrywka;
+                        }
 
+                        public void setHeightRozgrywka(int heightRozgrywka) {
+                            this.heightRozgrywka = heightRozgrywka;
+                        }
 
-    public int heightRozgrywka;
-    public int widthRozgrywka;
-    BufferedImage mapaPng;
-   volatile private MyJlable[][] gritGame;
-    public MyJlable[][] getGritGame() { return gritGame; }
-    public void setGritGame(MyJlable[][] gritGame) { this.gritGame = gritGame; }
+                        public int getWidthRozgrywka() {
+                            return widthRozgrywka;
+                        }
 
-    public boolean notFreezed;
+                        public void setWidthRozgrywka(int widthRozgrywka) {
+                            this.widthRozgrywka = widthRozgrywka;
+                        }
+
+                        public BufferedImage getMapaPng() {
+                            return mapaPng;
+                        }
+
+                        public void setMapaPng(BufferedImage mapaPng) {
+                            this.mapaPng = mapaPng;
+                        }
+
+                        public boolean isNotFreezed() {
+                            return notFreezed;
+                        }
+
+                        public void setNotFreezed(boolean notFreezed) {
+                            this.notFreezed = notFreezed;
+                        }
+
+                        public boolean isAlive() {
+                            return alive;
+                        }
+
+                        public void setAlive(boolean alive) {
+                            this.alive = alive;
+                        }
+
+                        public boolean ishToE() {
+                            return hToE;
+                        }
+
+                        public void sethToE(boolean hToE) {
+                            this.hToE = hToE;
+                        }
+
+                        public boolean iseToH() {
+                            return eToH;
+                        }
+
+                        public void seteToH(boolean eToH) {
+                            this.eToH = eToH;
+                        }
+
+                        public Blok getBlokA() {
+                            return blokA;
+                        }
+
+                        public void setBlokA(Blok blokA) {
+                            this.blokA = blokA;
+                        }
+
+                        public Hero getHero() {
+                            return hero;
+                        }
+
+                        public void setHero(Hero hero) {
+                            this.hero = hero;
+                        }
+
+                        public PointToCollect getPointA() {
+                            return pointA;
+                        }
+
+                        public void setPointA(PointToCollect pointA) {
+                            this.pointA = pointA;
+                        }
+
+                        public ArrayList<Enemy> getAllEnemy() {
+                            return allEnemy;
+                        }
+
+                        public void setAllEnemy(ArrayList<Enemy> allEnemy) {
+                            this.allEnemy = allEnemy;
+                        }
+
+                        public Enemy getEn() {
+                            return en;
+                        }
+
+                        public void setEn(Enemy en) {
+                            this.en = en;
+                        }
+
+                        public ObjCreator getFreezBOOST() {
+                            return freezBOOST;
+                        }
+
+                        public void setFreezBOOST(ObjCreator freezBOOST) {
+                            this.freezBOOST = freezBOOST;
+                        }
+
+                        public ObjCreator getGoHomeBOOST() {
+                            return goHomeBOOST;
+                        }
+
+                        public void setGoHomeBOOST(ObjCreator goHomeBOOST) {
+                            this.goHomeBOOST = goHomeBOOST;
+                        }
+
+                        public ObjCreator getShiledBOOST() {
+                            return shiledBOOST;
+                        }
+
+                        public void setShiledBOOST(ObjCreator shiledBOOST) {
+                            this.shiledBOOST = shiledBOOST;
+                        }
+
+                        public ObjCreator getSlowThinkBOOST() {
+                            return slowThinkBOOST;
+                        }
+
+                        public void setSlowThinkBOOST(ObjCreator slowThinkBOOST) {
+                            this.slowThinkBOOST = slowThinkBOOST;
+                        }
+
+                        public ObjCreator getSpeedsterBOOST() {
+                            return speedsterBOOST;
+                        }
+
+                        public void setSpeedsterBOOST(ObjCreator speedsterBOOST) {
+                            this.speedsterBOOST = speedsterBOOST;
+                        }
+
+                        public SuperPower getSuperPower() {
+                            return superPower;
+                        }
+
+                        public void setSuperPower(SuperPower superPower) {
+                            this.superPower = superPower;
+                        }
+
+                        public String getRodzajRozgrywki() {
+                            return rodzajRozgrywki;
+                        }
+
+                        public void setRodzajRozgrywki(String rodzajRozgrywki) {
+                            this.rodzajRozgrywki = rodzajRozgrywki;
+                        }
+
+                        private int heightRozgrywka;
+   private int widthRozgrywka;
+   private BufferedImage mapaPng;
+   volatile private MyJlabel[][] gritGame;
+    public MyJlabel[][] getGritGame() { return gritGame; }
+    public void setGritGame(MyJlabel[][] gritGame) { this.gritGame = gritGame; }
+     private boolean notFreezed;
     volatile private Character[][] gritCharMap;
     public Character[][] getGritCharMap() { return gritCharMap; }
     public void setGritCharMap(Character[][] gritCharMap) { this.gritCharMap = gritCharMap; }
     private boolean alive;
-    boolean hToE;
-    boolean eToH;
-    Blok blokA;
-    Hero hero;
-    PointToCollect pointA;
-    public ArrayList<Enemy> allEnemy;
-    Enemy en;
+                        private boolean hToE;
+                        private boolean eToH;
+                        private Blok blokA;
+                        private Hero hero;
+                        private PointToCollect pointA;
+                        private ArrayList<Enemy> allEnemy;
+                        private Enemy en;
 
-    ObjCreator freezBOOST;
-    ObjCreator goHomeBOOST;
-    ObjCreator shiledBOOST;
-    ObjCreator slowThinkBOOST;
-    ObjCreator speedsterBOOST;
-    SuperPower superPower;
+                        private ObjCreator freezBOOST;
+                        private ObjCreator goHomeBOOST;
+                        private ObjCreator shiledBOOST;
+                        private ObjCreator slowThinkBOOST;
+                        private ObjCreator speedsterBOOST;
+                        private SuperPower superPower;
 
-    String rodzajRozgrywki;
+                        private String rodzajRozgrywki;
 
     public void stopIt(){alive=false;}
     public Map(String url,String rodzajRozgrywki, Blok blokA, Hero hero, PointToCollect pointA, Enemy en) {
@@ -79,7 +226,7 @@ public class Map implements Runnable {
             e.printStackTrace();
         }
         gritCharMap = new Character[mapaPng.getHeight()][mapaPng.getWidth()]; // Zamienione wymiary
-        gritGame = new MyJlable[gritCharMap.length][gritCharMap[0].length];
+        gritGame = new MyJlabel[gritCharMap.length][gritCharMap[0].length];
 
 
 
@@ -103,7 +250,7 @@ public class Map implements Runnable {
             }
         }
         for(Enemy enemy:allEnemy){
-            if(enemy.isUnder){
+            if(enemy.isUnder()){
                 return false;
             }
         }
@@ -117,24 +264,24 @@ public class Map implements Runnable {
         loadPngToCharMap();
         for (int y = 0; y < gritCharMap.length; y++) {
             for (int x = 0; x < gritCharMap[0].length; x++) {
-                MyJlable label = new MyJlable();
+                MyJlabel label = new MyJlabel();
                 if (gritCharMap[y][x] == hero.getIdChar()) {
                     hero.setStartPosX(x);
                     hero.setStartPosY(y);
                     hero.setPosX(hero.getStartPosX());
                     hero.setPosY(hero.getStartPosY());
-                    label.setIcon(hero.imageIcon);
+                    label.setIcon(hero.getImageIcon());
                 } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                    label.setIcon(blokA.imageIcon);
+                    label.setIcon(blokA.getImageIcon());
                 } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                    label.setIcon(pointA.imageIcon);
+                    label.setIcon(pointA.getImageIcon());
                 } else if (gritCharMap[y][x] == en.getIdChar()) {
                     Enemy enK= new Enemy(en);
                     enK.setPosX(x);
                     enK.setPosY(y);
                     enK.setStartPosX(x);
                     enK.setStartPosY(y);
-                    label.setIcon(enK.imageIcon);
+                    label.setIcon(enK.getImageIcon());
                     allEnemy.add(enK);
                 }
 
@@ -149,13 +296,13 @@ public class Map implements Runnable {
         for (int y = 0; y < mapaPng.getHeight(); y++) {
             for (int x = 0; x < mapaPng.getWidth(); x++) {
                 gritCharMap[y][x] = 'X';
-                if (hero.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
+                if (hero.getMapIdColor().compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
                     gritCharMap[y][x] = hero.getIdChar();
-                } else if (blokA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
+                } else if (blokA.getMapIdColor().compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
                     gritCharMap[y][x] = blokA.getIdChar();
-                } else if (pointA.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
+                } else if (pointA.getMapIdColor().compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
                     gritCharMap[y][x] = pointA.getIdChar();
-                } else if (en.mapIdColor.compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
+                } else if (en.getMapIdColor().compareTo(new ColorRGB(mapaPng.getRGB(x, y)))) {
                     gritCharMap[y][x] = en.getIdChar();
                 }
             }
@@ -168,11 +315,11 @@ public class Map implements Runnable {
 
         int cellWidth = widthRozgrywka / gritGame[0].length;
         int cellHeight = heightRozgrywka / gritGame.length;
-        freezBOOST.imageIcon=new ImageIcon(freezBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
-        slowThinkBOOST.imageIcon=new ImageIcon(slowThinkBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
-        goHomeBOOST.imageIcon=new ImageIcon(goHomeBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
-        shiledBOOST.imageIcon=new ImageIcon(shiledBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
-        speedsterBOOST.imageIcon=new ImageIcon(speedsterBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+        freezBOOST.setImageIcon(new ImageIcon(freezBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
+        slowThinkBOOST.setImageIcon(new ImageIcon(slowThinkBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
+        goHomeBOOST.setImageIcon(new ImageIcon(goHomeBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
+        shiledBOOST.setImageIcon(new ImageIcon(shiledBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
+        speedsterBOOST.setImageIcon(new ImageIcon(speedsterBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
 
     }
     public void inicjalV2(JPanel rozgrywka) {
@@ -180,15 +327,15 @@ public class Map implements Runnable {
         loadPngToCharMap();
         for (int y = 0; y < gritCharMap.length; y++) {
             for (int x = 0; x < gritCharMap[0].length; x++) {
-                MyJlable label = new MyJlable();
+                MyJlabel label = new MyJlabel();
                 if (gritCharMap[y][x] == hero.getIdChar()) {
                     hero.setPosX(hero.getStartPosX());
                     hero.setPosY(hero.getStartPosY());
-                    label.setIcon(hero.imageIcon);
+                    label.setIcon(hero.getImageIcon());
                 } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                    label.setIcon(blokA.imageIcon);
+                    label.setIcon(blokA.getImageIcon());
                 } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                    label.setIcon(pointA.imageIcon);
+                    label.setIcon(pointA.getImageIcon());
                 }
                 for (Enemy enemy : allEnemy) {
 
@@ -214,7 +361,7 @@ public class Map implements Runnable {
             gritCharMap[oldY][oldX] = 'X';
 
             if (gritCharMap[newY][newX] == 'P') {
-                hero.addPonkty(1);
+                hero.addPonkty(pointA.getValueOfPoint());
                 gritCharMap[oldY][oldX] = 'X';
             } else if (gritCharMap[newY][newX] == 'F') {
                 superPower.freazer(this);
@@ -248,32 +395,32 @@ public class Map implements Runnable {
                 int newY = enemy.getPosY() + enemy.getAclelerationY();
 
                 if (gritCharMap[newY][newX] != 'B' && gritCharMap[newY][newX] != 'E' && gritCharMap[newY][newX] != 'H') {
-                    if (enemy.isUnder) {
-                        gritCharMap[enemy.getPosY()][enemy.getPosX()] = enemy.charUnder;
+                    if (enemy.isUnder()) {
+                        gritCharMap[enemy.getPosY()][enemy.getPosX()] = enemy.getCharUnder();
                     } else {
                         gritCharMap[enemy.getPosY()][enemy.getPosX()] = 'X';
                     }
                     if (gritCharMap[newY][newX] == 'P') {
-                        enemy.charUnder = 'P';
-                        enemy.isUnder = true;
+                        enemy.setCharUnder('P');
+                        enemy.setUnder(true);
                     } else if (gritCharMap[newY][newX] == 'F') {
-                        enemy.charUnder = 'F';
-                        enemy.isUnder = true;
+                        enemy.setCharUnder('F');
+                        enemy.setUnder(true);
                     } else if (gritCharMap[newY][newX] == 'A') {
-                        enemy.charUnder = 'A';
-                        enemy.isUnder = true;
+                        enemy.setCharUnder('A');
+                        enemy.setUnder(true);
                     } else if (gritCharMap[newY][newX] == 'S') {
-                        enemy.charUnder = 'S';
-                        enemy.isUnder = true;
+                        enemy.setCharUnder('S');
+                        enemy.setUnder(true);
                     } else if (gritCharMap[newY][newX] == 'Q') {
-                        enemy.charUnder = 'Q';
-                        enemy.isUnder = true;
+                        enemy.setCharUnder('Q');
+                        enemy.setUnder(true);
                     } else if (gritCharMap[newY][newX] == 'T') {
-                        enemy.charUnder = 'T';
-                        enemy.isUnder = true;
+                        enemy.setCharUnder('T');
+                        enemy.setUnder(true);
                     }
                     else {
-                        enemy.isUnder = false;
+                        enemy.setUnder(false);
                     }
                     enemy.setPosX(newX);
                     enemy.setPosY(newY);
@@ -281,9 +428,9 @@ public class Map implements Runnable {
                 } else if (gritCharMap[newY][newX] == 'H') {
                     eToH=true;
                 }
-                if(enemy.dropThatBomb&&!enemy.isUnder&&gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=='X'){
+                if(enemy.isDropThatBomb()&&!enemy.isUnder()&&gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=='X'){
                     gritCharMap[enemy.getOldPosY()][enemy.getOldPosX()]=enemy.getGift();
-                    enemy.dropThatBomb=false;
+                    enemy.setDropThatBomb(false);
                 }
             }
         }
@@ -348,17 +495,17 @@ public class Map implements Runnable {
                 if (gritCharMap[y][x] == hero.getIdChar()) {
                     hero.setScaledX(cellWidth);
                     hero.setScaledY(cellHeight);
-                    hero.imageIcon=new ImageIcon(hero.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    hero.setImageIcon(new ImageIcon(hero.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                    blokA.imageIcon=new ImageIcon(blokA.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    blokA.setImageIcon(new ImageIcon(blokA.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                    pointA.imageIcon=new ImageIcon(pointA.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    pointA.setImageIcon(new ImageIcon(pointA.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 } else if (gritCharMap[y][x] == en.getIdChar()){
                     for (Enemy enemy : allEnemy) {
                         if(y==enemy.getPosY()&&x==enemy.getPosX()) {
                             enemy.setScaledX(cellWidth);
                             enemy.setScaledY(cellHeight);
-                            enemy.imageIcon=new ImageIcon(enemy.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                            enemy.setImageIcon(new ImageIcon(enemy.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                         }
                     }
                     //BOOSTERS
@@ -368,15 +515,15 @@ public class Map implements Runnable {
                     //S - shield
                     //Q - speedster
                 }else if (gritCharMap[y][x] == 'F') {
-                    freezBOOST.imageIcon=new ImageIcon(freezBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    freezBOOST.setImageIcon(new ImageIcon(freezBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 }else if (gritCharMap[y][x] == 'A') {
-                    slowThinkBOOST.imageIcon=new ImageIcon(slowThinkBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    slowThinkBOOST.setImageIcon(new ImageIcon(slowThinkBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 }else if (gritCharMap[y][x] == 'T') {
-                    goHomeBOOST.imageIcon=new ImageIcon(goHomeBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    goHomeBOOST.setImageIcon(new ImageIcon(goHomeBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 }else if (gritCharMap[y][x] == 'S') {
-                    shiledBOOST.imageIcon=new ImageIcon(shiledBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    shiledBOOST.setImageIcon(new ImageIcon(shiledBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 }else if (gritCharMap[y][x] == 'Q') {
-                    speedsterBOOST.imageIcon=new ImageIcon(speedsterBOOST.sprite.getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH));
+                    speedsterBOOST.setImageIcon(new ImageIcon(speedsterBOOST.getSprite().getScaledInstance(cellWidth,cellHeight, Image.SCALE_SMOOTH)));
                 }
 
 
@@ -392,15 +539,15 @@ public class Map implements Runnable {
             for (int y = 0; y < gritGame.length; y++) {
                 for (int x = 0; x < gritGame[0].length; x++) {
                     if (gritCharMap[y][x] == hero.getIdChar()) {
-                        gritGame[y][x].setIcon(hero.imageIcon);
+                        gritGame[y][x].setIcon(hero.getImageIcon());
                     } else if (gritCharMap[y][x] == blokA.getIdChar()) {
-                        gritGame[y][x].setIcon(blokA.imageIcon);
+                        gritGame[y][x].setIcon(blokA.getImageIcon());
                     } else if (gritCharMap[y][x] == pointA.getIdChar()) {
-                        gritGame[y][x].setIcon(pointA.imageIcon);
+                        gritGame[y][x].setIcon(pointA.getImageIcon());
                     } else if (gritCharMap[y][x] == en.getIdChar()){
                         for (Enemy enemy : allEnemy) {
                             if(y==enemy.getPosY()&&x==enemy.getPosX()) {
-                                gritGame[y][x].setIcon(enemy.imageIcon);
+                                gritGame[y][x].setIcon(enemy.getImageIcon());
 
                             }
                         }
@@ -411,15 +558,15 @@ public class Map implements Runnable {
                         //S - shield
                         //Q - speedster
                     }else if (gritCharMap[y][x] == 'F') {
-                        gritGame[y][x].setIcon(freezBOOST.imageIcon);
+                        gritGame[y][x].setIcon(freezBOOST.getImageIcon());
                     }else if (gritCharMap[y][x] == 'A') {
-                        gritGame[y][x].setIcon(slowThinkBOOST.imageIcon);
+                        gritGame[y][x].setIcon(slowThinkBOOST.getImageIcon());
                     }else if (gritCharMap[y][x] == 'T') {
-                        gritGame[y][x].setIcon(goHomeBOOST.imageIcon);
+                        gritGame[y][x].setIcon(goHomeBOOST.getImageIcon());
                     }else if (gritCharMap[y][x] == 'S') {
-                        gritGame[y][x].setIcon(shiledBOOST.imageIcon);
+                        gritGame[y][x].setIcon(shiledBOOST.getImageIcon());
                     }else if (gritCharMap[y][x] == 'Q') {
-                        gritGame[y][x].setIcon(speedsterBOOST.imageIcon);
+                        gritGame[y][x].setIcon(speedsterBOOST.getImageIcon());
                     }
                     else {
                         gritGame[y][x].setIcon(null);

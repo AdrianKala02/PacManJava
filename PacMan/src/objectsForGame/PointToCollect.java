@@ -4,7 +4,6 @@ import toolBox.ColorRGB;
 
 public class PointToCollect extends ObjCreator {
    private int valueOfPoint;
-
    public int getValueOfPoint(){
        return valueOfPoint;
    }

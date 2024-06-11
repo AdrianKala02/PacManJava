@@ -51,15 +51,15 @@ public class Rozgrywka extends JPanel implements Runnable {
         blokA = new Blok("./PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
         pointA=new PointToCollect(1,"./PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
-        heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 150, ANIAMTIONTYPE.ANIMATIONPINGPONG);
+        heroAnimateHandler = new AnimateHandler(hero.getSpriteSheet(), hero, 150, ANIAMTIONTYPE.ANIMATIONPINGPONG);
         mapaTest1 = new Map(mapUrl,rodzajRozgrywki, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();
-        enemyGang=mapaTest1.allEnemy;
+        enemyGang=mapaTest1.getAllEnemy();
         setSize(600,600);
         for(Enemy enemy1:enemyGang) {
-            new AnimateHandler(enemy1.spriteSheet,enemy1,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
+            new AnimateHandler(enemy1.getSpriteSheet(),enemy1,100,ANIAMTIONTYPE.ANIMATIONPINGPONG);
             Thread enemyMove = new Thread(enemy1);
             enemyMove.start();
         }
@@ -149,7 +149,7 @@ public class Rozgrywka extends JPanel implements Runnable {
 //            System.out.println("//+======================+//");
         }
         mapaTest1.stopIt();
-        for(Enemy enemy:mapaTest1.allEnemy){
+        for(Enemy enemy:mapaTest1.getAllEnemy()){
             enemy.stopIt();
         }
     }

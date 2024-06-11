@@ -3,13 +3,13 @@ package GuiSides;
 import MyGui.MyButton;
 import MyGui.MyJFrame;
 import MyGui.MyJPanel;
-import MyGui.MyJlable;
+import MyGui.MyJlabel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainMenu extends MyJFrame {
-    MyJlable titleInMainMenu;
+    MyJlabel titleInMainMenu;
     MyButton newGameButton,highScoreButton,exitButton;
     MyJPanel panel;
     public MainMenu(){
@@ -22,7 +22,7 @@ public class MainMenu extends MyJFrame {
 
         exitButton= new MyButton("EXIT");
         exitButton.addActionListener(e -> {dispose();System.exit(0);});
-        titleInMainMenu= new MyJlable();
+        titleInMainMenu= new MyJlabel();
         titleInMainMenu.setText("The Pac-Man");
         titleInMainMenu.setHorizontalAlignment(SwingConstants.CENTER);
         panel= new MyJPanel();

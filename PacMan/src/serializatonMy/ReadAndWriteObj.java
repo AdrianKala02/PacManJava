@@ -4,7 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class ReadAndWriteObj<T> {
-    String url;
+    private String url;
+    public String getUrl() {return url;}
+    public void setUrl(String url) {this.url = url;}
     public ReadAndWriteObj(String ulr){this.url=ulr;}
     public boolean isExistFile(){
         File file= new File(url);
