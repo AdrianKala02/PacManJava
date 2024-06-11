@@ -15,63 +15,45 @@ public class Enemy extends ObjCreator implements Runnable{
     private boolean alive;
     private boolean isUnder;
     private char charUnder;
-
-   private int startPosX;
-
-   private int oldPosX;
-   private int oldPosY;
-
+    private int startPosX;
+    private int oldPosX;
+    private int oldPosY;
     public int getOldPosX() {
         return oldPosX;
     }
-
     public void setOldPosX(int oldPosX) {
         this.oldPosX = oldPosX;
     }
-
     public int getOldPosY() {
         return oldPosY;
     }
-
     public void setOldPosY(int oldPosY) {
         this.oldPosY = oldPosY;
     }
-
     public int getStartPosX() {
         return startPosX;
     }
-
     public void setStartPosX(int startPosX) {
         this.startPosX = startPosX;
     }
-
     public int getStartPosY() {
         return startPosY;
     }
-
     public void setStartPosY(int startPosY) {
         this.startPosY = startPosY;
     }
     private int startPosY;
-
     public int getSpeedToChangeDirection() {
         return speedToChangeDirection;
     }
-
-    public void setSpeedToChangeDirection(int speedToChangeDirection) {
-        this.speedToChangeDirection = speedToChangeDirection;
-    }
-
+    public void setSpeedToChangeDirection(int speedToChangeDirection) {this.speedToChangeDirection = speedToChangeDirection;}
     private int speedToChangeDirection;
     private int iniciatedSpeedToChangeDirection;
-
     public int getIniciatedSpeedToChangeDirection() {
         return iniciatedSpeedToChangeDirection;
     }
+    public void setIniciatedSpeedToChangeDirection(int iniciatedSpeedToChangeDirection) {this.iniciatedSpeedToChangeDirection = iniciatedSpeedToChangeDirection;}
 
-    public void setIniciatedSpeedToChangeDirection(int iniciatedSpeedToChangeDirection) {
-        this.iniciatedSpeedToChangeDirection = iniciatedSpeedToChangeDirection;
-    }
 
     public Enemy(String url, ColorRGB mapIdColor, Character idChar) {
         super(url, mapIdColor, idChar);

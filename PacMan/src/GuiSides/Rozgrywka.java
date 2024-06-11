@@ -17,26 +17,23 @@ import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 public class Rozgrywka extends JPanel implements Runnable {
-
-    private final long fps = 1000 / 144;
     private int wszystkiePonkty;
     private boolean przegrana;
     public boolean isPrzegrana() {return przegrana;}
-
     public void stopIt(){przegrana=true;}
-
     boolean rezygnacjaZWyboru;
-    Hero hero;
-    ArrayList<Enemy> enemyGang;
-    Enemy enemy;
-    Blok blokA;
-    PointToCollect pointA;
-    Map mapaTest1;
+   private Hero hero;
+   private ArrayList<Enemy> enemyGang;
+   private Enemy enemy;
+    private Blok blokA;
+   private PointToCollect pointA;
+   private Map mapaTest1;
+    public Hero getHero() {return hero;}
     public int getWszystkiePonkty() {return wszystkiePonkty+hero.getPonkty();}
     public void setWszystkiePonkty(int wszystkiePonkty) {this.wszystkiePonkty = wszystkiePonkty;}
     public int getHeroPoints(){return hero.getPonkty();}
     public int getHeroHP(){return hero.getZycia();}
-    AnimateHandler heroAnimateHandler;
+   private AnimateHandler heroAnimateHandler;
 
     Rozgrywka(String mapUrl,String rodzajRozgrywki) {
         rezygnacjaZWyboru=false;

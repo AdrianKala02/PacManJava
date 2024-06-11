@@ -19,10 +19,10 @@ public class GameMapChooser extends MyJFrame {
         }
         return "noFIle";
     }
-    MyButton uruchomienieButton;
-    MyJPanel panel,panelButtonow,panelButtonowRodzajRozgrywki;
-    MyJlabel label,label2;
-    ButtonGroup grupaMap,rodzajGry;
+   private MyButton uruchomienieButton;
+   private MyJPanel panel,panelButtonow,panelButtonowRodzajRozgrywki;
+   private MyJlabel label,label2;
+   private ButtonGroup grupaMap,rodzajGry;
     GameMapChooser(){
         panel=new MyJPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));

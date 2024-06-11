@@ -9,9 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenu extends MyJFrame {
-    MyJlabel titleInMainMenu;
-    MyButton newGameButton,highScoreButton,exitButton;
-    MyJPanel panel;
+   private MyJlabel titleInMainMenu;
+   private MyButton newGameButton,highScoreButton,exitButton;
+   private MyJPanel panel;
     public MainMenu(){
         setTitle("main menu");
         newGameButton =new MyButton("NEW GAME");

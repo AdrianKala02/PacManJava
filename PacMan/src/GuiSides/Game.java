@@ -11,25 +11,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game extends MyJFrame {
-    MyJPanel panel;
-    MyJlabel tabliczkaCzasu,tabliczkaWszystkichPunktow,tabliczkaPunktow,tabliczkaZyc;
-    volatile boolean alive;
-    TimerByThread licznik;
-    int ponkty;
-    MyButton returnButton;
-    Rozgrywka rozgrywka;
+   private MyJPanel panel;
+   private MyJlabel tabliczkaCzasu,tabliczkaWszystkichPunktow,tabliczkaPunktow,tabliczkaZyc;
+   private TimerByThread licznik;
+   private MyButton returnButton;
+   private Rozgrywka rozgrywka;
+   private Updater<Integer> u1;
+   private Updater<Integer> u2;
+   private Updater<Integer> u3;
+   private Updater<Integer> u4;
 
-    Updater<Integer> u1;
-    Updater<Integer> u2;
-    Updater<Integer> u3;
-    Updater<Integer> u4;
-    String mapUrl;
     Game(String mapUrl,String rodzajRozgrywki){
-        this.mapUrl=mapUrl;
-        ponkty=0;
-        alive=true;
         setTitle("ROZGRYWKA");
-
         setLayout(new BorderLayout());
         panel= new MyJPanel();
         panel.setLayout(new GridLayout(1,5));
@@ -40,8 +33,8 @@ public class Game extends MyJFrame {
 
         returnButton= new MyButton("return");
         returnButton.addActionListener(e ->{
-            rozgrywka.rezygnacjaZWyboru=true;
-            alive=false;
+        rozgrywka.rezygnacjaZWyboru=true;
+
             System.out.println("YOU NEED TO STOP THE CLOCK");
             licznik.stopIt();
             u1.stopIt();
@@ -58,7 +51,7 @@ public class Game extends MyJFrame {
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
-        returnButton.addKeyListener(rozgrywka.hero);
+        returnButton.addKeyListener(rozgrywka.getHero());
 
         licznik = new TimerByThread();
         new Thread(licznik).start();

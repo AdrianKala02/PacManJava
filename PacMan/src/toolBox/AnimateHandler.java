@@ -14,11 +14,8 @@ public class AnimateHandler{
    private int currentFrame;
    private boolean directionGoLeft;
    private int size;
-   private boolean alive;
-   public void stopIt() {alive = false;}
   private ANIAMTIONTYPE aType;
     public AnimateHandler(BufferedImage sheet, ObjCreator objCreator, int updateInterval, ANIAMTIONTYPE aType){
-        alive=true;
         size=32;
         currentFrame=0;
         directionGoLeft=true;

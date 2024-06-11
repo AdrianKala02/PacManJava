@@ -12,14 +12,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class HighScore extends MyJFrame {
-    boolean alive=true;
-    MyJlabel titleInHighScore;
-    JScrollPane scrollPane;
-    JList<PlayerScore> lista;
-
-    ArrayList<PlayerScore> players;
-    MyJPanel tablica;
-    MyButton returnButton;
+   private MyJlabel titleInHighScore;
+   private JScrollPane scrollPane;
+   private JList<PlayerScore> lista;
+   private ArrayList<PlayerScore> players;
+   private MyJPanel tablica;
+   private MyButton returnButton;
     HighScore(){
 
         ReadAndWriteObj<PlayerScore> readAndWriteObj=new ReadAndWriteObj<>("ScoreBoard.ser");

@@ -1,6 +1,4 @@
 package objectsForGame;
-
-import objectsForGame.ObjCreator;
 import toolBox.ColorRGB;
 
 public class Blok extends ObjCreator {
