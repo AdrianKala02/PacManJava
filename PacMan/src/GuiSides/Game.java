@@ -24,7 +24,7 @@ public class Game extends MyJFrame {
     Updater<Integer> u3;
     Updater<Integer> u4;
     String mapUrl;
-    Game(String mapUrl){
+    Game(String mapUrl,String rodzajRozgrywki){
         this.mapUrl=mapUrl;
         ponkty=0;
         alive=true;
@@ -54,7 +54,7 @@ public class Game extends MyJFrame {
         });
 
 
-        rozgrywka=new Rozgrywka(mapUrl);
+        rozgrywka=new Rozgrywka(mapUrl,rodzajRozgrywki);
         Thread thread=new Thread(rozgrywka);
         thread.start();
 
@@ -79,7 +79,7 @@ public class Game extends MyJFrame {
             //then splits string with dot and takes first element of []
             String nameOfTheFile=mapUrl.substring(mapUrl.lastIndexOf("/") + 1).split("\\.")[0];
             if(!rozgrywka.rezygnacjaZWyboru) {
-                SwingUtilities.invokeLater(() -> new EndGame(rozgrywka.getWszystkiePonkty(), nameOfTheFile));
+                SwingUtilities.invokeLater(() -> new EndGame(rozgrywka.getWszystkiePonkty(), nameOfTheFile,rodzajRozgrywki));
             }
             System.out.println("GAME OVER");
             u1.stopIt();

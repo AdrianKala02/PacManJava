@@ -28,6 +28,9 @@ public class HighScore extends MyJFrame {
         if(!readAndWriteObj.isExistFile()){
             lista=new JList<>();
             titleInHighScore.setText("Brak Histori najlepszych graczy");
+            lista.setBackground(new Color(47, 72, 92));
+            lista.setFont(new Font(Font.SERIF,Font.PLAIN,20));
+            lista.setForeground(new Color(245,169,91));
 
         }else {
             players=readAndWriteObj.readIt();
@@ -39,7 +42,7 @@ public class HighScore extends MyJFrame {
             }
             lista = new JList<>(bump);
             lista.setBackground(new Color(47, 72, 92));
-            lista.setFont(new Font(Font.SERIF,Font.PLAIN,20));
+            lista.setFont(new Font(Font.SERIF,Font.PLAIN,16));
             lista.setForeground(new Color(245,169,91));
 
 

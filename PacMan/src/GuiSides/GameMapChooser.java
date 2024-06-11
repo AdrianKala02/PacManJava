@@ -7,13 +7,13 @@ import java.awt.*;
 
 public class GameMapChooser extends MyJFrame {
     MyButton uruchomienieButton;
-    MyJPanel panel,panelButtonow;
-    MyJlable label;
-    ButtonGroup grupaMap;
+    MyJPanel panel,panelButtonow,panelButtonowRodzajRozgrywki;
+    MyJlable label,label2;
+    ButtonGroup grupaMap,rodzajGry;
     GameMapChooser(){
         panel=new MyJPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
-        panel.setLayout(new GridLayout(4,1));
+        panel.setLayout(new GridLayout(6,1));
         setTitle("Wybór mapy");
         label=new MyJlable();
         label.setText("Proszę wybrać mapę");
@@ -38,9 +38,24 @@ public class GameMapChooser extends MyJFrame {
         grupaMap.add(mapa5);
 
 
+        label2=new MyJlable();
+        label2.setText("Proszę wybrać rodzaj rozgrywki");
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+
+        MyJRadioButton rodzaj1=new MyJRadioButton("normalny");
+        MyJRadioButton rodzaj2=new MyJRadioButton("więcej hp, bez restartu");
+
+
+        rodzajGry=new ButtonGroup();
+        rodzajGry.add(rodzaj1);
+        rodzaj1.setActionCommand("normal");
+        rodzaj1.setSelected(true);
+        rodzajGry.add(rodzaj2);
+        rodzaj2.setActionCommand("newVer");
+
 
         uruchomienieButton= new MyButton("uruchom grę");
-        uruchomienieButton.addActionListener(e->{this.dispose();SwingUtilities.invokeLater(()->new Game(grupaMap.getSelection().getActionCommand()));});
+        uruchomienieButton.addActionListener(e->{this.dispose();SwingUtilities.invokeLater(()->new Game(grupaMap.getSelection().getActionCommand(),rodzajGry.getSelection().getActionCommand()));});
 
         panelButtonow=new MyJPanel();
         panelButtonow.add(mapa1);
@@ -49,9 +64,15 @@ public class GameMapChooser extends MyJFrame {
         panelButtonow.add(mapa4);
         panelButtonow.add(mapa5);
 
+        panelButtonowRodzajRozgrywki=new MyJPanel();
+        panelButtonowRodzajRozgrywki.add(rodzaj1);
+        panelButtonowRodzajRozgrywki.add(rodzaj2);
+
         setLayout(new GridLayout(0,1));
         panel.add(label);
         panel.add(panelButtonow);
+        panel.add(label2);
+        panel.add(panelButtonowRodzajRozgrywki);
         panel.add(uruchomienieButton);
 
         add(panel,BorderLayout.CENTER);

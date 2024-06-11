@@ -38,18 +38,21 @@ public class Rozgrywka extends JPanel implements Runnable {
     public int getHeroHP(){return hero.getZycia();}
     AnimateHandler heroAnimateHandler;
 
-    Rozgrywka(String mapUrl) {
+    Rozgrywka(String mapUrl,String rodzajRozgrywki) {
         rezygnacjaZWyboru=false;
         przegrana = false;
-        setBackground(new Color(98, 158, 225));
+        setBackground(new Color(47, 72, 92));
         setFocusable(true);
         hero = new Hero("./PacManAsets/PacMan/SpriteSheet-PacMan3.png", new ColorRGB(0, 255, 0), 'H');
+        if(rodzajRozgrywki.equals("normal")){
+            hero.setZycia(3);
+        }
         enemy= new Enemy("./PacManAsets/Ghost/SpriteSheet-Ghost2.png",new ColorRGB(255,0,0),'E');
         blokA = new Blok("./PacManAsets/Wall/wall.png", new ColorRGB(0, 0, 0), 'B');
         pointA=new PointToCollect(1,"./PacManAsets/Other/Point.png",new ColorRGB(0,0,255),'P');
         //AnimateHandler wykorzystuje już w sobie nowy wątek
         heroAnimateHandler = new AnimateHandler(hero.spriteSheet, hero, 150, ANIAMTIONTYPE.ANIMATIONPINGPONG);
-        mapaTest1 = new Map(mapUrl, blokA, hero,pointA,enemy);
+        mapaTest1 = new Map(mapUrl,rodzajRozgrywki, blokA, hero,pointA,enemy);
         mapaTest1.inicjal(this);
         Thread th=new Thread(mapaTest1);
         th.start();

@@ -9,7 +9,7 @@ import java.awt.*;
 
 
 public class EndGame extends MyJFrame {
-    EndGame(int WszystkiePonkty,String nrMapy){
+    EndGame(int WszystkiePonkty,String nrMapy,String rodzajRozgrywki){
         MyJPanel panel= new MyJPanel();
         MyJlable labelWynik= new MyJlable();
         labelWynik.setText("Twój wynik: "+WszystkiePonkty);
@@ -25,7 +25,7 @@ public class EndGame extends MyJFrame {
         exitButton.addActionListener(e->{
             if(!pobieraczNicku.getText().trim().isEmpty()){
             String nickGivenByUser=pobieraczNicku.getText();
-            PlayerScore playerScore=new PlayerScore(nickGivenByUser,WszystkiePonkty,nrMapy);
+            PlayerScore playerScore=new PlayerScore(nickGivenByUser,WszystkiePonkty,nrMapy,rodzajRozgrywki);
             ReadAndWriteObj<PlayerScore> readAndWriteObj= new ReadAndWriteObj<>("ScoreBoard.ser");
             readAndWriteObj.writeItEnchanted(playerScore);
            dispose();

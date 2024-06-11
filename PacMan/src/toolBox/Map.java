@@ -58,8 +58,11 @@ public class Map implements Runnable {
     ObjCreator speedsterBOOST;
     SuperPower superPower;
 
+    String rodzajRozgrywki;
+
     public void stopIt(){alive=false;}
-    public Map(String url, Blok blokA, Hero hero, PointToCollect pointA, Enemy en) {
+    public Map(String url,String rodzajRozgrywki, Blok blokA, Hero hero, PointToCollect pointA, Enemy en) {
+        this.rodzajRozgrywki=rodzajRozgrywki;
         superPower=new SuperPower();
         alive=true;
         eToH=false;
@@ -291,12 +294,11 @@ public class Map implements Runnable {
 
 
             //wybor w jaki sposób chcemy grać. Czy: one hit teleport to start position, more hp but to reset position
-            if(true){
+            if(rodzajRozgrywki.equals("normal")){
                 if (!hero.isCoverToDmg()) {
                     hero.addZycia(-1);
 
                     gritCharMap[hero.getPosY()][hero.getPosX()]='X';
-
 
                     hero.setPosX(hero.getStartPosX());
                     hero.setPosY(hero.getStartPosY());
