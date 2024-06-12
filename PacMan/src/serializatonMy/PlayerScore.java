@@ -10,9 +10,7 @@ public class PlayerScore implements Serializable,Comparable<PlayerScore>{
     public String getRodzajRozgrywki() {
         return rodzajRozgrywki;
     }
-    public void setRodzajRozgrywki(String rodzajRozgrywki) {
-        this.rodzajRozgrywki = rodzajRozgrywki;
-    }
+    public void setRodzajRozgrywki(String rodzajRozgrywki) {this.rodzajRozgrywki = rodzajRozgrywki;}
     public String getMapType() {return mapType;}
     public void setMapType(String mapType) {this.mapType = mapType;}
     public String getNickname() {return nickname;}

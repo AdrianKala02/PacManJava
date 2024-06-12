@@ -309,7 +309,7 @@ public class Map implements Runnable {
                     hero.setAclelerationX(0);
 
                     superPower.goHome(allEnemy,gritCharMap);
-
+                    superPower.offAll(this,allEnemy,hero);
                     eToH = false;
                     hToE = false;
                 }
